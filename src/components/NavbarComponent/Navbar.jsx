@@ -16,6 +16,7 @@ const Navbar = () => {
    const [selectedIcon, setSelectedIcon] = useState(null);
    const [navbar, setNavbar] = useState(false);
 
+   // logic navbar on scroll to blur background 
    const changeBackground = () => {
       if (window.scrollY >= 50) {
          setNavbar(true);
