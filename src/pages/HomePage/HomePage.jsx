@@ -1,5 +1,7 @@
-import { NavLink, Link } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom";
 import CardCategory from "../../components/HomeComponent/CardCategory";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
 import Card from "../../components/MyCourseComponent/Card";
@@ -10,8 +12,9 @@ const HomePage = () => {
       infinite: true,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 3000,
       pauseOnHover: true,
+      speed: 800,
       responsive: [
          {
             breakpoint: 640, // sm
@@ -41,6 +44,7 @@ const HomePage = () => {
    };
 
    var settingsCourse = {
+      nextarrow: true,
       infinite: true,
       slidesToScroll: 1,
       swipeToSlide: true,
@@ -75,27 +79,27 @@ const HomePage = () => {
 
    const dataKategori = [
       {
-         img: "../../../src/assets/UI_UXDesign.png",
+         img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "UI/UX Design"
       },
       {
-         img: "../../../src/assets/ProductManager.png",
+         img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "Product Manager"
       },
       {
-         img: "../../../src/assets/WebDevelopment.png",
+         img: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "Web Development"
       },
       {
-         img: "../../../src/assets/AndroidDevelopment.png",
+         img: "https://images.unsplash.com/photo-1612442443556-09b5b309e637?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "Andorid Development"
       },
       {
-         img: "../../../src/assets/IOSDevelopment.png",
+         img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "IOS Development"
       },
       {
-         img: "../../../src/assets/DataScience.png",
+         img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
          title: "Data Science"
       }
    ]
@@ -118,6 +122,7 @@ const HomePage = () => {
 
          {/* Kategori Belajar */}
          <div className="w-full bg-layer lg:h-[350px]">
+            <div className="absolute top-[540px] left-2"><p></p></div>
             <div className="max-w-screen-lg mx-auto" >
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
@@ -142,7 +147,7 @@ const HomePage = () => {
                <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
             </div>
             {/* button filter */}
-            <Slider {...settingsCourse}>
+            <Slider {...settingsCourse} >
                {dataKategori.map((Kursus, i) => (
                   <div key={i}>
                      <ButtonCourse titleCourse={Kursus.title} />
