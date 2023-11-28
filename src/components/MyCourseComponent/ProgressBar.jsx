@@ -1,6 +1,7 @@
 import { BadgeCheck } from "lucide-react";
 import { useState } from "react";
 
+// persentase progress
 export default function ProgressBar() {
   const [percentage] = useState(50);
 
