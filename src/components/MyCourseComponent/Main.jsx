@@ -25,6 +25,7 @@ const Main = ({ data }) => {
   const [flag, setFlag] = useState(0);
   return (
     <div>
+      {/* filter */}
       <div className="grid grid-cols-3 gap-x-2">
         {data.map((item, i) => (
           <div
@@ -45,6 +46,7 @@ const Main = ({ data }) => {
           </div>
         ))}
       </div>
+      {/* loop semua data */}
       <div className="grid md:grid-cols-2 gap-8 mt-4 md:mt-6">
         {data2.map((item, i) => (
           <Card key={i} />

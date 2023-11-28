@@ -6,7 +6,7 @@
 
 /* Start edit search in MyCourse */
 input[type="text"]:focus ~ .input-text {
-  @apply text-color-primary transform -translate-y-4 md:-translate-y-5 -translate-x-2 md:-translate-x-4 bg-gradient-to-b from-color-layer to-white scale-75;
+  @apply text-color-primary transform -translate-y-4 lg:-translate-y-5 -translate-x-2 md:-translate-x-3  lg:-translate-x-4 bg-gradient-to-b from-color-layer to-white scale-75;
 }
 /* End edit search in MyCourse */
 
@@ -50,3 +50,17 @@ input[type="text"]:focus ~ .input-text {
   left: 0;
 }
 /* End Video player responsive*/
+
+/* customize scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
+}
+/* End editing scrollbar */
