@@ -21,7 +21,10 @@ export default {
       colors: {
         color: {
           primary: "#050642",
+          test: "#172554",
+          test2: "#DBF227",
           layer: "#EBF3FC",
+          layer2: "D6D58E",
         },
       },
       backgroundColor: {

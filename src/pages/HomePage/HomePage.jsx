@@ -5,6 +5,7 @@ import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
 import CardCourse from "../../components/HomeComponent/CardCourse";
 import Data from "./DataDummy"
+import PropTypes from 'prop-types'
 
 const HomePage = () => {
    const [item, setItems] = useState(Data);
@@ -21,8 +22,11 @@ const HomePage = () => {
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 3000,
+      swipeToSlide: true,
       pauseOnHover: true,
       speed: 800,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />,
       responsive: [
          {
             breakpoint: 640, // sm
@@ -133,7 +137,7 @@ const HomePage = () => {
             <div className="max-w-screen-lg mx-auto" >
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
-                  <Slider {...settingsCategory} className="overflow-x-clip">
+                  <Slider {...settingsCategory} className="px-4">
                      {dataKategori.map((kategori, i) => (
                         <div key={i}>
                            <CardCategory
@@ -180,3 +184,37 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+function SampleNextArrow(props) {
+   const { className, style, onClick } = props;
+   return (
+      <div
+         className={className}
+         style={{ ...style, display: "block", background: "#050642", borderRadius: "50%" }}
+         onClick={onClick}
+      />
+   );
+}
+
+SampleNextArrow.propTypes = {
+   className: PropTypes.string,
+   style: PropTypes.object,
+   onClick: PropTypes.func,
+}
+
+function SamplePrevArrow(props) {
+   const { className, style, onClick } = props;
+   return (
+      <div
+         className={className}
+         style={{ ...style, display: "block", background: "#050642", borderRadius: "50%" }}
+         onClick={onClick}
+      />
+   );
+}
+
+SamplePrevArrow.propTypes = {
+   className: PropTypes.string,
+   style: PropTypes.object,
+   onClick: PropTypes.func,
+}
