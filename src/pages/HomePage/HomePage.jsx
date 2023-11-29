@@ -1,12 +1,20 @@
 import { NavLink, Link } from "react-router-dom";
-import CardCategory from "../../components/HomeComponent/CardCategory";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useState } from "react";
 import Slider from "react-slick";
+import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
-import Card from "../../components/MyCourseComponent/Card";
+import CardCourse from "../../components/HomeComponent/CardCourse";
+import Data from "./DataDummy"
 
 const HomePage = () => {
+   const [item, setItems] = useState(Data);
+   const menuItems = [...new Set(Data.map((val) => val.category))]
+
+   const filterItems = (cat) => {
+      const newItems = Data.filter((newval) => newval.category === cat)
+      setItems(newItems);
+   }
+
    var settingsCategory = {
       dots: true,
       infinite: true,
@@ -122,7 +130,6 @@ const HomePage = () => {
 
          {/* Kategori Belajar */}
          <div className="w-full bg-layer lg:h-[350px]">
-            <div className="absolute top-[540px] left-2"><p></p></div>
             <div className="max-w-screen-lg mx-auto" >
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
@@ -141,26 +148,35 @@ const HomePage = () => {
          </div>
 
          {/* Kursus Populer */}
-         <div className="max-w-screen-lg mx-auto px-6">
+         <div className="max-w-screen-lg mx-auto px-6 lg:p-0">
             {/* title */}
             <div>
                <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
             </div>
             {/* button filter */}
-            <Slider {...settingsCourse} >
-               {dataKategori.map((Kursus, i) => (
-                  <div key={i}>
-                     <ButtonCourse titleCourse={Kursus.title} />
-                  </div>
+            <Slider {...settingsCourse}>
+               {menuItems.map((val, i) => (
+                  <ButtonCourse
+                     key={i}
+                     val={val}
+                     filterItems={filterItems}
+                     setItems={setItems}
+                  />
                ))}
             </Slider>
+            <button 
+               onClick={() => setItems(Data)}
+               className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
+                           hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold">
+               All
+            </button>
             {/* card kursus populer */}
-            <div className="mt-2">
-               <Card />
+            <div>
+               <CardCourse item={item} />
             </div>
          </div>
       </>
    )
 }
 
-export default HomePage
+export default HomePage;
