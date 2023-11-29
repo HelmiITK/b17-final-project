@@ -2,16 +2,15 @@ import { Book, Clock, Gem, Shield } from "lucide-react";
 import Progressbar from "../MyCourseComponent/ProgressBar";
 import { FaStar } from "react-icons/fa";
 import PropTypes from 'prop-types'
-import { Link } from "react-router-dom";
 
 const CardCourse = ({ item }) => {
   return (
-    <Link to={'/'}>
-      <div className="grid mt-2 gap-2 grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:mt-4">
-        {item.map((val) => (
-          <div key={val.id} className="w-full mt-3 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3">
+    <div className="grid mt-2 gap-2 grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:mt-4">
+      {item.map((val) => (
+        <>
+          <div className="w-full mt-3 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3">
             <div className="flex flex-col">
-              <div >
+              <div key={val.id}>
                 <img
                   src={val.img}
                   alt="ayam"
@@ -104,9 +103,9 @@ const CardCourse = ({ item }) => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
-    </Link >
+        </>
+      ))}
+    </div>
   )
 }
 

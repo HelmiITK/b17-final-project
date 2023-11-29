@@ -218,3 +218,6 @@ SamplePrevArrow.propTypes = {
    style: PropTypes.object,
    onClick: PropTypes.func,
 }
+
+
+
