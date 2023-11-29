@@ -4,12 +4,17 @@ import DescriptionCourse from "./DescriptionCourse";
 
 const Main = () => {
   return (
-    <div className="mt-10">
+    <div>
       <div className="flex flex-col">
-        <InfoCourse />
+        {/* isinya kyk judul, rating dll */}
+        {/* InfoCourse ketika tampilan web */}
+        <div className="hidden md:block">
+          <InfoCourse />
+        </div>
+        {/* tampilan video */}
         <div className="flex justify-center">
-          <div className=" mt-8 w-full ">
-            <div className="player-wrapper rounded-xl overflow-hidden">
+          <div className="mt-1 md:mt-8 w-full ">
+            <div className="player-wrapper md:rounded-xl overflow-hidden">
               <ReactPlayer
                 url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
                 controls
@@ -20,6 +25,11 @@ const Main = () => {
             </div>
           </div>
         </div>
+        {/* Infocourse ketika mobile */}
+        <div className="block py-4 bg-layer w-full md:hidden">
+          <InfoCourse />
+        </div>
+        {/* deskripsi course isinya kyk tentang kelas */}
         <DescriptionCourse />
       </div>
     </div>
