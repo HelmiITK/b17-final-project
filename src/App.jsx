@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavbarComponent/Navbar";
 import HomePage from "./pages/HomePage/HomePage";
-import NotifPage from "./pages/NotificationPage/NotifPage";
-import UserPage from "./pages/UserPage/UserPage";
+import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import NotFound from "./pages/NotfoundPage/NotFound";
 import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
@@ -11,6 +10,9 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import OTPPage from "./pages/OTPPage/OTPPage";
 import SuccessBuyPage from "./pages/SuccessBuyPage/SuccessBuyPage";
+import ChangePasswordPage from './pages/AccountPage/ChangePasswordPage'
+import UserPage from "./pages/AccountPage/UserPage"
+import HistoryPayment from "./pages/AccountPage/HistoryPayment"
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/course" element={<CoursePage />} />
           <Route path="/mycourse" element={<MyCoursePage />} />
-          <Route path="/notif" element={<NotifPage />} />
+          <Route path="/notif" element={<NotificationPage />} />
           <Route path="/user" element={<UserPage />} />
+          <Route path="/changepassword" element={<ChangePasswordPage />} />
+          <Route path="/historypayment" element={<HistoryPayment />} />
           <Route path="/video" element={<VideoPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
