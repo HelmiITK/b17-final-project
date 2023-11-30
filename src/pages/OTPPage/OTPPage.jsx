@@ -36,21 +36,21 @@ const OTPPage = () => {
     setIsTimerActive(true);
   };
 
-  const handleVerify = () => {
-    // Kode untuk memverifikasi OTP akan ditambahkan di sini
-    // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
-  };
+  // const handleVerify = () => {
+  //   // Kode untuk memverifikasi OTP akan ditambahkan di sini
+  //   // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
+  // };
 
   // const handleClearOTP = () => {
   //   setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
   // };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
-      handleVerify();
-    }
-  };
+  // const handleKeyPress = (event) => {
+  //   if (event.key === "Enter") {
+  //     // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
+  //     handleVerify();
+  //   }
+  // };
 
   // const handleResendCode = () => {
   //   if (!isTimerActive) {
@@ -107,9 +107,7 @@ const OTPPage = () => {
 
                 <div className="flex items-center flex-col space-y-5">
                   <button className="flex px-6 py-3 text-center border rounded-xl outline-none  bg-blue-700 hover:bg-black border-none text-white text-sm">
-                    <Link to="/" >
-                      Verify OTP
-                    </Link>
+                    <Link to="/">Verify OTP</Link>
                   </button>
                   <button
                     className="px-3 py-2 text-center border rounded-xl outline-none bg-gray-300 hover:bg-blue-700 border-none text-sm"
@@ -123,7 +121,7 @@ const OTPPage = () => {
                       <p>Resend OTP in {timer} seconds</p>
                     ) : (
                       <p>
-                        Didn't get code ? &nbsp;
+                        Didnt get code ? &nbsp;
                         <button
                           className="text-blue-950 font-poppins font-bold"
                           onClick={handleResendCode}
