@@ -36,21 +36,21 @@ const OTPPage = () => {
     setIsTimerActive(true);
   };
 
-  const handleVerify = () => {
-    // Kode untuk memverifikasi OTP akan ditambahkan di sini
-    // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
-  };
+  // const handleVerify = () => {
+  //   // Kode untuk memverifikasi OTP akan ditambahkan di sini
+  //   // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
+  // };
 
   const handleClearOTP = () => {
     setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
-      handleVerify();
-    }
-  };
+  // const handleKeyPress = (event) => {
+  //   if (event.key === "Enter") {
+  //     // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
+  //     handleVerify();
+  //   }
+  // };
   // const handleResendCode = () => {
   //   if (!isTimerActive) {
   //     setIsTimerActive(true);
