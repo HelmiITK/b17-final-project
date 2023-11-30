@@ -41,9 +41,9 @@ const OTPPage = () => {
     // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
   };
 
-  const handleClearOTP = () => {
-    setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
-  };
+  // const handleClearOTP = () => {
+  //   setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
+  // };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -113,7 +113,7 @@ const OTPPage = () => {
                   </button>
                   <button
                     className="px-3 py-2 text-center border rounded-xl outline-none bg-gray-300 hover:bg-blue-700 border-none text-sm"
-                    onClick={handleClearOTP}
+                    // onClick={handleClearOTP}
                   >
                     Clear OTP
                   </button>
