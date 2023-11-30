@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // persentase progress
 export default function ProgressBar() {
-  const [percentage] = useState(50);
+  const [percentage] = useState(90);
 
   // useEffect(() => {
   //   if (percentage < 99) {

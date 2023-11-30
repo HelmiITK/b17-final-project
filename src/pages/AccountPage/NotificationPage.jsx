@@ -2,7 +2,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Main from "../../components/NotificationComponent/Main";
 
-const NotifPage = () => {
+const NotificationPage = () => {
   return (
     <div className="w-full relative">
       <div className="pt-24 lg:pt-32 absolute top-0 translate-x-[-50%] left-[50%]  w-full lg:w-9/12  pb-10">
@@ -25,4 +25,4 @@ const NotifPage = () => {
   );
 };
 
-export default NotifPage;
+export default NotificationPage;
