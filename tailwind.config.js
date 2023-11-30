@@ -10,9 +10,27 @@ export default {
 
         "100%": { transform: "translate(0)" },
       },
+      fadeIn: {
+        "0%": {
+          opacity: 0,
+        },
+        "35%": {
+          opacity: 50,
+        },
+        "50%": {
+          opacity: 100,
+        },
+        "85%": {
+          opacity: 50,
+        },
+        "100%": {
+          opacity: 0,
+        },
+      },
     },
     animation: {
       fade: "fadeLeft 0.8s ease-out",
+      fadeIn: "fadeIn 2.5s ease-in infinite",
     },
     extend: {
       fontFamily: {
@@ -30,7 +48,7 @@ export default {
       backgroundColor: {
         primary: "#050642",
         layer: "#EBF3FC",
-        blur: 'rgba(255, 255, 255, 0.5)'
+        blur: "rgba(255, 255, 255, 0.5)",
       },
     },
   },
