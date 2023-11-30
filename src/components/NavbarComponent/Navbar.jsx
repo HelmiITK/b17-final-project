@@ -18,7 +18,7 @@ const Navbar = () => {
 
    // logic navbar on scroll to blur background 
    const changeBackground = () => {
-      if (window.scrollY >= 50) {
+      if (window.scrollY >= 80) {
          setNavbar(true);
       }  else {
          setNavbar(false);
