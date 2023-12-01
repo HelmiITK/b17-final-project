@@ -4,7 +4,8 @@ import OtpInput from "react-otp-input";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa6";
 
-const OTpPage = () => {
+
+const OTPPage = () => {
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(60); // Timer awal dalam detik
   const [isTimerActive, setIsTimerActive] = useState(false);
@@ -58,6 +59,7 @@ const OTpPage = () => {
   //     // Add logic to resend OTP here
   //   }
   // };
+
   return (
     <>
       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-32 rounded-3xl">
@@ -147,4 +149,4 @@ const OTpPage = () => {
   );
 };
 
-export default OTpPage;
+export default OTPPage;
