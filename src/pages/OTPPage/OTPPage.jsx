@@ -1,4 +1,4 @@
-// import React from "react";
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import OtpInput from "react-otp-input";
@@ -52,6 +52,23 @@ const OTpPage = () => {
   //     handleVerify();
   //   }
   // };
+
+  const handleVerify = () => {
+    // Kode untuk memverifikasi OTP akan ditambahkan di sini
+    // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
+  };
+
+  // const handleClearOTP = () => {
+  //   setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
+  // };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
+      handleVerify();
+    }
+  };
+
   // const handleResendCode = () => {
   //   if (!isTimerActive) {
   //     setIsTimerActive(true);
@@ -59,6 +76,7 @@ const OTpPage = () => {
   //     // Add logic to resend OTP here
   //   }
   // };
+
   return (
     <>
       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-32 rounded-3xl">
@@ -96,6 +114,7 @@ const OTpPage = () => {
                         {...props}
                         key={i}
                         type="" // Mengatur tipe input menjadi "tel" untuk hanya menerima angka
+
                         className="w-24 h-12 text-5xl mx-2 text-center border rounded-md"
                       />
                     )}
@@ -111,6 +130,13 @@ const OTpPage = () => {
                   <button
                     className="px-3 py-2 text-center border rounded-xl outline-none bg-gray-300 hover:bg-blue-700 border-none text-sm"
                     onClick={handleClearOTP}
+                    <Link to="/" >
+                      Verify OTP
+                    </Link>
+                  </button>
+                  <button
+                    className="px-3 py-2 text-center border rounded-xl outline-none bg-gray-300 hover:bg-blue-700 border-none text-sm"
+                    // onClick={handleClearOTP}
                   >
                     Clear OTP
                   </button>
@@ -121,11 +147,16 @@ const OTpPage = () => {
                     ) : (
                       <p>
                         Tidak Mendapatkan Kode ? &nbsp;
+                      <p>Resend OTP in {timer} seconds</p>
+                    ) : (
+                      <p>
+                        Didn't get code ? &nbsp;
                         <button
                           className="text-blue-950 font-poppins font-bold"
                           onClick={handleResendCode}
                         >
                           Kirim Ulang OTP
+                          Resend OTP
                         </button>
                       </p>
                     )}
