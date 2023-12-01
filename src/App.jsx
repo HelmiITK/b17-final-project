@@ -31,7 +31,7 @@ function App() {
           <Route path="/video" element={<VideoPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/OTP" element={<OTpPage/>}/>
+          <Route path="/otp" element={<OTpPage/>}/>
           <Route path="*" element={<NotFound />} />
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="/payment" element={<BuyPage />} />
