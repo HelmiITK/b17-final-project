@@ -8,11 +8,12 @@ import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
 import VideoPage from "./pages/VideoPage/VideoPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import OTPPage from "./pages/OTPPage/OTPPage";
 import SuccessBuyPage from "./pages/SuccessBuyPage/SuccessBuyPage";
-import ChangePasswordPage from './pages/AccountPage/ChangePasswordPage'
-import UserPage from "./pages/AccountPage/UserPage"
-import HistoryPayment from "./pages/AccountPage/HistoryPayment"
+import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
+import UserPage from "./pages/AccountPage/UserPage";
+import HistoryPayment from "./pages/AccountPage/HistoryPayment";
+import OTpPage from "./pages/OTpPage/OTpPage";
+import BuyPage from "./pages/BuyPage/BuyPage";
 
 function App() {
   return (
@@ -30,9 +31,10 @@ function App() {
           <Route path="/video" element={<VideoPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/otp" element={<OTPPage />} />
+          <Route path="/OTP" element={<OTpPage/>}/>
           <Route path="*" element={<NotFound />} />
           <Route path="/success" element={<SuccessBuyPage />} />
+          <Route path="/payment" element={<BuyPage />} />
         </Routes>
       </Router>
     </>
