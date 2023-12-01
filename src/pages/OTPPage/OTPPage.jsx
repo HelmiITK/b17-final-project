@@ -29,7 +29,7 @@ const OTpPage = () => {
   }, [isTimerActive]);
 
   const handleResendCode = () => {
-    // Kode untuk mengirim ulang OTP akan ditambahkan di sini
+    // Kode untuk mengirim ulang OTP akan ditambahkan di sini yah heheh
     // Misalnya, panggil fungsi untuk mengirim ulang kode melalui API
 
     // Setelah mengirim ulang, aktifkan timer
