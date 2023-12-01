@@ -91,12 +91,12 @@ const OTPPage = () => {
                     onChange={setOtp}
                     numInputs={4}
                     renderSeparator={<span>-</span>}
-                    isInputNum={true} // Menandakan bahwa input hanya menerima angka
+                    isInputNum={true} 
                     renderInput={(props, i) => (
                       <input
                         {...props}
                         key={i}
-                        type="" // Mengatur tipe input menjadi "tel" untuk hanya menerima angka
+                        type=""
                         className="w-24 h-12 text-5xl mx-2 text-center border rounded-md"
                       />
                     )}
