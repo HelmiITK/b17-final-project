@@ -4,7 +4,6 @@ import OtpInput from "react-otp-input";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa6";
 
-
 const OTPPage = () => {
    const [otp, setOtp] = useState("");
    const [timer, setTimer] = useState(60); // Timer awal dalam detik
@@ -30,7 +29,7 @@ const OTPPage = () => {
    }, [isTimerActive]);
 
    const handleResendCode = () => {
-      // Kode untuk mengirim ulang OTP akan ditambahkan di sini yah heheh
+      // Kode untuk mengirim ulang OTP akan ditambahkan di sini
       // Misalnya, panggil fungsi untuk mengirim ulang kode melalui API
 
       // Setelah mengirim ulang, aktifkan timer
@@ -38,20 +37,21 @@ const OTPPage = () => {
    };
 
    // const handleVerify = () => {
-   //   // Kode untuk memverifikasi OTP akan ditambahkan di sini
-   //   // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
+   //    // Kode untuk memverifikasi OTP akan ditambahkan di sini
+   //    // Misalnya, panggil fungsi untuk memverifikasi OTP melalui API
    // };
 
-   const handleClearOTP = () => {
-      setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
-   };
+   // const handleClearOTP = () => {
+   //   setOtp("/"); // Mengatur ulang nilai OTP menjadi string kosong
+   // };
 
    // const handleKeyPress = (event) => {
-   //   if (event.key === "Enter") {
-   //     // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
-   //     handleVerify();
-   //   }
+   //    if (event.key === "Enter") {
+   //       // Saat tombol "Enter" ditekan, panggil fungsi verifikasi
+   //       handleVerify();
+   //    }
    // };
+
    // const handleResendCode = () => {
    //   if (!isTimerActive) {
    //     setIsTimerActive(true);
@@ -91,13 +91,13 @@ const OTPPage = () => {
                               onChange={setOtp}
                               numInputs={4}
                               renderSeparator={<span>-</span>}
-                              isInputNum={true}
+                              isInputNum={true} // Menandakan bahwa input hanya menerima angka
                               renderInput={(props, i) => (
                                  <input
                                     {...props}
                                     key={i}
-                                    type=""
-                                    className="w-24 h-12 text-5xl mx-2 text-center border rounded-md"
+                                    type="" // Mengatur tipe input menjadi "tel" untuk hanya menerima angka
+                                    className="w-24 h-14 text-5xl mx-2 text-center border rounded-md"
                                  />
                               )}
                               containerStyle="justify-center"
@@ -107,26 +107,28 @@ const OTPPage = () => {
 
                         <div className="flex items-center flex-col space-y-5">
                            <button className="flex px-6 py-3 text-center border rounded-xl outline-none  bg-blue-700 hover:bg-black border-none text-white text-sm">
-                              <Link to="/">Verify OTP</Link>
+                              <Link to="/" >
+                                 Verify OTP
+                              </Link>
                            </button>
                            <button
                               className="px-3 py-2 text-center border rounded-xl outline-none bg-gray-300 hover:bg-blue-700 border-none text-sm"
-                              onClick={handleClearOTP}
+                           // onClick={handleClearOTP}
                            >
                               Clear OTP
                            </button>
 
                            <p className="mt-2 text-gray-600 text-sm text-center font-poppins">
                               {isTimerActive ? (
-                                 <p>Kirim Ulang OTP Masuk {timer} Detik</p>
+                                 <p>Resend OTP in {timer} seconds</p>
                               ) : (
                                  <p>
-                                    Tidak Mendapatkan Kode ? &nbsp;
+                                    Didn't get code ? &nbsp;
                                     <button
                                        className="text-blue-950 font-poppins font-bold"
                                        onClick={handleResendCode}
                                     >
-                                       Kirim Ulang OTP
+                                       Resend OTP
                                     </button>
                                  </p>
                               )}
