@@ -10,9 +10,10 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import OTPPage from "./pages/OTPPage/OTPPage";
 import SuccessBuyPage from "./pages/SuccessBuyPage/SuccessBuyPage";
-import ChangePasswordPage from './pages/AccountPage/ChangePasswordPage'
-import UserPage from "./pages/AccountPage/UserPage"
-import HistoryPayment from "./pages/AccountPage/HistoryPayment"
+import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
+import UserPage from "./pages/AccountPage/UserPage";
+import HistoryPayment from "./pages/AccountPage/HistoryPayment";
+import BuyPage from "./pages/BuyPage/BuyPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPPage />} />
           <Route path="/success" element={<SuccessBuyPage />} />
+          <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
