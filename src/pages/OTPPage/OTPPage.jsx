@@ -123,7 +123,7 @@ const OTPPage = () => {
                                  <p>Resend OTP in {timer} seconds</p>
                               ) : (
                                  <p>
-                                    Didn't get code ? &nbsp;
+                                    Didnt get code ? &nbsp;
                                     <button
                                        className="text-blue-950 font-poppins font-bold"
                                        onClick={handleResendCode}

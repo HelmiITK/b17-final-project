@@ -31,8 +31,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPPage />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/success" element={<SuccessBuyPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

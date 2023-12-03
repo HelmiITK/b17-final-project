@@ -7,31 +7,41 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 const UserPage = () => {
    const [openHamburger, setOpenHamburger] = useState(false);
-   const [showPasswordLama, setShowPasswordLama] = useState(false);
-   const [showPasswordBaru, setShowPasswordBaru] = useState(false);
-   const [showPasswordUlang, setShowPasswordUlang] = useState(false);
-   // const [passwordInput, setPasswordInput] = useState('bangUdahBang');
+
+   const [showPasswords, setShowPasswords] = useState({
+      lama: false,
+      baru: false,
+      ulangi: false,
+   });
+
+   const [passwords, setPasswords] = useState({
+      lama: '',
+      baru: '',
+      ulangi: '',
+   });
 
    // fungsi buka tutup hamburger menu
    const handleHamburgerClick = () => {
       setOpenHamburger(!openHamburger);
    };
-   
-   const handleTogglePasswordLama = () => {
-      setShowPasswordLama(!showPasswordLama);
-   }
 
-   const handleTogglePasswordBaru = () => {
-      setShowPasswordBaru(!showPasswordBaru);
-   }
+   // fungsi untuk merubah status showPasswords menjadi true ke false atau sebaliknya untuk password tertentu
+   // disertai dengan parameter inputName untuk mengetahui password mana yang sedang di handle atau dieksekusi
+   const handleTogglePassword = (inputName) => () => {
+      setShowPasswords((prevShowPasswords) => ({
+         ...prevShowPasswords,
+         [inputName]: !prevShowPasswords[inputName],
+      }));
+   };
 
-   const handleTogglePasswordUlang = () => {
-      setShowPasswordUlang(!showPasswordUlang);
-   }
-
-   // const handlePasswordChange = (e) => {
-   //    setPasswordInput(e.target.value);
-   // };
+   // fungsi untuk mengupdate nilai dari masing-masing password jika terjadi perubahan pada input
+   const handleInputChange = (inputName) => (event) => {
+      const inputValue = event.target.value;
+      setPasswords((prevPasswords) => ({
+         ...prevPasswords,
+         [inputName]: inputValue,
+      }));
+   };
 
    return (
       <>
@@ -48,7 +58,7 @@ const UserPage = () => {
                      <h1 className="text-white font-bold text-lg">Akun</h1>
                   </div>
 
-                  {/* hamburger menu akun di mobile*/}
+                  {/* hamburger menu akun di mobile dan tablet*/}
                   <HamburgerMenuAccount
                      handleHamburgerClick={handleHamburgerClick}
                      openHamburger={openHamburger}
@@ -74,18 +84,19 @@ const UserPage = () => {
                               </label>
                               <div className='relative w-64'>
                                  <input
-                                    type={showPasswordLama ? 'text' : 'password'}
+                                    type={showPasswords.lama ? 'text' : 'password'}
                                     id='lama'
-                                    // value={passwordInput}
-                                    // onChange={handlePasswordChange}
                                     className='w-64 text-xs rounded-xl border-2 border-slate-300 py-2 px-4'
+                                    onChange={handleInputChange('lama')}
                                  />
-                                 <button
-                                    className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
-                                    onClick={handleTogglePasswordLama}
-                                 >
-                                    {showPasswordLama ? <BsEye /> :  <BsEyeSlash />}
-                                 </button>
+                                 {passwords.lama && (
+                                    <button
+                                       className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
+                                       onClick={handleTogglePassword('lama')}
+                                    >
+                                       {showPasswords.lama ? <BsEye /> : <BsEyeSlash />}
+                                    </button>
+                                 )}
                               </div>
                            </div>
                            {/* masukkan password baru */}
@@ -95,16 +106,19 @@ const UserPage = () => {
                               </label>
                               <div className='relative w-64'>
                                  <input
-                                    type={showPasswordBaru ? 'text' : 'password'}
+                                    type={showPasswords.baru ? 'text' : 'password'}
                                     id='baru'
                                     className='w-64 text-xs rounded-xl border-2 border-slate-300 py-2 px-4'
+                                    onChange={handleInputChange('baru')}
                                  />
-                                 <button
-                                    className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
-                                    onClick={handleTogglePasswordBaru}
-                                 >
-                                    {showPasswordBaru ? <BsEye /> : <BsEyeSlash />}
-                                 </button>
+                                 {passwords.baru && (
+                                    <button
+                                       className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
+                                       onClick={handleTogglePassword('baru')}
+                                    >
+                                       {showPasswords.baru ? <BsEye /> : <BsEyeSlash />}
+                                    </button>
+                                 )}
                               </div>
                            </div>
                            {/* ulangin password baru */}
@@ -114,16 +128,19 @@ const UserPage = () => {
                               </label>
                               <div className='relative w-64'>
                                  <input
-                                    type={showPasswordUlang ? 'text' : 'password'}
+                                    type={showPasswords.ulangi ? 'text' : 'password'}
                                     id='ulang'
                                     className='w-64 text-xs rounded-xl border-2 border-slate-300 py-2 px-4'
+                                    onChange={handleInputChange('ulangi')}
                                  />
-                                 <button
-                                    className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
-                                    onClick={handleTogglePasswordUlang}
-                                 >
-                                    {showPasswordUlang ? <BsEye /> : <BsEyeSlash />}
-                                 </button>
+                                 {passwords.ulangi && (
+                                    <button
+                                       className='absolute top-1/2 right-3 transform -translate-y-1/2 focus:outline-none'
+                                       onClick={handleTogglePassword('ulangi')}
+                                    >
+                                       {showPasswords.ulangi ? <BsEye /> : <BsEyeSlash />}
+                                    </button>
+                                 )}
                               </div>
                            </div>
                            {/* button simpan perubahan */}

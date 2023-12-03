@@ -9,6 +9,7 @@ import { MdMenuBook } from "react-icons/md";
 
 const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
    return (
+      // ini baru muncul saat masuk mode mobile dan tablet
       <div className="relative mt-3 ml-5 lg:hidden z-50">
          <button
             className="text-indigo-600"
@@ -25,38 +26,42 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
             <ul className="flex flex-col gap-3 text-left items-left">
                {/* link profil saya */}
                <li>
-                  <NavLink as={Link} to={'/user'}>
-                     <div className="flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg items-center text-sm group hover:bg-indigo-600 duration-500">
-                        <FiEdit3 className="w-8 h-6 text-indigo-600 group-hover:text-white" />
-                        <span className="text-indigo-800 font-medium group-hover:text-white">Profil Saya</span>
-                     </div>
+                  <NavLink
+                     as={Link}
+                     to={'/user'}
+                     className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
+                     <FiEdit3 className="w-8 h-6" />
+                     <span className="font-medium">Profil Saya</span>
                   </NavLink>
                </li>
                {/* link ubah password */}
                <li>
-                  <NavLink as={Link} to={'/changepassword'}>
-                     <div className="flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-white items-center text-sm group hover:bg-indigo-600 duration-500">
-                        <IoSettingsSharp className="w-8 h-6 text-indigo-600 group-hover:text-white" />
-                        <span className="text-indigo-800 font-medium group-hover:text-white">Ubah Password</span>
-                     </div>
+                  <NavLink
+                     as={Link}
+                     to={'/changepassword'}
+                     className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
+                     <IoSettingsSharp className="w-8 h-6" />
+                     <span className="font-medium">Ubah Password</span>
                   </NavLink>
                </li>
                {/* link riwayat pembayaran */}
                <li>
-                  <NavLink as={Link} to={'/historypayment'}>
-                     <div className="flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-white items-center text-sm group hover:bg-indigo-600 duration-500">
-                        <SlBasket className="w-8 h-6 text-indigo-600 group-hover:text-white" />
-                        <span className="text-indigo-800 font-medium ml-2 group-hover:text-white">Riwayat Pembayaran</span>
-                     </div>
+                  <NavLink
+                     as={Link}
+                     to={'/historypayment'}
+                     className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
+                     <SlBasket className="w-8 h-6" />
+                     <span className="font-medium">Riwayat Pembayaran</span>
                   </NavLink>
                </li>
                {/* link ini logout dan ditampilkan jika sudah punya akun dan login */}
                <li>
-                  <NavLink as={Link} to={''}>
-                     <div className="flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-white items-center text-sm group hover:bg-indigo-600 duration-500">
-                        <HiOutlineLogout className="w-8 h-6 text-indigo-600 group-hover:text-white" />
-                        <span className="text-indigo-800 font-medium group-hover:text-white">Keluar</span>
-                     </div>
+                  <NavLink
+                     as={Link}
+                     to={'/'}
+                     className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
+                     <HiOutlineLogout className="w-8 h-6" />
+                     <span className="font-medium">Keluar</span>
                   </NavLink>
                </li>
             </ul>

@@ -27,7 +27,7 @@ const UserPage = () => {
                      <h1 className="text-white font-bold text-lg">Akun</h1>
                   </div>
 
-                  {/* hamburger menu akun di mobile*/}
+                  {/* hamburger menu akun di mobile dan tablet*/}
                   <HamburgerMenuAccount
                      handleHamburgerClick={handleHamburgerClick}
                      openHamburger={openHamburger}

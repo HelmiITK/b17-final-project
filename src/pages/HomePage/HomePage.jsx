@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 
 const HomePage = () => {
    const [item, setItems] = useState(Data);
+   console.log(Data)
    const menuItems = [...new Set(Data.map((val) => val.category))]
 
    const filterItems = (cat) => {
