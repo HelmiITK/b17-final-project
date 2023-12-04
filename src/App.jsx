@@ -35,6 +35,7 @@ function App() {
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/payment" element={<BuyPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>
