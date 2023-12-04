@@ -14,6 +14,7 @@ import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
 import UserPage from "./pages/AccountPage/UserPage";
 import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
+import Footer from "./components/FooterComponent/Footer";
 
 function App() {
   return (
@@ -33,10 +34,10 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPPage />} />
           <Route path="/success" element={<SuccessBuyPage />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );
