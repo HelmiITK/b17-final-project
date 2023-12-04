@@ -1,10 +1,10 @@
 const DescriptionCourse = () => {
   return (
-    <div className="mb-5">
+    <div className="mb-5 mx-4 md:mx-0">
       <div className="flex flex-col">
         <div className="flex flex-col mt-3">
-          <h1 className="font-semibold text-xl">Tentang Kelas</h1>
-          <p className="text-justify indent-5 text-sm">
+          <h1 className="font-semibold md:text-xl">Tentang Kelas</h1>
+          <p className="text-justify indent-5 text-xs md:text-sm ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
             quasi delectus necessitatibus? Laboriosam optio hic tempore,
             suscipit ea, unde voluptatibus cum recusandae doloribus ratione
@@ -19,7 +19,7 @@ const DescriptionCourse = () => {
             corrupti. Dolore itaque eaque fuga! Lorem, ipsum dolor sit amet
             consectetur adipisicing elit. Quibusdam cum
           </p>
-          <p className="text-justify indent-5 text-sm">
+          <p className="text-justify indent-5 text-xs md:text-sm">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui,
             repellendus quod? Est ex quas quae veniam veritatis, architecto fuga
             a, quasi praesentium, voluptas magni quia maxime magnam laboriosam
@@ -37,8 +37,10 @@ const DescriptionCourse = () => {
           </p>
         </div>
         <div className="mt-3">
-          <h1 className="font-semibold text-xl">Kelas ini Ditujukan Untuk</h1>
-          <ul className="list-decimal ml-3 text-sm">
+          <h1 className="font-semibold md:text-xl">
+            Kelas ini Ditujukan Untuk
+          </h1>
+          <ul className="list-decimal ml-3 text-xs md:text-sm">
             <li>Memancing di balong Pak Muhidin</li>
             <li>Beternak di peternakan pak Asep</li>
             <li>Para pencari ikan hias di rumah pak kusno</li>
