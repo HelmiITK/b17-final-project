@@ -9,12 +9,19 @@ import PropTypes from 'prop-types'
 
 const HomePage = () => {
    const [item, setItems] = useState(Data);
-   console.log(Data)
+   const [activeCategory, setActiveCategory] = useState(null);
+
    const menuItems = [...new Set(Data.map((val) => val.category))]
 
    const filterItems = (cat) => {
       const newItems = Data.filter((newval) => newval.category === cat)
       setItems(newItems);
+      setActiveCategory(cat); // Set kategori yang aktif
+   }
+
+   const resetFilter = () => {
+      setItems(Data);
+      setActiveCategory(null);
    }
 
    var settingsCategory = {
@@ -166,11 +173,12 @@ const HomePage = () => {
                      val={val}
                      filterItems={filterItems}
                      setItems={setItems}
+                     isActive={val === activeCategory}
                   />
                ))}
             </Slider>
             <button 
-               onClick={() => setItems(Data)}
+               onClick={resetFilter}
                className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
                            hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold">
                All
