@@ -145,7 +145,7 @@ const HomePage = () => {
             <div className="max-w-screen-lg mx-auto" >
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
-                  <Slider {...settingsCategory} className="px-4">
+                  <Slider {...settingsCategory} className="lg:px-4 md:overflow-visible">
                      {dataKategori.map((kategori, i) => (
                         <div key={i}>
                            <CardCategory
@@ -199,7 +199,12 @@ function SampleNextArrow(props) {
    return (
       <div
          className={className}
-         style={{ ...style, display: "block", background: "#050642", borderRadius: "50%" }}
+         style={{
+            ...style,
+            display: window.innerWidth > 1024 ? 'block' : 'none', // Menampilkan hanya saat lebar layar lebih besar dari 1024px (mode laptop)
+            background: "#050642",
+            borderRadius: "50%"
+         }}
          onClick={onClick}
       />
    );
@@ -216,7 +221,12 @@ function SamplePrevArrow(props) {
    return (
       <div
          className={className}
-         style={{ ...style, display: "block", background: "#050642", borderRadius: "50%" }}
+         style={{
+            ...style,
+            display: window.innerWidth > 1024 ? 'block' : 'none',
+            background: "#050642",
+            borderRadius: "50%"
+         }}
          onClick={onClick}
       />
    );
