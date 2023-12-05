@@ -27,10 +27,19 @@ export default {
           opacity: 0,
         },
       },
+      pulse: {
+        "0%, 100%": {
+          transform: "scale(1)",
+        },
+        "50%": {
+          transform: "scale(1.05)",
+        },
+      },
     },
     animation: {
       fade: "fadeLeft 0.8s ease-out",
       fadeIn: "fadeIn 2.5s ease-in infinite",
+      pulse: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
     },
     extend: {
       fontFamily: {
