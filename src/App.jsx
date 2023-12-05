@@ -14,11 +14,15 @@ import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
 import UserPage from "./pages/AccountPage/UserPage";
 import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 import Footer from "./components/FooterComponent/Footer";
 
 function App() {
   return (
     <>
+
+              <Provider store={store}>
       <Router>
         <Navbar />
         <Routes>
@@ -39,6 +43,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      </Provider>
     </>
   );
 }

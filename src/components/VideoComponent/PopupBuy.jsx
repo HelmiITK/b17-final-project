@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "../MyCourseComponent/Card";
+// import Card from "../MyCourseComponent/Card";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { cn } from "../../libs/utils";
@@ -30,7 +30,7 @@ const PopupBuy = () => {
             Kelas Premium
           </h1>
           <div className="overflow-hidden rounded-md border border-color-primary w-8/12">
-            <Card />
+            {/* <Card /> */}
           </div>
           <div className="w-10/12 md:w-8/12 lg:w-7/12 hover:scale-105 duration-300 mt-2">
             <button className="bg-primary h-10 w-full text-white font-semibold rounded-full flex items-center justify-center">

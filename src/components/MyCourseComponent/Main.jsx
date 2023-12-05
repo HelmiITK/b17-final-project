@@ -3,26 +3,12 @@ import { cn } from "../../libs/utils";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-const data2 = [
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-];
-
-const Main = ({ data }) => {
+const Main = ({ data, course }) => {
   const [flag, setFlag] = useState(0);
+
+  if (!course) {
+    course = [];
+  }
   return (
     <div>
       {/* filter */}
@@ -46,10 +32,16 @@ const Main = ({ data }) => {
           </div>
         ))}
       </div>
+      {/* cek filter */}
+      {course.length === 0 && (
+        <div className="h-32 w-full items-center flex justify-center">
+          jirlah fak kata gua teh
+        </div>
+      )}
       {/* loop semua data */}
       <div className="grid md:grid-cols-2 gap-8 mt-4 md:mt-6">
-        {data2.map((item, i) => (
-          <Card key={i} />
+        {course.map((item) => (
+          <Card key={item.id} course={item} />
         ))}
       </div>
     </div>
@@ -58,6 +50,7 @@ const Main = ({ data }) => {
 
 Main.propTypes = {
   data: PropTypes.array,
+  course: PropTypes.any,
 };
 
 export default Main;
