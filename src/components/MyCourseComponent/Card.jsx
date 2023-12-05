@@ -2,9 +2,16 @@ import { Book, Clock, Gem, Shield } from "lucide-react";
 import Progressbar from "./ProgressBar";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // card course
-const Card = () => {
+const Card = ({ course }) => {
+  const { category } = useSelector((state) => state.category);
+
+  const { title } = category.find((cat) => cat.id === course.category_id);
+  const categoryName = title;
+
   return (
     <Link to="/video">
       <div className="w-full bg-white rounded-lg overflow-hidden pb-3">
@@ -19,7 +26,7 @@ const Card = () => {
           <div className="mx-2 md:mx-4 flex flex-col mt-1 md:mt-2">
             <div className="flex justify-between items-center">
               <h1 className="text-color-primary font-bold text-sm lg:text-base -tracking-wide">
-                UI/UX Design
+                {categoryName}
               </h1>
               <p className="flex items-center font-semibold">
                 <span className="mr-1 lg:mr-2">
@@ -30,20 +37,20 @@ const Card = () => {
             </div>
             <div className="flex flex-col">
               <h3 className="text-black font-semibold text-sm lg:text-base -tracking-widest md:-tracking-wider">
-                Belajar Web Designer dengan Figma
+                {course.title}
               </h3>
               <div className="mt-3 flex justify-between flex-wrap">
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider">
                   <span className="text-green-500 mr-[2.5px]">
                     <Shield size={18} />
                   </span>{" "}
-                  Intermediate Level
+                  {course.level} Level
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
                     <Book size={18} />
                   </span>{" "}
-                  10 Modul
+                  {course.chapters.length} Modul
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -101,6 +108,10 @@ const Card = () => {
       </div>
     </Link>
   );
+};
+
+Card.propTypes = {
+  course: PropTypes.object,
 };
 
 export default Card;

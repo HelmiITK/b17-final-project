@@ -1,17 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "../../libs/utils";
 import { XCircle } from "lucide-react";
 import { FaFilter } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-const SideFilter = () => {
+const SideFilter = ({ handleCategory }) => {
   const filter = ["Paling Baru", "Paling Populer", "Promo"];
-  const kategori = [
-    "UI/UX Design",
-    "Web Developer",
-    "Android Developer",
-    "Data Science",
-    "Business Software",
-  ];
+  const { category } = useSelector((state) => state.category);
   const levelKesulitan = [
     "Semua Level",
     "Beginner Level",
@@ -19,6 +15,10 @@ const SideFilter = () => {
     "Advanced Level",
   ];
   const [open, setOpen] = useState(false);
+  const [checkedCategories, setCheckedCategories] = useState([]);
+  useEffect(() => {
+    handleCategory(checkedCategories);
+  }, [checkedCategories, handleCategory]);
 
   return (
     <>
@@ -66,17 +66,34 @@ const SideFilter = () => {
           {/* kategori */}
           <div className="mx-5 my-2">
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
-            {kategori.map((item, index) => (
-              <div className="flex items-center my-2 ml-1" key={index}>
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  <span className="checkbox-custom rectangular"></span>
-                </label>
-                <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                  {item}
-                </p>
-              </div>
-            ))}
+            {category.map((item) => {
+              const checked = checkedCategories.includes(item.id);
+              return (
+                <div className="flex items-center my-2 ml-1" key={item.id}>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => {
+                        if (checked) {
+                          // remove dari array jika sudah diceklis
+                          setCheckedCategories(
+                            checkedCategories.filter((i) => i !== item.id)
+                          );
+                        } else {
+                          // tambahkan ke array jika belum diceklis
+                          setCheckedCategories([...checkedCategories, item.id]);
+                        }
+                      }}
+                    />
+                    <span className="checkbox-custom" />
+                  </label>
+                  <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
+                    {item.title}
+                  </p>
+                </div>
+              );
+            })}
           </div>
           {/* level kesulitah */}
           <div className="mx-5 my-2">
@@ -105,6 +122,10 @@ const SideFilter = () => {
       </div>
     </>
   );
+};
+
+SideFilter.propTypes = {
+  handleCategory: PropTypes.func,
 };
 
 export default SideFilter;
