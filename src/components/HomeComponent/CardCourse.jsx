@@ -11,7 +11,7 @@ const CardCourse = ({ item }) => {
           <div className="flex flex-col">
             <div >
               <img
-                src={val.img}
+                src={'https://images.unsplash.com/photo-1639477735279-c36dda1f7ebb?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
                 alt="ayam"
                 className="overflow-hidden w-full h-28 object-cover"
               />
@@ -40,7 +40,7 @@ const CardCourse = ({ item }) => {
                     <span className="text-green-500 mr-[2.5px]">
                       <Shield size={18} />
                     </span>{" "}
-                    Intermediate Level
+                    {val.level}
                   </p>
                   <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                     <span className="text-green-500 mr-[2.5px]">
@@ -71,13 +71,13 @@ const CardCourse = ({ item }) => {
                     <span className="mr-2">
                       <Gem size={16} />
                     </span>{" "}
-                    Premiun
+                    {val.type_course}
                   </button>
                 </div>
                 {/* button ketika mau beli (ada harganya) */}
                 <div className="my-2">
                   <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                    Rp. 100.000
+                    Rp. {val.price}
                   </button>
                 </div>
                 {/* Ini untuk riwayat dan status bayarnya belum bayar */}
