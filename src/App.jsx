@@ -16,31 +16,34 @@ import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Footer from "./components/FooterComponent/Footer";
+
 
 function App() {
   return (
     <>
-      <Provider store={store}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/course" element={<CoursePage />} />
-            <Route path="/mycourse" element={<MyCoursePage />} />
-            <Route path="/notif" element={<NotificationPage />} />
-            <Route path="/user" element={<UserPage />} />
-            <Route path="/changepassword" element={<ChangePasswordPage />} />
-            <Route path="/historypayment" element={<HistoryPayment />} />
-            <Route path="/video" element={<VideoPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/otp" element={<OTPPage />} />
-            <Route path="/success" element={<SuccessBuyPage />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/payment" element={<BuyPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
+
+              <Provider store={store}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/course" element={<CoursePage />} />
+          <Route path="/mycourse" element={<MyCoursePage />} />
+          <Route path="/notif" element={<NotificationPage />} />
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/changepassword" element={<ChangePasswordPage />} />
+          <Route path="/historypayment" element={<HistoryPayment />} />
+          <Route path="/video" element={<VideoPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/otp" element={<OTPPage />} />
+          <Route path="/success" element={<SuccessBuyPage />} />
+          <Route path="/payment" element={<BuyPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
       </Provider>
     </>
   );
