@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import { BiSearchAlt } from "react-icons/bi";
@@ -16,6 +16,17 @@ const Navbar = () => {
    const [selectedIcon, setSelectedIcon] = useState(null);
    const [navbar, setNavbar] = useState(false);
 
+   // logic ketika diklik diluar hamburgermenu maka otomatis tertutup dan begitu juga ketika klik pindah halaman
+   useEffect(() => {
+      const closeHamburgerMenu = () => {
+         setOpenHamburger(false);
+      };
+
+      // Menambahkan event listener ke window
+      window.addEventListener('click', closeHamburgerMenu);
+
+   }, []);
+
    // logic navbar on scroll to blur background 
    const changeBackground = () => {
       if (window.scrollY >= 80) {
@@ -30,7 +41,8 @@ const Navbar = () => {
       setIsSearchOpen(!isSearchOpen);
    };
 
-   const handleHamburgerClick = () => {
+   const handleHamburgerClick = (e) => {
+      e.stopPropagation();
       setOpenHamburger(!openHamburger);
       // setSelectedIcon(null);
    };
