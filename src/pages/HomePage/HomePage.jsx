@@ -1,29 +1,56 @@
 import { NavLink, Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
 import CardCourse from "../../components/HomeComponent/CardCourse";
-import Data from "./DataDummy"
+// import Data from "./DataDummy"
 import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../../redux/actions/categoryActions";
+import { getCourse } from "../../redux/actions/courseActions";
 
 const HomePage = () => {
-   const [item, setItems] = useState(Data);
+   const dispatch = useDispatch();
+
+   // ambil data kategori dan course dari redux
+   const { category } = useSelector((state) => state.category);
+   // const { course } = useSelector((state) => state.course);
+
+   // state aktif by category
    const [activeCategory, setActiveCategory] = useState(null);
 
-   const menuItems = [...new Set(Data.map((val) => val.category))]
+   // render data
+   useEffect(() => {
+      dispatch(getCategory())
+   }, [dispatch]);
 
-   const filterItems = (cat) => {
-      const newItems = Data.filter((newval) => newval.category === cat)
-      setItems(newItems);
-      setActiveCategory(cat); // Set kategori yang aktif
-   }
+   useEffect(() => {
+      dispatch(getCourse())
+   }, [dispatch]);
 
+   // filter by category
+   const filterItems = (catId) => {
+      // console.log(`Filtering by category ID: ${catId}`);
+      setActiveCategory(catId);
+   };
+
+   // reset filter
    const resetFilter = () => {
-      setItems(Data);
+      // console.log("resetFilter")
       setActiveCategory(null);
    }
 
+   // filter course 
+   const filteredCourses = category.filter((item) => {
+      if (activeCategory === null) {
+         return true; // jika tidak klik filter apapun, show all!!
+      } else {
+         return item.id === activeCategory;
+      }
+   })
+
+   // react slice (carousel) costume Kategori Belajar
    var settingsCategory = {
       dots: true,
       infinite: true,
@@ -63,6 +90,7 @@ const HomePage = () => {
       ],
    };
 
+   // react slice (carousel) costume Kursus Populer (button filter)
    var settingsCourse = {
       nextarrow: true,
       infinite: true,
@@ -97,33 +125,6 @@ const HomePage = () => {
       ],
    };
 
-   const dataKategori = [
-      {
-         img: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "UI/UX Design"
-      },
-      {
-         img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "Product Manager"
-      },
-      {
-         img: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "Web Development"
-      },
-      {
-         img: "https://images.unsplash.com/photo-1612442443556-09b5b309e637?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "Andorid Development"
-      },
-      {
-         img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "IOS Development"
-      },
-      {
-         img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-         title: "Data Science"
-      }
-   ]
-
    return (
       <>
          {/* main section */}
@@ -146,10 +147,10 @@ const HomePage = () => {
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
                   <Slider {...settingsCategory} className="lg:px-4 md:overflow-visible">
-                     {dataKategori.map((kategori, i) => (
-                        <div key={i}>
+                     {category.map((kategori) => (
+                        <div key={kategori.id}>
                            <CardCategory
-                              img={kategori.img}
+                              // img={kategori.img}
                               title={kategori.title}
                            />
                         </div>
@@ -167,17 +168,16 @@ const HomePage = () => {
             </div>
             {/* button filter */}
             <Slider {...settingsCourse}>
-               {menuItems.map((val, i) => (
+               {category.map((val) => (
                   <ButtonCourse
-                     key={i}
-                     val={val}
-                     filterItems={filterItems}
-                     setItems={setItems}
-                     isActive={val === activeCategory}
+                     key={val.id}
+                     val={val.title}
+                     filterItems={() => filterItems(val.id)}
+                     isActive={val.id === activeCategory}
                   />
                ))}
             </Slider>
-            <button 
+            <button
                onClick={resetFilter}
                className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
                            hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold">
@@ -185,7 +185,7 @@ const HomePage = () => {
             </button>
             {/* card kursus populer */}
             <div>
-               <CardCourse item={item} />
+               <CardCourse item={filteredCourses} />
             </div>
          </div>
       </>
