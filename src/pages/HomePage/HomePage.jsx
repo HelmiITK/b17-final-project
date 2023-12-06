@@ -4,51 +4,51 @@ import Slider from "react-slick";
 import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
 import CardCourse from "../../components/HomeComponent/CardCourse";
-// import Data from "./DataDummy"
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import { getCourse } from "../../redux/actions/courseActions";
+import ClockLoader from "react-spinners/ClockLoader"
 
 const HomePage = () => {
    const dispatch = useDispatch();
+   // state menyimpan aksi loading animasi
+   const [loading, setLoading] = useState(false);
 
    // ambil data kategori dan course dari redux
    const { category } = useSelector((state) => state.category);
-   // const { course } = useSelector((state) => state.course);
+   const { course } = useSelector((state) => state.course);
 
-   // state aktif by category
-   const [activeCategory, setActiveCategory] = useState(null);
+   // state untuk menyimpan kategori yang dipilih
+   const [selectedCategory, setSelectedCategory] = useState('');
 
    // render data
    useEffect(() => {
-      dispatch(getCategory())
-   }, [dispatch]);
+      // loading jalan sembari nunggu data
+      setLoading(true);
 
-   useEffect(() => {
+      // kirim ke reducer untuk mengambil data yg ada di redux
+      dispatch(getCategory());
       dispatch(getCourse())
+         .then(() => {
+            // data di dapat maka loading berhenti
+            setLoading(false);
+         })
+         .catch((error) => {
+            // jika terjadi kesalahan hit data debug di sini
+            console.error("Error fetching course data:", error);
+            setLoading(false);
+         });
+
    }, [dispatch]);
 
-   // filter by category
-   const filterItems = (catId) => {
-      // console.log(`Filtering by category ID: ${catId}`);
-      setActiveCategory(catId);
+   const handleFilterClick = (categoryId) => {
+      setSelectedCategory(categoryId);
    };
 
-   // reset filter
-   const resetFilter = () => {
-      // console.log("resetFilter")
-      setActiveCategory(null);
-   }
-
-   // filter course 
-   const filteredCourses = category.filter((item) => {
-      if (activeCategory === null) {
-         return true; // jika tidak klik filter apapun, show all!!
-      } else {
-         return item.id === activeCategory;
-      }
-   })
+   const filteredCourses = selectedCategory
+      ? course.filter((item) => item.category_id === selectedCategory)
+      : course;
 
    // react slice (carousel) costume Kategori Belajar
    var settingsCategory = {
@@ -146,16 +146,25 @@ const HomePage = () => {
             <div className="max-w-screen-lg mx-auto" >
                <div className="mt-[74px] h-96">
                   <h1 className="text-black font-bold text-xl pt-4 pb-1 px-6 md:text-2xl lg:pb-2">Kategori Belajar</h1>
-                  <Slider {...settingsCategory} className="lg:px-4 md:overflow-visible">
-                     {category.map((kategori) => (
-                        <div key={kategori.id}>
-                           <CardCategory
-                              // img={kategori.img}
-                              title={kategori.title}
-                           />
-                        </div>
-                     ))}
-                  </Slider>
+                  {loading ? (
+                     <ClockLoader
+                        className="absolute top-20 left-1/2 mb-20 lg:left-[485px]"
+                        color="#6a00ff"
+                        size={50}
+                        speedMultiplier={2}
+                     />
+                  ) : (
+                     <Slider {...settingsCategory} className="lg:px-4 md:overflow-visible">
+                        {category.map((kategori) => (
+                           <div key={kategori.id}>
+                              <CardCategory
+                                 // img={kategori.img}
+                                 title={kategori.title}
+                              />
+                           </div>
+                        ))}
+                     </Slider>
+                  )}
                </div>
             </div>
          </div>
@@ -172,20 +181,38 @@ const HomePage = () => {
                   <ButtonCourse
                      key={val.id}
                      val={val.title}
-                     filterItems={() => filterItems(val.id)}
-                     isActive={val.id === activeCategory}
+                     filterItems={() => handleFilterClick(val.id)}
+                     isActive={selectedCategory === val.id}
                   />
                ))}
             </Slider>
             <button
-               onClick={resetFilter}
+               onClick={() => handleFilterClick('')}
                className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
                            hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold">
                All
             </button>
             {/* card kursus populer */}
-            <div>
-               <CardCourse item={filteredCourses} />
+            <div className="relative grid gap-6 grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3">
+               {loading ? (
+                  <ClockLoader
+                     className="absolute top-10 left-1/2 mb-20 lg:left-[485px]"
+                     color="#6a00ff"
+                     size={50}
+                     speedMultiplier={2}
+                  />
+               ) : filteredCourses.length > 0 ? (
+                  filteredCourses.map((course) => (
+                     <CardCourse
+                        key={course.id}
+                        course={course}
+                     />
+                  ))
+               ) : (
+                  <div className="col-span-3 text-center text-gray-500 mt-8 mb-4">
+                     Data is Not Found
+                  </div>
+               )}
             </div>
          </div>
       </>
@@ -237,6 +264,3 @@ SamplePrevArrow.propTypes = {
    style: PropTypes.object,
    onClick: PropTypes.func,
 }
-
-
-
