@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
 import CardCourse from "../../components/HomeComponent/CardCourse";
-// import Data from "./DataDummy"
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
@@ -15,40 +14,24 @@ const HomePage = () => {
 
    // ambil data kategori dan course dari redux
    const { category } = useSelector((state) => state.category);
-   // const { course } = useSelector((state) => state.course);
+   const { course } = useSelector((state) => state.course);
 
-   // state aktif by category
-   const [activeCategory, setActiveCategory] = useState(null);
+   // state untuk menyimpan kategori yang dipilih
+   const [selectedCategory, setSelectedCategory] = useState('');
 
    // render data
    useEffect(() => {
-      dispatch(getCategory())
+      dispatch(getCategory());
+      dispatch(getCourse());
    }, [dispatch]);
 
-   useEffect(() => {
-      dispatch(getCourse())
-   }, [dispatch]);
-
-   // filter by category
-   const filterItems = (catId) => {
-      // console.log(`Filtering by category ID: ${catId}`);
-      setActiveCategory(catId);
+   const handleFilterClick = (categoryId) => {
+      setSelectedCategory(categoryId);
    };
 
-   // reset filter
-   const resetFilter = () => {
-      // console.log("resetFilter")
-      setActiveCategory(null);
-   }
-
-   // filter course 
-   const filteredCourses = category.filter((item) => {
-      if (activeCategory === null) {
-         return true; // jika tidak klik filter apapun, show all!!
-      } else {
-         return item.id === activeCategory;
-      }
-   })
+   const filteredCourses = selectedCategory
+      ? course.filter((item) => item.category_id === selectedCategory)
+      : course;
 
    // react slice (carousel) costume Kategori Belajar
    var settingsCategory = {
@@ -172,20 +155,31 @@ const HomePage = () => {
                   <ButtonCourse
                      key={val.id}
                      val={val.title}
-                     filterItems={() => filterItems(val.id)}
-                     isActive={val.id === activeCategory}
+                     filterItems={() => handleFilterClick(val.id)}
+                     isActive={selectedCategory === val.id}
                   />
                ))}
             </Slider>
             <button
-               onClick={resetFilter}
+               onClick={() => handleFilterClick('')}
                className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
                            hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold">
                All
             </button>
             {/* card kursus populer */}
-            <div>
-               <CardCourse item={filteredCourses} />
+            <div className="grid gap-6 grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3">
+               {filteredCourses.length > 0 ? (
+                  filteredCourses.map((course) => (
+                     <CardCourse
+                        key={course.id}
+                        course={course}
+                     />
+                  ))
+               ) : (
+                  <div className="col-span-3 text-center text-gray-500 mt-8 mb-4">
+                     Data is Not Found
+                  </div>
+               )}
             </div>
          </div>
       </>
@@ -237,6 +231,3 @@ SamplePrevArrow.propTypes = {
    style: PropTypes.object,
    onClick: PropTypes.func,
 }
-
-
-
