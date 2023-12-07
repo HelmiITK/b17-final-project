@@ -4,44 +4,44 @@ import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourse } from "../../redux/actions/courseActions";
+import { getCourseWithCategory } from "../../redux/actions/courseActions";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
   const [isLoading, setIsLoading] = useState(false);
-  // ambil data kategori dari api lewat redux
-  useEffect(() => {
-    setIsLoading(true);
-    dispatch(getCategory()).then(() => setIsLoading(false));
-  }, [dispatch]);
+  const [isLoadingCat, setIsLoadingCat] = useState(false);
 
-  // ambil data course dari api lewat redux
-  useEffect(() => {
-    dispatch(getCourse());
-  }, [dispatch]);
   const data = ["All", "In Progress", "Done"];
   const [category, setCategory] = useState([]);
+
+  // ambil data kategori dari api lewat redux
+  useEffect(() => {
+    setIsLoadingCat(true);
+    dispatch(getCategory()).then(() => setIsLoadingCat(false));
+  }, [dispatch]);
+
   const handleCategory = (x) => {
     setCategory(x);
   };
-  // console.log(category);
-  const filteredCourses = course.filter((item) =>
-    category.includes(item.category_id)
-  );
-  const filterCourse = category.length > 0 && filteredCourses;
-  const defaultCourse = category.length === 0 && course;
+
+  // data id kategori yang diceklis, diubah menjadi string sesuai dengan ketentuan api
+  const stringCategory = category
+    .map((item) => encodeURIComponent(item))
+    .join("%2C");
+
+  // ambil data course dari api lewat redux
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(getCourseWithCategory(stringCategory)).then(() =>
+      setIsLoading(false)
+    );
+  }, [dispatch, stringCategory]);
 
   return (
     <>
-      {/* Loading screen */}
-      {isLoading && (
-        <div className="w-screen h-screen items-center flex justify-center">
-          Ayam
-        </div>
-      )}
       {/* tampilan utama */}
-      <div className="w-full bg-layer pt-24 lg:pt-28">
+      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
         <div className="w-10/12 mx-auto">
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-sm md:text-xl lg:text-2xl">
@@ -66,13 +66,13 @@ const MyCoursePage = () => {
           <div className="mt-6 lg:mt-8">
             <div className="grid grid-cols-3 gap-x-4 lg:gap-x-20">
               <div className="col-span-3 md:col-span-1">
-                <SideFilter handleCategory={handleCategory} />
+                <SideFilter
+                  handleCategory={handleCategory}
+                  isLoading={isLoadingCat}
+                />
               </div>
               <div className="col-span-3 md:col-span-2">
-                <Main
-                  data={data}
-                  course={filterCourse ? filterCourse : defaultCourse}
-                />
+                <Main data={data} course={course} isLoading={isLoading} />
               </div>
             </div>
           </div>
