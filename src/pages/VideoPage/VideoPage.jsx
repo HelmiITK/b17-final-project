@@ -1,5 +1,3 @@
-// import ReactPlayer from "react-player";
-
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
@@ -31,30 +29,32 @@ const VideoPage = () => {
         </button>
       </div>
       {/*  */}
-      <div className="relative w-full">
-        <div className="z-10 left-[50%] -translate-x-[50%] absolute w-full md:w-10/12 mt-20 md:mt-24 ">
+      <div className="flex flex-col items-center">
+        <div className="bg-layer w-full h-96 absolute" />
+        <div className="z-10 w-full md:w-10/12">
           {/* Tombol kembali ke halaman kelas */}
-          <Link to={"/course"}>
-            <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
-              <span className="mr-1 block md:mr-2">
-                <ArrowLeft className="w-4 h-4" />
-              </span>{" "}
-              Kelas Lainnya
-            </h1>
-          </Link>
-          <div className="mx-auto grid grid-cols-3 gap-x-14 md:mt-5">
-            {/* main section, isinya video sama deskripsi course */}
-            <div className="col-span-3 lg:col-span-2">
-              <Main />
-            </div>
-            {/* progress course, ada di sebelah kanan */}
-            <div className="col-span-3 lg:col-span-1">
-              <ProgressCourse isOpen={isOpen} />
+          <div className=" mt-20 md:mt-24">
+            <Link to={"/course"}>
+              <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
+                <span className="mr-1 block md:mr-2">
+                  <ArrowLeft className="w-4 h-4" />
+                </span>{" "}
+                Kelas Lainnya
+              </h1>
+            </Link>
+            <div className="mx-auto grid grid-cols-3 gap-x-14 md:mt-5">
+              {/* main section, isinya video sama deskripsi course */}
+              <div className="col-span-3 lg:col-span-2">
+                <Main />
+              </div>
+              {/* progress course, ada di sebelah kanan */}
+              <div className="col-span-3 lg:col-span-1">
+                <ProgressCourse isOpen={isOpen} />
+              </div>
             </div>
           </div>
         </div>
         {/* background yang beda warna */}
-        <div className="bg-layer h-[280px] hidden md:block" />
       </div>
     </>
   );

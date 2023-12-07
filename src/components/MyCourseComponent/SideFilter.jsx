@@ -4,12 +4,12 @@ import { XCircle } from "lucide-react";
 import { FaFilter } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { ClockLoader } from "react-spinners";
 
-const SideFilter = ({ handleCategory }) => {
+const SideFilter = ({ handleCategory, isLoading }) => {
   const filter = ["Paling Baru", "Paling Populer", "Promo"];
   const { category } = useSelector((state) => state.category);
   const levelKesulitan = [
-    "Semua Level",
     "Beginner Level",
     "Intermediate Level",
     "Advanced Level",
@@ -19,6 +19,10 @@ const SideFilter = ({ handleCategory }) => {
   useEffect(() => {
     handleCategory(checkedCategories);
   }, [checkedCategories, handleCategory]);
+
+  const deleteFilter = () => {
+    setCheckedCategories([]);
+  };
 
   return (
     <>
@@ -66,6 +70,11 @@ const SideFilter = ({ handleCategory }) => {
           {/* kategori */}
           <div className="mx-5 my-2">
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
+            {isLoading && (
+              <div className="h-32 w-full items-center flex justify-center sticky top-24 ">
+                <ClockLoader color="#6a00ff" size={24} speedMultiplier={2} />
+              </div>
+            )}
             {category.map((item) => {
               const checked = checkedCategories.includes(item.id);
               return (
@@ -114,7 +123,10 @@ const SideFilter = ({ handleCategory }) => {
           </div>
           {/* tombol untuk hapus filter */}
           <div className="my-3 mx-5">
-            <button className="p-1 -tracking-wider w-full bg-inherit font-semibold rounded-md md:bg-transparent bg-white text-red-500 hover:bg-red-500 hover:text-white hover:scale-105 transition duration-300 mb-4">
+            <button
+              onClick={deleteFilter}
+              className="p-1 -tracking-wider w-full bg-inherit font-semibold rounded-md md:bg-transparent bg-white text-red-500 hover:bg-red-500 hover:text-white hover:scale-105 transition duration-300 mb-4"
+            >
               Hapus Filter
             </button>
           </div>
@@ -126,6 +138,7 @@ const SideFilter = ({ handleCategory }) => {
 
 SideFilter.propTypes = {
   handleCategory: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default SideFilter;

@@ -14,3 +14,17 @@ export const getCourse = () => async (dispatch) => {
     alert(error.message);
   }
 };
+
+export const getCourseWithCategory = (category) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${api_url}/courses?page=1&category=${category}`
+    );
+
+    const { courses } = response.data;
+
+    dispatch(setCourse(courses));
+  } catch (error) {
+    alert(error.message);
+  }
+};
