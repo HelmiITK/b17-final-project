@@ -4,7 +4,7 @@ import DescriptionCourse from "./DescriptionCourse";
 
 const Main = () => {
   return (
-    <div>
+    <>
       <div className="flex flex-col">
         {/* isinya kyk judul, rating dll */}
         {/* InfoCourse ketika tampilan web */}
@@ -32,7 +32,7 @@ const Main = () => {
         {/* deskripsi course isinya kyk tentang kelas */}
         <DescriptionCourse />
       </div>
-    </div>
+    </>
   );
 };
 
