@@ -6,22 +6,21 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { ClockLoader } from "react-spinners";
 
-const SideFilter = ({ handleCategory, isLoading }) => {
-  const filter = ["Paling Baru", "Paling Populer", "Promo"];
+const SideFilter = ({ handleCategory, isLoading, handleLevel }) => {
+  const filter = ["Paling Baru", "Paling Populer"];
   const { category } = useSelector((state) => state.category);
-  const levelKesulitan = [
-    "Beginner Level",
-    "Intermediate Level",
-    "Advanced Level",
-  ];
+  const levelKesulitan = ["pemula", "menengah", "lanjutan"];
   const [open, setOpen] = useState(false);
   const [checkedCategories, setCheckedCategories] = useState([]);
+  const [checkedLevels, setCheckedLevels] = useState([]);
   useEffect(() => {
     handleCategory(checkedCategories);
-  }, [checkedCategories, handleCategory]);
+    handleLevel(checkedLevels);
+  }, [checkedCategories, handleCategory, handleLevel, checkedLevels]);
 
   const deleteFilter = () => {
     setCheckedCategories([]);
+    setCheckedLevels([]);
   };
 
   return (
@@ -109,17 +108,34 @@ const SideFilter = ({ handleCategory, isLoading }) => {
             <h1 className="tracking-wider font-bold text-lg">
               Level Kesulitan
             </h1>
-            {levelKesulitan.map((item, index) => (
-              <div className="flex items-center my-2 ml-1" key={index}>
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  <span className="checkbox-custom rectangular"></span>
-                </label>
-                <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                  {item}
-                </p>
-              </div>
-            ))}
+            {levelKesulitan.map((item, i) => {
+              const checked = checkedLevels.includes(item);
+              return (
+                <div className="flex items-center my-2 ml-1" key={i}>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => {
+                        if (checked) {
+                          // remove dari array jika sudah diceklis
+                          setCheckedLevels(
+                            checkedLevels.filter((i) => i !== item)
+                          );
+                        } else {
+                          // tambahkan ke array jika belum diceklis
+                          setCheckedLevels([...checkedLevels, item]);
+                        }
+                      }}
+                    />
+                    <span className="checkbox-custom" />
+                  </label>
+                  <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
+                    Level {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </p>
+                </div>
+              );
+            })}
           </div>
           {/* tombol untuk hapus filter */}
           <div className="my-3 mx-5">
@@ -139,6 +155,7 @@ const SideFilter = ({ handleCategory, isLoading }) => {
 SideFilter.propTypes = {
   handleCategory: PropTypes.func,
   isLoading: PropTypes.bool,
+  handleLevel: PropTypes.func,
 };
 
 export default SideFilter;
