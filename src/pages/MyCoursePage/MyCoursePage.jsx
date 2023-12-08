@@ -4,7 +4,7 @@ import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourseWithCategory } from "../../redux/actions/courseActions";
+import { getCourseWithFilter } from "../../redux/actions/courseActions";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const MyCoursePage = () => {
 
   const data = ["All", "In Progress", "Done"];
   const [category, setCategory] = useState([]);
+  const [level, setLevel] = useState([]);
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
@@ -25,18 +26,23 @@ const MyCoursePage = () => {
     setCategory(x);
   };
 
+  const handleLevel = (x) => {
+    setLevel(x);
+  };
+
   // data id kategori yang diceklis, diubah menjadi string sesuai dengan ketentuan api
   const stringCategory = category
     .map((item) => encodeURIComponent(item))
     .join("%2C");
 
+  const stringLevel = level.map((item) => encodeURIComponent(item)).join("%2C");
   // ambil data course dari api lewat redux
   useEffect(() => {
     setIsLoading(true);
-    dispatch(getCourseWithCategory(stringCategory)).then(() =>
+    dispatch(getCourseWithFilter(stringCategory, stringLevel)).then(() =>
       setIsLoading(false)
     );
-  }, [dispatch, stringCategory]);
+  }, [dispatch, stringCategory, stringLevel]);
 
   return (
     <>
@@ -69,6 +75,7 @@ const MyCoursePage = () => {
                 <SideFilter
                   handleCategory={handleCategory}
                   isLoading={isLoadingCat}
+                  handleLevel={handleLevel}
                 />
               </div>
               <div className="col-span-3 md:col-span-2">

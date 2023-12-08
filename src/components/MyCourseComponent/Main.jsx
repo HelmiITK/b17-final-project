@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "../../libs/utils";
 import Card from "./Card";
 import PropTypes from "prop-types";
 import ClockLoader from "react-spinners/ClockLoader";
 
-const Main = ({ data, course, isLoading }) => {
+const Main = ({ data, course, isLoading, getFilterFromMain }) => {
   const [flag, setFlag] = useState(0);
+  // jika data tidak ada, maka anggap course sebagai array kosong, agar tidak error
   if (!course) {
     course = [];
   }
+  useEffect(() => {
+    getFilterFromMain(flag);
+  }, [getFilterFromMain, flag]);
   return (
     <div className="">
       {/* filter */}
@@ -41,7 +45,7 @@ const Main = ({ data, course, isLoading }) => {
       {/* kalau tidak ada datanya */}
       {course.length === 0 && !isLoading && (
         <div className="h-32 w-full items-center flex justify-center">
-          jirlah fak kata gua teh
+          Data tidak tersedia
         </div>
       )}
       {/* loop semua data */}
@@ -52,7 +56,12 @@ const Main = ({ data, course, isLoading }) => {
         )}
       >
         {course.map((item) => (
-          <Card key={item.id} course={item} />
+          <div
+            className="hover:-translate-y-3 transition-all duration-300"
+            key={item.id}
+          >
+            <Card key={item.id} course={item} />
+          </div>
         ))}
       </div>
     </div>
@@ -63,6 +72,7 @@ Main.propTypes = {
   data: PropTypes.array,
   course: PropTypes.any,
   isLoading: PropTypes.bool,
+  getFilterFromMain: PropTypes.func,
 };
 
 export default Main;
