@@ -1,3 +1,4 @@
+import Navbar from '../../components/NavbarComponent/Navbar'
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -127,6 +128,7 @@ const HomePage = () => {
 
    return (
       <>
+      <Navbar />
          {/* main section */}
          <div className="w-full pt-[74px] relative h-64" >
             <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="picture" className="w-full h-full object-cover absolute mix-blend-overlay" />
@@ -158,7 +160,7 @@ const HomePage = () => {
                         {category.map((kategori) => (
                            <div key={kategori.id}>
                               <CardCategory
-                                 // img={kategori.img}
+                                 img={kategori.thumbnail}
                                  title={kategori.title}
                               />
                            </div>
@@ -172,8 +174,11 @@ const HomePage = () => {
          {/* Kursus Populer */}
          <div className="max-w-screen-lg mx-auto px-6 lg:p-0">
             {/* title */}
-            <div>
+            <div className="flex items-center justify-between">
                <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
+               <Link to={'/course'}>
+                  <h2 className="text-sm hover:text-indigo-600 lg:font-medium">Lihat Semua</h2>
+               </Link>
             </div>
             {/* button filter */}
             <Slider {...settingsCourse}>
@@ -204,6 +209,7 @@ const HomePage = () => {
                ) : filteredCourses.length > 0 ? (
                   filteredCourses.map((course) => (
                      <CardCourse
+                        kategori={category}
                         key={course.id}
                         course={course}
                      />

@@ -98,11 +98,10 @@ const Footer = () => {
             <div className="flex flex-row gap-4 mt-3">
               <IoLogoInstagram
                 className={`w-7 h-8 text-white animate-pulse hover:bg-indigo-500 hover:p-1 hover:rounded-full hover:text-slate-950 duration-300 ease-in-out cursor-pointer lg:w-9 lg:h-9
-                                 ${
-                                   activeIcon === "instagram"
-                                     ? "bg-pink-600 rounded-full p-[3px]"
-                                     : ""
-                                 }         
+                                ${activeIcon === "instagram"
+                    ? "bg-pink-600 rounded-full p-[3px]"
+                    : ""
+                  }         
                         `}
                 onClick={handleInstagramClick}
               />
@@ -179,11 +178,10 @@ const Footer = () => {
               )}
               <CiFacebook
                 className={`w-7 h-8 text-white animate-pulse hover:bg-indigo-500 hover:p-1 hover:rounded-full hover:text-slate-950 duration-300 ease-in-out cursor-pointer lg:w-9 lg:h-9
-                                 ${
-                                   activeIcon === "facebook"
-                                     ? "bg-blue-600 rounded-full px-[2px]"
-                                     : ""
-                                 }         
+                                ${activeIcon === "facebook"
+                    ? "bg-blue-600 rounded-full px-[2px]"
+                    : ""
+                  }         
                         `}
                 onClick={handleFacebookClick}
               />
@@ -260,11 +258,10 @@ const Footer = () => {
               )}
               <VscGithubInverted
                 className={`w-7 h-8  animate-pulse hover:bg-indigo-500 hover:p-1 hover:rounded-full hover:text-slate-950 duration-300 ease-in-out cursor-pointer lg:w-9 lg:h-9
-                                 ${
-                                   activeIcon === "github"
-                                     ? "bg-green-400 text-black rounded-full p-[3px]"
-                                     : "text-white"
-                                 }         
+                                ${activeIcon === "github"
+                    ? "bg-green-400 text-black rounded-full p-[3px]"
+                    : "text-white"
+                  }         
                         `}
                 onClick={handleGithubClick}
               />
@@ -341,11 +338,10 @@ const Footer = () => {
               )}
               <PiLinkedinLogo
                 className={`w-7 h-8 text-white animate-pulse hover:bg-indigo-500 hover:p-1 hover:rounded-full hover:text-slate-950 duration-300 ease-in-out cursor-pointer lg:w-9 lg:h-9
-                                 ${
-                                   activeIcon === "linkedin"
-                                     ? "bg-blue-400 rounded-full p-[3px]"
-                                     : ""
-                                 }         
+                                ${activeIcon === "linkedin"
+                    ? "bg-blue-400 rounded-full p-[3px]"
+                    : ""
+                  }         
                         `}
                 onClick={handleLinkedInClick}
               />

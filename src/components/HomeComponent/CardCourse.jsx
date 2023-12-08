@@ -3,6 +3,7 @@ import Progressbar from "../MyCourseComponent/ProgressBar";
 import { FaStar } from "react-icons/fa";
 import PropTypes from 'prop-types'
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom"
 
 const CardCourse = ({ course }) => {
   const { category } = useSelector((state) => state.category);
@@ -15,14 +16,16 @@ const CardCourse = ({ course }) => {
 
   return (
     <div className="">
-      <div className="w-full mt-3 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3">
+      <div className="w-full mt-6 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3 hover:scale-105 duration-300">
         <div className="flex flex-col">
           <div >
-            <img
-              src={'https://images.unsplash.com/photo-1639477735279-c36dda1f7ebb?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
-              alt="ayam"
-              className="overflow-hidden w-full h-28 object-cover"
-            />
+            <Link to={`/course-detail/${course.id}`}>
+              <img
+                src={course.thumbnail}
+                alt={categoryName}
+                className="overflow-hidden w-full h-28 object-cover"
+              />
+            </Link>
           </div>
           <div className="mx-2 md:mx-4 flex flex-col mt-1 md:mt-2">
             <div className="flex justify-between items-center">
