@@ -14,7 +14,7 @@ const Card = ({ course }) => {
   const categoryName = title;
 
   return (
-    <Link to="/video">
+    <Link to={`/course-detail/${course.id}`}>
       <div className="w-full bg-white rounded-lg overflow-hidden pb-3">
         <div className="flex flex-col">
           <div>

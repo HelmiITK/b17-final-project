@@ -1,6 +1,7 @@
 import ReactPlayer from "react-player";
 import InfoCourse from "./InfoCourse";
 import DescriptionCourse from "./DescriptionCourse";
+import PropTypes from "prop-types";
 
 const Main = () => {
   return (
@@ -34,6 +35,10 @@ const Main = () => {
       </div>
     </>
   );
+};
+
+Main.propTypes = {
+  course: PropTypes.array,
 };
 
 export default Main;

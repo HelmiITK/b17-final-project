@@ -39,7 +39,7 @@ const MyCoursePage = () => {
   // ambil data course dari api lewat redux
   useEffect(() => {
     setIsLoading(true);
-    dispatch(getCourseWithFilter(stringCategory, stringLevel)).then(() =>
+    dispatch(getCourseWithFilter(stringCategory, stringLevel, "")).then(() =>
       setIsLoading(false)
     );
   }, [dispatch, stringCategory, stringLevel]);
@@ -79,7 +79,12 @@ const MyCoursePage = () => {
                 />
               </div>
               <div className="col-span-3 md:col-span-2">
-                <Main data={data} course={course} isLoading={isLoading} />
+                <Main
+                  data={data}
+                  course={course}
+                  isLoading={isLoading}
+                  getFilterFromMain={() => {}}
+                />
               </div>
             </div>
           </div>

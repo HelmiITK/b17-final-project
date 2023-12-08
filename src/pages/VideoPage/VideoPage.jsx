@@ -1,17 +1,34 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
 import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
+import { useDispatch } from "react-redux";
+import { getDetailCourse } from "../../redux/actions/detailActions";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
   const [isOpen, setIsOpen] = useState(false);
+  const { materialId, courseId } = useParams();
+  const [errors, setErrors] = useState({
+    isError: false,
+    message: null,
+  });
 
+  const dispatch = useDispatch();
+
+  // Ambil API dari komponen dari CardCourse berdasarkan id
+  useEffect(() => {
+    // loading jalan sembari nunggu data
+    // get data dari redux
+    dispatch(getDetailCourse(courseId, setErrors, errors)).catch((error) => {
+      console.error("Error fetching course data:", error);
+    });
+  }, [courseId]); // lakukan setiap perubahan berdasarkan id
   return (
     <>
       <PopupOnboarding />

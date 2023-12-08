@@ -3,9 +3,13 @@ import { RiBook3Line } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
 import { IoIosChatboxes } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // isinya info tentang course, kyk judul, rating, kategori, dll
 const InfoCourse = () => {
+  const { detail } = useSelector((state) => state.course);
+
   return (
     <div className="mx-4 md:mx-0">
       <div className="flex justify-between items-center">
@@ -21,7 +25,7 @@ const InfoCourse = () => {
       </div>
       <div>
         <h3 className="font-semibold text-sm md:text-base -tracking-wide ">
-          Intro to Basic of User Interaction Design
+          {detail.title}
         </h3>
         <div className="mt-3 w-full md:w-11/12 lg:w-10/12">
           <div className="w-full flex justify-between">
@@ -29,13 +33,14 @@ const InfoCourse = () => {
               <span className="text-green-500 mr-1">
                 <PiShieldStarBold size={24} />
               </span>{" "}
-              Intermediate Level
+              Level{" "}
+              {detail.level.charAt(0).toUpperCase() + detail.level.slice(1)}
             </p>
             <p className="flex items-center text-color-primary text-xs md:text-sm font-semibold">
               <span className="text-green-500 mr-1">
                 <RiBook3Line size={24} />
               </span>{" "}
-              10 Modul
+              {detail.chapters.length} Modul
             </p>
             <p className="flex items-center text-color-primary text-xs md:text-sm font-semibold">
               <span className="text-green-500 mr-1">
@@ -46,12 +51,16 @@ const InfoCourse = () => {
           </div>
         </div>
         <div className="mt-2 md:w-1/2 lg:w-4/12">
-          <button className="w-full text-xs lg:text-sm py-1 bg-[#73CA5C] text-white font-semibold rounded-full flex justify-center items-center">
+          <Link
+            to="https://web.telegram.org/a/#-1002032079136"
+            target="_blank"
+            className="w-full text-xs lg:text-sm py-1 bg-[#73CA5C] text-white font-semibold rounded-full flex justify-center items-center"
+          >
             Join Grup Telegram
             <span className="my-auto ml-3">
               <IoIosChatboxes color="white" size={20} />
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
