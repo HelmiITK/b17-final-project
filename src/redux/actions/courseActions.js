@@ -15,16 +15,17 @@ export const getCourse = () => async (dispatch) => {
   }
 };
 
-export const getCourseWithCategory = (category) => async (dispatch) => {
-  try {
-    const response = await axios.get(
-      `${api_url}/courses?page=1&category=${category}`
-    );
+export const getCourseWithFilter =
+  (category, level, typeCourse) => async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `${api_url}/courses?page=1&category=${category}&level=${level}&typeCourse=${typeCourse}`
+      );
 
-    const { courses } = response.data;
+      const { courses } = response.data;
 
-    dispatch(setCourse(courses));
-  } catch (error) {
-    alert(error.message);
-  }
-};
+      dispatch(setCourse(courses));
+    } catch (error) {
+      alert(error.message);
+    }
+  };
