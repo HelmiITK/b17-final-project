@@ -1,3 +1,4 @@
+import Navbar from '../../components/NavbarComponent/Navbar'
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -9,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import { getCourse } from "../../redux/actions/courseActions";
 import ClockLoader from "react-spinners/ClockLoader"
+import { TypeAnimation } from 'react-type-animation';
+import { BsChatLeftQuoteFill } from "react-icons/bs";
 
 const HomePage = () => {
    const dispatch = useDispatch();
@@ -127,17 +130,41 @@ const HomePage = () => {
 
    return (
       <>
+         <Navbar />
          {/* main section */}
-         <div className="w-full pt-[74px] relative h-64" >
+         <div className="w-full h-80 pt-[74px] relative" >
             <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="picture" className="w-full h-full object-cover absolute mix-blend-overlay" />
-            <div className="flex flex-col pt-16 pl-10 bg-gradient-to-r from-indigo-600 h-64 lg:items-end lg:pr-40 lg:bg-gradient-to-l">
-               <h1 className="font-semibold text-white text-xl">Belajar dari <br /> Praktisi Terbaik!</h1>
-               <p className="hidden lg:block lg:absolute lg:text-3xl lg:top-[130px] animate-pulse">💡</p>
-               <NavLink as={Link} to={'/'} className="mt-4 z-10">
-                  <button className=" text-indigo-600 bg-white text-base font-semibold px-2 py-1 rounded-lg w-40 h-9 hover:scale-110 hover:bg-indigo-600 hover:text-white duration-300 lg:hover:border-white lg:hover:border">
-                     IKUTI KELAS
-                  </button>
-               </NavLink>
+            <div className="flex flex-col lg:flex lg:flex-row lg:items-start lg:pt-24 lg:justify-between pt-16 pl-10 bg-gradient-to-r from-indigo-600 h-80 lg:px-40 lg:bg-gradient-to-l">
+               <div className='flex flex-col'>
+                  <div>
+                     <h1 className="font-semibold text-white text-xl">Belajar dari <br /> Praktisi Terbaik!</h1>
+                     <p className="hidden lg:block lg:absolute lg:text-4xl lg:top-[155px] lg:left-[280px] animate-pulse">💡</p>
+                  </div>
+                  <NavLink as={Link} to={'/course'} className="mt-4 z-10">
+                     <button className=" text-indigo-600 bg-white text-base font-semibold px-2 py-1 rounded-lg w-40 h-9 hover:scale-110 hover:bg-indigo-600 hover:text-white duration-300 lg:hover:border-white lg:hover:border">
+                        IKUTI KELAS
+                     </button>
+                  </NavLink>
+               </div>
+               <div className='text-white mt-10 flex flex-row gap-2 items-baseline font-medium tracking-wider lg:text-xl lg:flex-row-reverse'>
+                  <BsChatLeftQuoteFill className="w-8 h-8 lg:w-10 lg:h-10 text-yellow-400 animate-pulse" />
+                  <TypeAnimation
+                     sequence={[
+                        // Same substring at the start will only be typed out once, initially
+                        'Tidak ada kata terlambat',
+                        500, // wait 1s before replacing "Mice" with "Hamsters"
+                        'Untuk belajar',
+                        500,
+                        'Perubahan terjadi karena kita mau',
+                        200,
+                        'BELAJAR!!!',
+                        500,
+                     ]}
+                     wrapper="span"
+                     speed={50}
+                     repeat={Infinity}
+                  />
+               </div>
             </div>
          </div>
 
@@ -158,7 +185,7 @@ const HomePage = () => {
                         {category.map((kategori) => (
                            <div key={kategori.id}>
                               <CardCategory
-                                 // img={kategori.img}
+                                 img={kategori.thumbnail}
                                  title={kategori.title}
                               />
                            </div>
@@ -172,8 +199,11 @@ const HomePage = () => {
          {/* Kursus Populer */}
          <div className="max-w-screen-lg mx-auto px-6 lg:p-0">
             {/* title */}
-            <div>
+            <div className="flex items-center justify-between">
                <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
+               <Link to={'/course'}>
+                  <h2 className="text-sm hover:text-indigo-600 lg:font-medium">Lihat Semua</h2>
+               </Link>
             </div>
             {/* button filter */}
             <Slider {...settingsCourse}>
@@ -204,6 +234,7 @@ const HomePage = () => {
                ) : filteredCourses.length > 0 ? (
                   filteredCourses.map((course) => (
                      <CardCourse
+                        kategori={category}
                         key={course.id}
                         course={course}
                      />

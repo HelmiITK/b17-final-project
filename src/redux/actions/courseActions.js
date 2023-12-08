@@ -7,7 +7,7 @@ export const getCourse = () => async (dispatch) => {
   try {
     const response = await axios.get(`${api_url}/courses?page=1`);
 
-    const { courses } = response.data;
+    const courses = response.data.courses;
 
     dispatch(setCourse(courses));
   } catch (error) {
