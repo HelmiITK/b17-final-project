@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import { getCourseWithFilter } from "../../redux/actions/courseActions";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
@@ -62,10 +64,14 @@ const CoursePage = () => {
       {/* tampilan utama */}
       <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
         <div className="w-10/12 mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
             <h1 className="font-bold text-sm md:text-xl lg:text-2xl">
               Kelas Berjalan
             </h1>
+            <Link to={'/'} className="flex items-center text-sm gap-2 mx-2 hover:text-indigo-600 lg:text-base">
+              <IoMdArrowRoundBack />
+              <p>Kembali Ke Beranda</p>
+            </Link>
             {/* search bar dikanan */}
             {/* <div className="lg:w-3/12">
               <form className="relative w-full">

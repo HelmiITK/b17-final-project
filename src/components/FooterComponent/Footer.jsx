@@ -72,7 +72,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full mt-4 px-4 py-8 border-t-4 border-indigo-500 bg-slate-950">
+      <div className="w-full h-auto mt-4 px-4 py-8 border-t-4 border-indigo-500 bg-slate-950">
         {/* baris 1 */}
         <div className="flex flex-row gap-8 md:px-10 justify-between lg:justify-around">
           <div className="flex flex-col gap-2">
