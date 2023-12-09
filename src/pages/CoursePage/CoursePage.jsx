@@ -35,6 +35,7 @@ const CoursePage = () => {
   };
 
   // ambil data dari filtering yang ada di Main
+  // memberi value berdasarkan nilai flag pada component mycourse/main
   const getFilterFromMain = (x) => {
     if (x === 0) {
       setTypeCourse("");
@@ -64,14 +65,19 @@ const CoursePage = () => {
       {/* tampilan utama */}
       <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
         <div className="w-10/12 mx-auto">
-          <div className="flex items-center justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
-            <h1 className="font-bold text-sm md:text-xl lg:text-2xl">
+          <div className="flex flex-col items-start justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
+            <Link to={"/"}>
+              <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
+                <span className="mr-1 block md:mr-2">
+                  <IoMdArrowRoundBack className="w-4 h-4" />
+                </span>{" "}
+                Kembali ke Beranda
+              </h1>
+            </Link>
+            <h1 className="font-bold text-lg md:text-xl lg:text-2xl mx-auto md:mx-0 mt-4">
               Kelas Berjalan
             </h1>
-            <Link to={'/'} className="flex items-center text-sm gap-2 mx-2 hover:text-indigo-600 lg:text-base">
-              <IoMdArrowRoundBack />
-              <p>Kembali Ke Beranda</p>
-            </Link>
+
             {/* search bar dikanan */}
             {/* <div className="lg:w-3/12">
               <form className="relative w-full">

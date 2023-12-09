@@ -15,7 +15,7 @@ import UserPage from "./pages/AccountPage/UserPage";
 import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import Footer from "./components/FooterComponent/Footer";
-import CourseDetail from "./pages/CourseDetailPage/CourseDetail"
+import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
 
 function App() {
   return (
@@ -31,7 +31,10 @@ function App() {
           <Route path="/user" element={<UserPage />} />
           <Route path="/changepassword" element={<ChangePasswordPage />} />
           <Route path="/historypayment" element={<HistoryPayment />} />
-          <Route path="/video" element={<VideoPage />} />
+          <Route
+            path="/course-detail/:courseId/video/:materialId"
+            element={<VideoPage />}
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPPage />} />
