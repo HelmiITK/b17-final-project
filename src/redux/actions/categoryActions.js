@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCategory } from "../reducers/categoryReducers"
+import { setCategory } from "../reducers/categoryReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
