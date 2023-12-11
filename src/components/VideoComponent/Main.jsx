@@ -2,8 +2,14 @@ import ReactPlayer from "react-player";
 import InfoCourse from "./InfoCourse";
 import DescriptionCourse from "./DescriptionCourse";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-const Main = () => {
+const Main = ({ materialId }) => {
+  const { detail } = useSelector((state) => state.course);
+
+  const material = detail?.materials?.filter(
+    (material) => material.id == materialId
+  );
   return (
     <>
       <div className="flex flex-col">
@@ -17,11 +23,12 @@ const Main = () => {
           <div className="mt-1 md:mt-8 w-full ">
             <div className="player-wrapper md:rounded-xl overflow-hidden">
               <ReactPlayer
-                url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+                url={material && material[0].url_video}
                 controls
                 width="100%"
                 height="100%"
                 className="react-player"
+                // onEnded={}
               />
             </div>
           </div>
@@ -38,7 +45,7 @@ const Main = () => {
 };
 
 Main.propTypes = {
-  course: PropTypes.array,
+  materialId: PropTypes.string,
 };
 
 export default Main;

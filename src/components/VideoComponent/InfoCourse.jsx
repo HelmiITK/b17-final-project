@@ -4,17 +4,27 @@ import { FaClock } from "react-icons/fa6";
 import { IoIosChatboxes } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCategory } from "../../redux/actions/categoryActions";
 
 // isinya info tentang course, kyk judul, rating, kategori, dll
 const InfoCourse = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
+  // ambil detail dataa untuk ditampilkan disini
   const { detail } = useSelector((state) => state.course);
+  // ambil title dari kategori
+  const { category } = useSelector((state) => state.category);
+  const categoryName = category.find((cat) => cat.id === detail.category_id);
 
   return (
     <div className="mx-4 md:mx-0">
       <div className="flex justify-between items-center">
         <h1 className="text-color-primary font-semibold text-base md:text-lg">
-          UI/UX Design
+          {categoryName?.title}
         </h1>
         <p className="flex font-semibold text-sm md:text-base">
           <span className="mr-1 md:mr-2">
@@ -34,13 +44,13 @@ const InfoCourse = () => {
                 <PiShieldStarBold size={24} />
               </span>{" "}
               Level{" "}
-              {detail.level.charAt(0).toUpperCase() + detail.level.slice(1)}
+              {detail?.level?.charAt(0).toUpperCase() + detail?.level?.slice(1)}
             </p>
             <p className="flex items-center text-color-primary text-xs md:text-sm font-semibold">
               <span className="text-green-500 mr-1">
                 <RiBook3Line size={24} />
               </span>{" "}
-              {detail.chapters.length} Modul
+              {detail.chapters?.length} Modul
             </p>
             <p className="flex items-center text-color-primary text-xs md:text-sm font-semibold">
               <span className="text-green-500 mr-1">
