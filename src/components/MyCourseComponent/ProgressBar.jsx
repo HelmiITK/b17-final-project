@@ -30,7 +30,7 @@ export default function ProgressBar() {
           }}
           className="animate-fade"
         ></div>
-        <span className="font-semibold absolute top-[50%] left-3 -translate-y-[50%] text-white text-xs drop-shadow-lg progressPercent">
+        <span className="font-semibold absolute top-[50%] left-3 -translate-y-[50%] text-white text-[10px] md:text-xs drop-shadow-lg progressPercent">
           {percentage}% Complete
         </span>
       </div>

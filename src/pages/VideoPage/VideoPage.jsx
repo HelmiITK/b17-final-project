@@ -1,16 +1,33 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
 import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
+import { useDispatch } from "react-redux";
+import { getDetailCourse } from "../../redux/actions/detailActions";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
   const [isOpen, setIsOpen] = useState(false);
+  const { materialId, courseId } = useParams();
+  const [errors, setErrors] = useState({
+    isError: false,
+    message: null,
+  });
+
+  const dispatch = useDispatch();
+
+  // Ambil API dari komponen dari CardCourse berdasarkan id
+  useEffect(() => {
+    // get data dari redux
+    dispatch(getDetailCourse(courseId, setErrors, errors)).catch((error) => {
+      console.error("Error fetching course data:", error);
+    });
+  }, [courseId]); // lakukan setiap perubahan berdasarkan id
 
   return (
     <>
@@ -32,8 +49,8 @@ const VideoPage = () => {
       <div className="flex flex-col items-center">
         <div className="bg-layer w-full h-96 absolute" />
         <div className="z-10 w-full md:w-10/12">
-          {/* Tombol kembali ke halaman kelas */}
           <div className=" mt-20 md:mt-24">
+            {/* Tombol kembali ke halaman kelas */}
             <Link to={"/course"}>
               <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
                 <span className="mr-1 block md:mr-2">
@@ -42,10 +59,11 @@ const VideoPage = () => {
                 Kelas Lainnya
               </h1>
             </Link>
+            {/* content */}
             <div className="mx-auto grid grid-cols-3 gap-x-14 md:mt-5">
               {/* main section, isinya video sama deskripsi course */}
               <div className="col-span-3 lg:col-span-2">
-                <Main />
+                <Main materialId={materialId} />
               </div>
               {/* progress course, ada di sebelah kanan */}
               <div className="col-span-3 lg:col-span-1">
@@ -54,7 +72,6 @@ const VideoPage = () => {
             </div>
           </div>
         </div>
-        {/* background yang beda warna */}
       </div>
     </>
   );

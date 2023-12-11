@@ -39,7 +39,7 @@ const SideFilter = ({ handleCategory, isLoading, handleLevel }) => {
       </div>
       <div
         className={cn(
-          "opacity-0 fixed w-full left-0 bottom-[-71vh] z-50 md:z-0 h-[70vh] rounded-t-xl md:opacity-100 md:h-[80vh] overflow-auto  md:flex md:sticky md:top-24 transition-all duration-300 bg-white rounded-lg",
+          "opacity-0 fixed w-full left-0 bottom-[-71vh] z-50 md:z-0 max-h-[70vh] h-auto rounded-t-xl md:opacity-100 overflow-auto  md:flex md:sticky md:top-24 transition-all duration-300 bg-white rounded-lg",
           open && "overflow-auto bottom-0 opacity-100"
         )}
       >
