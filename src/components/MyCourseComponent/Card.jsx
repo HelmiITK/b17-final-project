@@ -45,8 +45,7 @@ const Card = ({ course }) => {
                   <span className="text-green-500 mr-[2.5px]">
                     <Shield size={18} />
                   </span>{" "}
-                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)}{" "}
-                  Level
+                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)} Level
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -77,8 +76,7 @@ const Card = ({ course }) => {
                   <span className="mr-2">
                     <Gem size={16} />
                   </span>{" "}
-                  {course.type_course.charAt(0).toUpperCase() +
-                    course.type_course.slice(1)}
+                  {course.type_course.charAt(0).toUpperCase() + course.type_course.slice(1)}
                 </button>
               </div>
               {/* button ketika mau beli (ada harganya) */}

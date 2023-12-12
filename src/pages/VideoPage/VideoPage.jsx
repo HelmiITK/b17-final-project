@@ -72,6 +72,8 @@ const VideoPage = () => {
             </div>
           </div>
         </div>
+        {/* background yang beda warna */}
+        <div className="bg-layer h-[280px] hidden md:block" />
       </div>
     </>
   );
