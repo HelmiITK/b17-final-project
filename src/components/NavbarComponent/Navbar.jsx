@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import { BiSearchAlt } from "react-icons/bi";
@@ -16,6 +16,17 @@ const Navbar = () => {
    const [selectedIcon, setSelectedIcon] = useState(null);
    const [navbar, setNavbar] = useState(false);
 
+   // logic ketika diklik diluar hamburgermenu maka otomatis tertutup dan begitu juga ketika klik pindah halaman
+   useEffect(() => {
+      const closeHamburgerMenu = () => {
+         setOpenHamburger(false);
+      };
+
+      // Menambahkan event listener ke window
+      window.addEventListener('click', closeHamburgerMenu);
+
+   }, []);
+
    // logic navbar on scroll to blur background 
    const changeBackground = () => {
       if (window.scrollY >= 80) {
@@ -30,7 +41,8 @@ const Navbar = () => {
       setIsSearchOpen(!isSearchOpen);
    };
 
-   const handleHamburgerClick = () => {
+   const handleHamburgerClick = (e) => {
+      e.stopPropagation();
       setOpenHamburger(!openHamburger);
       // setSelectedIcon(null);
    };
@@ -90,15 +102,15 @@ const Navbar = () => {
                         />
                         <div
                            className={`${isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
-                              }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex -mt-1`}
+                              }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
                         >
                            <input
                               type="text"
                               placeholder="Cari Kursus Terbaik..."
-                              className="border-none px-4 transform font-poppins rounded-s-2xl"
+                              className="border-none w-44 h-10 pl-4 transform font-poppins rounded-s-2xl text-sm"
                            />
-                           <div className="bg-white p-2 rounded-e-2xl border-none">
-                              <BiSearchAlt className="w-8 h-8 py-1 rounded-2xl text-indigo-600 hover:bg-indigo-700 hover:text-white cursor-pointer" />
+                           <div className="bg-white py-1 rounded-e-2xl border-none">
+                              <BiSearchAlt className="w-8 h-8 py-1 mr-2 rounded-2xl text-indigo-600 hover:bg-indigo-700 hover:text-white cursor-pointer" />
                            </div>
                         </div>
                      </div>

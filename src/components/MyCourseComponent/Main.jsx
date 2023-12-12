@@ -1,30 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "../../libs/utils";
 import Card from "./Card";
 import PropTypes from "prop-types";
+import ClockLoader from "react-spinners/ClockLoader";
 
-const data2 = [
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-  "All",
-  "In Progress",
-  "Done",
-];
-
-const Main = ({ data }) => {
+const Main = ({ data, course, isLoading, getFilterFromMain }) => {
   const [flag, setFlag] = useState(0);
+  // jika data tidak ada, maka anggap course sebagai array kosong, agar tidak error
+  if (!course) {
+    course = [];
+  }
+  useEffect(() => {
+    getFilterFromMain(flag);
+  }, [getFilterFromMain, flag]);
   return (
-    <div>
+    <div className="">
       {/* filter */}
       <div className="grid grid-cols-3 gap-x-2">
         {data.map((item, i) => (
@@ -46,10 +36,32 @@ const Main = ({ data }) => {
           </div>
         ))}
       </div>
+      {/* loading ambil data dari api */}
+      {isLoading && (
+        <div className="h-96 w-full items-center flex justify-center sticky top-24 ">
+          <ClockLoader color="#6a00ff" size={30} speedMultiplier={2} />
+        </div>
+      )}
+      {/* kalau tidak ada datanya */}
+      {course.length === 0 && !isLoading && (
+        <div className="h-32 w-full items-center flex justify-center">
+          Data tidak tersedia
+        </div>
+      )}
       {/* loop semua data */}
-      <div className="grid md:grid-cols-2 gap-8 mt-4 md:mt-6">
-        {data2.map((item, i) => (
-          <Card key={i} />
+      <div
+        className={cn(
+          "grid md:grid-cols-2 gap-8 mt-4 md:mt-6",
+          isLoading && "hidden"
+        )}
+      >
+        {course.map((item) => (
+          <div
+            className="hover:-translate-y-3 transition-all duration-300"
+            key={item.id}
+          >
+            <Card key={item.id} course={item} />
+          </div>
         ))}
       </div>
     </div>
@@ -58,6 +70,9 @@ const Main = ({ data }) => {
 
 Main.propTypes = {
   data: PropTypes.array,
+  course: PropTypes.any,
+  isLoading: PropTypes.bool,
+  getFilterFromMain: PropTypes.func,
 };
 
 export default Main;

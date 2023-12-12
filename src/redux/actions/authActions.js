@@ -1,10 +1,26 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
-import { setToken } from "../reducers/authReducers";
 import toast from "react-hot-toast";
+import { setToken } from "../reducers/authReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
+
+// export const login = (email, password, navigate) => async (dispatch) => {
+//   try {
+//     const response = await axios.post(`${api_url}/auth/login`, {
+//       email,
+//       password,
+//     });
+//     const { data } = response.data;
+//     const { token } = data;
+
+//     dispatch(setToken(token));
+//     navigate("/");
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// };
 
 export const login = (email, password, navigate) => async (dispatch) => {
   try {
@@ -18,56 +34,41 @@ export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(setToken(token));
     navigate("/");
   } catch (error) {
-    alert(error.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(`${error?.response?.data?.error}`, {
+        duration: 2000,
+      });
+      return;
+    }
+    toast.error(`${error?.data?.error}`, {
+      duration: 2000,
+    });
   }
 };
-
-// export const login = (email, password, navigate) => async (dispatch) => {
-//   try {
-//     const response = await axios.post(`${api_url}/auth/login`, {
-//       email,
-//       password,
-//     });
-//     const { data } = response.data;
-//     const { token } = data;
-
-//     dispatch(setToken(token));
-//     navigate("/");
-
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       toast.error(`${error?.response?.data?.error}`, {
-//         duration: 2000,
-//       });
-//       return;
-//     }
-//     toast.error(`${error?.data?.error}`, {
-//       duration: 2000,
-//     });
-//   }
-// };
 
 export const register =
   (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
     try {
-      if (password != confirmPassword) {
-        alert("password anda tidak sama!");
-        return;
-      }
       const response = await axios.post(`${api_url}/auth/register`, {
-        name,
+        username: name,
         email,
-        phoneNumber,
         password,
-        confirmPassword,
+        role: "user",
+        profile: {
+          name: "",
+          no_telp: "",
+          avatar: "",
+          city: "",
+          country: "",
+        },
       });
 
       if (response.status == 201) {
-        const { email } = response.data;
+        const { email } = response.data.user;
         const { message } = response.data;
-
+        // console.log(response.data);
         toast.success(message);
-        localStorage.setItem("regisEmail", email);
+        localStorage.setItem("email", email);
 
         setTimeout(() => {
           navigate("/otp");
@@ -90,20 +91,22 @@ export const verify = (otp, navigate) => async () => {
   try {
     const email = localStorage.getItem("email");
 
-    const response = await axios.post(`${api_url}/auth/verify-email`, {
+    await axios.post(`${api_url}/auth/verify-email`, {
       email,
       otp,
     });
 
     // if (response.status === 200) {
-    alert(response.data.message);
+    // alert(response.data.message);
+    // localStorage.setItem("token", token)
 
     localStorage.removeItem("email");
 
-    setTimeout(() => {
+    // setTimeout(() => {
       navigate("/login");
-    }, 2000);
-    navigate("/login");
+      console.log("");
+    // }, 2000);
+    // navigate("/login");
 
     // }
   } catch (error) {
@@ -127,8 +130,10 @@ export const resendOtp = () => async () => {
       email,
     });
 
+    console.log(email);
+
     if (response.status === 200) {
-      alert(response.data.message);
+      alert("done ga bang done");
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

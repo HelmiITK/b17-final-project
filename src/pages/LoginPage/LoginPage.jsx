@@ -1,15 +1,32 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { login } from "../../redux/actions/authActions";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 2000);
+  // const handleClick = () => {
+  //   setIsLoading(true);
+  //   setTimeout(() => setIsLoading(false), 2000);
+  // };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    dispatch(login(email, password, navigate));
+  };
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
   };
   return (
     <>
@@ -21,7 +38,7 @@ const LoginPage = () => {
             <span className="font-poppins text-gray-400 mb-8 text-center">
               Welcome back! please enter your details
             </span>
-            <form action="">
+            <form onSubmit={handleLogin}>
               <div className="py-1">
                 <span className="mb-2 text-sm font-poppins">Email</span>
                 <input
@@ -37,13 +54,25 @@ const LoginPage = () => {
               <div className="py-1">
                 <span className="mb-2 text-sm font-poppins">Password</span>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   className=" text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
                   placeholder="Password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
+                <button
+                  type="button"
+                  aria-label="toggle password visibility"
+                  onClick={togglePassword}
+                  className="absolute top-1/2 right-2 transform -translate-y-10 px-8 py-2"
+                >
+                  {showPassword ? (
+                    <FiEyeOff className="border-none" />
+                  ) : (
+                    <FiEye className="border-none" />
+                  )}
+                </button>
               </div>
               <div className="flex justify-between w-full py-4">
                 <label className=" flex items-center text-xs font-poppins">
