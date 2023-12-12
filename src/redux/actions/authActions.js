@@ -1,7 +1,7 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { setToken } from "../reducers/authReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
@@ -34,15 +34,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(setToken(token));
     navigate("/");
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      toast.error(`${error?.response?.data?.error}`, {
-        duration: 2000,
-      });
-      return;
-    }
-    toast.error(`${error?.data?.error}`, {
-      duration: 2000,
-    });
+    alert(error.message);
   }
 };
 
@@ -65,9 +57,9 @@ export const register =
 
       if (response.status == 201) {
         const { email } = response.data.user;
-        const { message } = response.data;
+        // const { message } = response.data;
         // console.log(response.data);
-        toast.success(message);
+        // toast.success(message);
         localStorage.setItem("email", email);
 
         setTimeout(() => {
@@ -75,15 +67,7 @@ export const register =
         }, 2000);
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast.error(`${error?.response?.data?.message}`, {
-          duration: 2000,
-        });
-        return;
-      }
-      toast.error(`${error?.error}`, {
-        duration: 2000,
-      });
+      alert(error.message);
     }
   };
 
@@ -103,22 +87,14 @@ export const verify = (otp, navigate) => async () => {
     localStorage.removeItem("email");
 
     // setTimeout(() => {
-      navigate("/login");
-      console.log("");
+    navigate("/login");
+    console.log("");
     // }, 2000);
     // navigate("/login");
 
     // }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      toast.error(`${error?.response?.data?.message}`, {
-        duration: 2000,
-      });
-    } else {
-      toast.error(`${error?.message}`, {
-        duration: 2000,
-      });
-    }
+    alert(error.message);
   }
 };
 
@@ -136,15 +112,7 @@ export const resendOtp = () => async () => {
       alert("done ga bang done");
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      toast.error(`${error?.response?.data?.message}`, {
-        duration: 2000,
-      });
-      return;
-    }
-    toast.error(`${error?.data?.error}`, {
-      duration: 2000,
-    });
+    alert(error.message);
   }
 };
 
