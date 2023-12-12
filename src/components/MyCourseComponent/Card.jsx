@@ -45,8 +45,7 @@ const Card = ({ course }) => {
                   <span className="text-green-500 mr-[2.5px]">
                     <Shield size={18} />
                   </span>{" "}
-                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)}{" "}
-                  Level
+                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)} Level
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -77,38 +76,13 @@ const Card = ({ course }) => {
                   <span className="mr-2">
                     <Gem size={16} />
                   </span>{" "}
-                  {course.type_course.charAt(0).toUpperCase() +
-                    course.type_course.slice(1)}
+                  {course.type_course.charAt(0).toUpperCase() + course.type_course.slice(1)}
                 </button>
               </div>
               {/* button ketika mau beli (ada harganya) */}
               <div className="my-2">
                 <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
                   {formatPrice(course.price)}
-                </button>
-              </div>
-              {/* Ini untuk riwayat dan status bayarnya belum bayar */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-red-500  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                  <span className="mr-2">
-                    <Gem size={16} />
-                  </span>{" "}
-                  Waiting for payment
-                </button>
-              </div>
-              {/* Ini untuk riwayat dan status bayarnya udah bayar */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-green-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                  <span className="mr-2">
-                    <Gem size={16} />
-                  </span>{" "}
-                  Paid
-                </button>
-              </div>
-              {/* button ketika mau beli (ada harganya) */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                  Rp. 100.000
                 </button>
               </div>
               {/* Ini untuk riwayat dan status bayarnya belum bayar */}
