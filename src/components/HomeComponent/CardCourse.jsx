@@ -1,9 +1,9 @@
 import { Book, Clock, Gem, Shield } from "lucide-react";
 import Progressbar from "../MyCourseComponent/ProgressBar";
 import { FaStar } from "react-icons/fa";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const CardCourse = ({ course }) => {
   const { category } = useSelector((state) => state.category);
@@ -12,13 +12,15 @@ const CardCourse = ({ course }) => {
   const matchedCategory = category.find((cat) => cat.id === course.category_id);
 
   // Periksa apakah kategori yang sesuai ditemukan
-  const categoryName = matchedCategory ? matchedCategory.title : "Unknown Category"
+  const categoryName = matchedCategory
+    ? matchedCategory.title
+    : "Unknown Category";
 
   return (
     <div className="">
       <div className="w-full mt-6 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3 hover:scale-105 duration-300">
         <div className="flex flex-col">
-          <div >
+          <div>
             <Link to={`/course-detail/${course.id}`}>
               <img
                 src={course.thumbnail}
@@ -40,7 +42,7 @@ const CardCourse = ({ course }) => {
               </p>
             </div>
             <div className="flex flex-col">
-              <h3 className="text-black font-semibold text-sm lg:text-base -tracking-widest md:-tracking-wider">
+              <h3 className="text-black font-semibold text-sm lg:text-base -tracking-widest md:-tracking-wider line-clamp-1">
                 {course.title}
               </h3>
               <div className="mt-3 flex justify-between flex-wrap">
@@ -111,11 +113,11 @@ const CardCourse = ({ course }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CardCourse;
 
 CardCourse.propTypes = {
   course: PropTypes.object,
-}
+};
