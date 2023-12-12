@@ -6,16 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import { getCourseWithFilter } from "../../redux/actions/courseActions";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
+
+  // loading
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingCat, setIsLoadingCat] = useState(false);
 
+  // ambil kategori yang dipencet dari home
+  const { state } = useLocation();
+
   const data = ["All", "Kelas Premium", "Kelas Gratis"];
-  const [category, setCategory] = useState([]);
+
+  // variabl untuk filtering
+  const [category, setCategory] = useState(state ? [state.categoryId] : []);
   const [level, setLevel] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
 
@@ -52,6 +60,7 @@ const CoursePage = () => {
     .join("%2C");
 
   const stringLevel = level.map((item) => encodeURIComponent(item)).join("%2C");
+
   // ambil data course dari api lewat redux
   useEffect(() => {
     setIsLoading(true);
@@ -101,6 +110,7 @@ const CoursePage = () => {
                   handleCategory={handleCategory}
                   isLoading={isLoadingCat}
                   handleLevel={handleLevel}
+                  categoryFromHome={state?.categoryId}
                 />
               </div>
               <div className="col-span-3 md:col-span-2">
@@ -117,6 +127,10 @@ const CoursePage = () => {
       </div>
     </>
   );
+};
+
+CoursePage.propTypes = {
+  category_id: PropTypes.number,
 };
 
 export default CoursePage;

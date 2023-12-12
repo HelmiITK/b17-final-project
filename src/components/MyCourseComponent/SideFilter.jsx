@@ -6,12 +6,19 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { ClockLoader } from "react-spinners";
 
-const SideFilter = ({ handleCategory, isLoading, handleLevel }) => {
+const SideFilter = ({
+  handleCategory,
+  isLoading,
+  handleLevel,
+  categoryFromHome,
+}) => {
   const filter = ["Paling Baru", "Paling Populer"];
   const { category } = useSelector((state) => state.category);
   const levelKesulitan = ["pemula", "menengah", "lanjutan"];
   const [open, setOpen] = useState(false);
-  const [checkedCategories, setCheckedCategories] = useState([]);
+  const [checkedCategories, setCheckedCategories] = useState(
+    categoryFromHome ? [categoryFromHome] : []
+  );
   const [checkedLevels, setCheckedLevels] = useState([]);
   useEffect(() => {
     handleCategory(checkedCategories);
@@ -109,7 +116,7 @@ const SideFilter = ({ handleCategory, isLoading, handleLevel }) => {
               Level Kesulitan
             </h1>
             {levelKesulitan.map((item, i) => {
-              const checked = checkedLevels.includes(item);
+              const checked = checkedLevels?.includes(item);
               return (
                 <div className="flex items-center my-2 ml-1" key={i}>
                   <label className="checkbox-label">
@@ -156,6 +163,7 @@ SideFilter.propTypes = {
   handleCategory: PropTypes.func,
   isLoading: PropTypes.bool,
   handleLevel: PropTypes.func,
+  categoryFromHome: PropTypes.number,
 };
 
 export default SideFilter;
