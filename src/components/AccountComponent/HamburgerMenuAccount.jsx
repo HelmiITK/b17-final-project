@@ -21,6 +21,7 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
       navigate("/")
    };
 
+   // memeriksa apakah user ada jika tidak maka akan navigate ke home
    useEffect(() => {
       if (token) {
          dispatch(getMe(navigate, null, "/"))
