@@ -4,6 +4,7 @@ import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMen
 import ButtonBack from '../../components/AccountComponent/ButtonBack';
 import MenuList from '../../components/AccountComponent/MenuList'
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import Navbar from '../../components/NavbarComponent/Navbar';
 
 const UserPage = () => {
    const [openHamburger, setOpenHamburger] = useState(false);
@@ -45,6 +46,7 @@ const UserPage = () => {
 
    return (
       <>
+         <Navbar />
          <div className="w-full relative">
             <div className="bg-layer w-full h-64 pt-24"></div>
             <div className="container mx-auto -mt-40 lg:-mt-32">

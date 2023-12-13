@@ -14,6 +14,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import ClockLoader from "react-spinners/ClockLoader";
+import Navbar from "../../components/NavbarComponent/Navbar";
 
 const CourseDetail = () => {
    const getRandomLoveCount = () => {
@@ -113,6 +114,7 @@ const CourseDetail = () => {
 
    return (
       <>
+         <Navbar />
          <div className="container mx-auto pt-24">
             <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
                <div className="flex flex-row items-center gap-2 lg:mt-2">

@@ -8,6 +8,7 @@ import { getCourseWithFilter } from "../../redux/actions/courseActions";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import Navbar from "../../components/NavbarComponent/Navbar";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const CoursePage = () => {
 
   return (
     <>
+      <Navbar />
       {/* tampilan utama */}
       <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
         <div className="w-10/12 mx-auto">

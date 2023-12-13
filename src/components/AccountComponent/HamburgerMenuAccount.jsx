@@ -3,11 +3,31 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { HiOutlineLogout } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MdMenuBook } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe, logout } from "../../redux/actions/authActions";
+import { useEffect } from "react";
 
 const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   const { user, token } = useSelector((state) => state.auth);
+
+   const onLogout = () => {
+      dispatch(logout());
+      navigate("/")
+   };
+
+   // memeriksa apakah user ada jika tidak maka akan navigate ke home
+   useEffect(() => {
+      if (token) {
+         dispatch(getMe(navigate, null, "/"))
+      }
+   }, [dispatch, navigate, token])
+
    return (
       // ini baru muncul saat masuk mode mobile dan tablet
       <div className="relative mt-3 ml-5 lg:hidden z-50">
@@ -56,13 +76,16 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
                </li>
                {/* link ini logout dan ditampilkan jika sudah punya akun dan login */}
                <li>
-                  <NavLink
-                     as={Link}
-                     to={'/'}
-                     className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
-                     <HiOutlineLogout className="w-8 h-6" />
-                     <span className="font-medium">Keluar</span>
-                  </NavLink>
+                  {user && (
+                     <NavLink
+                        onClick={onLogout}
+                        as={Link}
+                        to={'/'}
+                        className={({ isActive }) => isActive ? 'flex flex-row gap-2 py-2 px-3 rounded-lg items-center text-sm bg-indigo-600 text-white' : 'flex flex-row gap-2 bg-white bg-opacity-60 py-2 px-3 rounded-lg text-indigo-800 items-center text-sm hover:bg-indigo-600 hover:text-white duration-500'}>
+                        <HiOutlineLogout className="w-8 h-6" />
+                        <span className="font-medium">Keluar</span>
+                     </NavLink>
+                  )}
                </li>
             </ul>
          </div>

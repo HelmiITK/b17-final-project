@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { LuLogIn } from "react-icons/lu";
@@ -9,12 +9,25 @@ import { FaUser } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe } from "../../redux/actions/authActions";
 
 const Navbar = () => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
    const [isSearchOpen, setIsSearchOpen] = useState(false);
    const [openHamburger, setOpenHamburger] = useState(false);
    const [selectedIcon, setSelectedIcon] = useState(null);
    const [navbar, setNavbar] = useState(false);
+
+   // ambil get me di redux
+   const { user, token } = useSelector((state) => state.auth);
+
+   useEffect(() => {
+      if (token) {
+         dispatch(getMe(navigate, null, "/"))
+      }
+   }, [dispatch, navigate, token])
 
    // logic ketika diklik diluar hamburgermenu maka otomatis tertutup dan begitu juga ketika klik pindah halaman
    useEffect(() => {
@@ -31,7 +44,7 @@ const Navbar = () => {
    const changeBackground = () => {
       if (window.scrollY >= 80) {
          setNavbar(true);
-      }  else {
+      } else {
          setNavbar(false);
       }
    }
@@ -115,6 +128,7 @@ const Navbar = () => {
                         </div>
                      </div>
 
+
                      {/* Navmenu mobile */}
                      <div className="relative">
                         <button
@@ -132,66 +146,73 @@ const Navbar = () => {
                               } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
                         >
                            <ul className="flex flex-col gap-4">
-                              <NavLink as={Link} to={"/"}>
-                                 <li
-                                    onClick={() => handleIconClick("Masuk")}
-                                    className="flex flex-row-reverse"
-                                 >
-                                    {selectedIcon === "Masuk" ? (
-                                       <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
-                                          <LuLogIn className="w-8 h-6" />
-                                          <span className="ml-2">Masuk</span>
-                                       </div>
-                                    ) : (
-                                       <LuLogIn className="w-8 h-6 text-indigo-600" />
-                                    )}
-                                 </li>
-                              </NavLink>
-                              <NavLink as={Link} to={"/mycourse"}>
-                                 <li
-                                    onClick={() => handleIconClick("Kelas")}
-                                    className="flex flex-row-reverse"
-                                 >
-                                    {selectedIcon === "Kelas" ? (
-                                       <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
-                                          <TfiMenuAlt className="w-8 h-6" />
-                                          <span>Kelas</span>
-                                       </div>
-                                    ) : (
-                                       <TfiMenuAlt className="w-8 h-6 text-indigo-600" />
-                                    )}
-                                 </li>
-                              </NavLink>
-                              <NavLink as={Link} to={"/notif"}>
-                                 <li
-                                    onClick={() => handleIconClick("Notifikasi")}
-                                    className="flex flex-row-reverse"
-                                 >
-                                    {selectedIcon === "Notifikasi" ? (
-                                       <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
-                                          <IoNotifications className="w-8 h-6" />
-                                          <span>Notifkasi</span>
-                                       </div>
-                                    ) : (
-                                       <IoNotifications className="w-8 h-6 text-indigo-600" />
-                                    )}
-                                 </li>
-                              </NavLink>
-                              <NavLink as={Link} to={"/user"}>
-                                 <li
-                                    onClick={() => handleIconClick("Akun")}
-                                    className="flex flex-row-reverse"
-                                 >
-                                    {selectedIcon === "Akun" ? (
-                                       <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
-                                          <FaUser className="w-8 h-6 " />
-                                          <span>Akun</span>
-                                       </div>
-                                    ) : (
-                                       <FaUser className="w-8 h-6 text-indigo-600" />
-                                    )}
-                                 </li>
-                              </NavLink>
+                              {!user ? (
+                                 // if not login
+                                 <NavLink as={Link} to={"/login"}>
+                                    <li
+                                       onClick={() => handleIconClick("Masuk")}
+                                       className="flex flex-row-reverse"
+                                    >
+                                       {selectedIcon === "Masuk" ? (
+                                          <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
+                                             <LuLogIn className="w-8 h-6" />
+                                             <span className="ml-2">Masuk</span>
+                                          </div>
+                                       ) : (
+                                          <LuLogIn className="w-8 h-6 text-indigo-600" />
+                                       )}
+                                    </li>
+                                 </NavLink>
+                              ) : (
+                                 // if login
+                                 <>
+                                    <NavLink as={Link} to={"/mycourse"}>
+                                       <li
+                                          onClick={() => handleIconClick("Kelas")}
+                                          className="flex flex-row-reverse"
+                                       >
+                                          {selectedIcon === "Kelas" ? (
+                                             <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
+                                                <TfiMenuAlt className="w-8 h-6" />
+                                                <span>Kelas</span>
+                                             </div>
+                                          ) : (
+                                             <TfiMenuAlt className="w-8 h-6 text-indigo-600" />
+                                          )}
+                                       </li>
+                                    </NavLink>
+                                    <NavLink as={Link} to={"/notif"}>
+                                       <li
+                                          onClick={() => handleIconClick("Notifikasi")}
+                                          className="flex flex-row-reverse"
+                                       >
+                                          {selectedIcon === "Notifikasi" ? (
+                                             <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
+                                                <IoNotifications className="w-8 h-6" />
+                                                <span>Notifkasi</span>
+                                             </div>
+                                          ) : (
+                                             <IoNotifications className="w-8 h-6 text-indigo-600" />
+                                          )}
+                                       </li>
+                                    </NavLink>
+                                    <NavLink as={Link} to={"/user"}>
+                                       <li
+                                          onClick={() => handleIconClick("Akun")}
+                                          className="flex flex-row-reverse"
+                                       >
+                                          {selectedIcon === "Akun" ? (
+                                             <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
+                                                <FaUser className="w-8 h-6 " />
+                                                <span>Akun</span>
+                                             </div>
+                                          ) : (
+                                             <FaUser className="w-8 h-6 text-indigo-600" />
+                                          )}
+                                       </li>
+                                    </NavLink>
+                                 </>
+                              )}
                            </ul>
                         </div>
                      </div>
@@ -219,50 +240,55 @@ const Navbar = () => {
                {/* NavMenu Web */}
                <div className="hidden items-center lg:flex">
                   {/* if not login  */}
-                  <NavLink
-                     as={Link}
-                     to={"/"}
-                     className="group relative flex flex-row-reverse gap-2 mr-8 font-poppins text-white items-center font-semibold border-2 border-white p-2 rounded-2xl transition-all hover:text-indigo-600 hover:bg-white"
-                  >
-                     <button className="">Masuk</button>
-                     <div className="">
-                        <FaArrowRightLong className="text-white w-8 h-6 mr-2 transition-all group-hover:mr-4" />
-                        <LuLogIn className="w-8 h-8 absolute top-1/2 transform -translate-y-1/2 transition-all opacity-0 group-hover:opacity-100 group-hover:translate-x-2" />
-                     </div>
-                  </NavLink>
-
-                  {/* if done login */}
-                  <ul className="flex relative gap-6 items-center">
-                     <span
-                        className={`bg-white duration-500 ${Menus[active].dis} border-2 border-white h-14 w-14 absolute -left-2 top-2 rounded-t-full`}
-                     ></span>
-                     {Menus.map((menu, i) => (
-                        <li key={i}>
-                           {/* {acttive} */}
-                           <NavLink
-                              as={Link}
-                              to={menu.link}
-                              className="flex flex-col items-center"
-                              onClick={() => setActive(i)}
-                           >
-                              <span
-                                 className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
-                                    }`}
-                              >
-                                 {menu.icon}
-                              </span>
-                              <p
-                                 className={`text-white font-poppins font-medium ${active === i
-                                    ? "-translate-y-4 duration-700 opacity-100"
-                                    : "opacity-0 -translate-y-16"
-                                    }`}
-                              >
-                                 {menu.name}
-                              </p>
-                           </NavLink>
-                        </li>
-                     ))}
-                  </ul>
+                  {!user ? (
+                     // if not login
+                     <NavLink
+                        as={Link}
+                        to={"/login"}
+                        className="group relative flex flex-row-reverse gap-2 mr-8 font-poppins text-white items-center font-semibold border-2 border-white p-2 rounded-2xl transition-all hover:text-indigo-600 hover:bg-white"
+                     >
+                        <button className="">Masuk</button>
+                        <div className="">
+                           <FaArrowRightLong className="text-white w-8 h-6 mr-2 transition-all group-hover:mr-4" />
+                           <LuLogIn className="w-8 h-8 absolute top-1/2 transform -translate-y-1/2 transition-all opacity-0 group-hover:opacity-100 group-hover:translate-x-2" />
+                        </div>
+                     </NavLink>
+                  ) : (
+                     // if done login
+                     <>
+                        <ul className="flex relative gap-6 items-center">
+                           <span
+                              className={`bg-white duration-500 ${Menus[active].dis} border-2 border-white h-14 w-14 absolute -left-2 top-2 rounded-t-full`}
+                           ></span>
+                           {Menus.map((menu, i) => (
+                              <li key={i}>
+                                 {/* {acttive} */}
+                                 <NavLink
+                                    as={Link}
+                                    to={menu.link}
+                                    className="flex flex-col items-center"
+                                    onClick={() => setActive(i)}
+                                 >
+                                    <span
+                                       className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
+                                          }`}
+                                    >
+                                       {menu.icon}
+                                    </span>
+                                    <p
+                                       className={`text-white font-poppins font-medium ${active === i
+                                          ? "-translate-y-4 duration-700 opacity-100"
+                                          : "opacity-0 -translate-y-16"
+                                          }`}
+                                    >
+                                       {menu.name}
+                                    </p>
+                                 </NavLink>
+                              </li>
+                           ))}
+                        </ul>
+                     </>
+                  )}
                </div>
             </div>
          </nav>

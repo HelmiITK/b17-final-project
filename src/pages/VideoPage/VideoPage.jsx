@@ -9,6 +9,7 @@ import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
 import { useDispatch } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
+import Navbar from "../../components/NavbarComponent/Navbar";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
@@ -31,6 +32,7 @@ const VideoPage = () => {
 
   return (
     <>
+      <Navbar />
       <PopupOnboarding />
       <PopupBuy />
       {/* tombol untuk menampilkan/menghilangkan progressCourse */}

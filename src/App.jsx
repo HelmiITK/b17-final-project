@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/NavbarComponent/Navbar";
+// import Navbar from "./components/NavbarComponent/Navbar";
 import HomePage from "./pages/HomePage/HomePage";
 import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
@@ -16,28 +16,90 @@ import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import Footer from "./components/FooterComponent/Footer";
 import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
+// import NoAccessToken from "./Security/NoAccessToken";
+// import Protected from "./Security/Protected";
 
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/course" element={<CoursePage />} />
-          <Route path="/mycourse" element={<MyCoursePage />} />
-          <Route path="/notif" element={<NotificationPage />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/changepassword" element={<ChangePasswordPage />} />
-          <Route path="/historypayment" element={<HistoryPayment />} />
+          <Route
+            path="/mycourse"
+            element={
+              // <Protected>
+              <MyCoursePage />
+              // {/* </Protected> */}
+            }
+          />
+          <Route
+            path="/notif"
+            element={
+              // <Protected>
+              <NotificationPage />
+              // {/* </Protected> */}
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              // <Protected>
+              <UserPage />
+              // {/* </Protected> */}
+            }
+          />
+          <Route
+            path="/changepassword"
+            element={
+              // <Protected>
+              <ChangePasswordPage />
+              // {/* </Protected> */}
+            }
+          />
+          <Route
+            path="/historypayment"
+            element={
+              // <Protected>
+              <HistoryPayment />
+              // {/* </Protected> */}
+            }
+          />
           <Route
             path="/course-detail/:courseId/video/:materialId"
-            element={<VideoPage />}
+            element={
+              // <Protected>
+              <VideoPage />
+              // {/* </Protected> */}
+            }
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/otp" element={<OTPPage />} />
+          <Route
+            path="/login"
+            element={
+              // <NoAccessToken>
+                <LoginPage />
+              // {/* </NoAccessToken> */}
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              // <NoAccessToken>
+                <RegisterPage />
+              // {/* </NoAccessToken> */}
+            }
+          />
+          <Route
+            path="/otp"
+            element={
+              // <NoAccessToken>
+                <OTPPage />
+              // {/* </NoAccessToken> */}
+            }
+          />
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
