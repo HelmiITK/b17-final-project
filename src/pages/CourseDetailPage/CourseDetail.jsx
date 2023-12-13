@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDetailCourse } from "../../redux/actions/detailActions";
@@ -24,6 +24,7 @@ const CourseDetail = () => {
    const [isLoved, setIsLoved] = useState(false);
    const [isButtonVisible, setIsButtonVisible] = useState(false);
    const [originalPageUrl, setOriginalPageUrl] = useState("");
+   const iconContainerRef = useRef(null);
    const navigate = useNavigate();
    const { detail } = useSelector((state) => state.course);
    const handleLoveClick = () => {
@@ -35,12 +36,14 @@ const CourseDetail = () => {
       setIsLoved(!isLoved);
    };
 
-   const handleIconClick = () => {
+   const handleIconClick = (event) => {
+      event.stopPropagation(); // Hentikan penanganan event lebih lanjut
       setOriginalPageUrl(window.location.href);
-      setIsButtonVisible(!isButtonVisible);
+      setIsButtonVisible(true);
    };
 
    const handleFollowClick = () => {
+      setIsButtonVisible(false);
       // const isConfirmed = window.confirm('Hemm antum belum login nih, login dulu yuk 😊');
 
       // if (isConfirmed) {
@@ -52,6 +55,25 @@ const CourseDetail = () => {
       // }
       navigate(`/course-detail/${courseId}/video/${detail.materials[0].id}`);
    };
+
+   const handleDocumentClick = (event) => {
+      const iconContainer = iconContainerRef.current;
+
+      if (iconContainer && !iconContainer.contains(event.target)) {
+         setIsButtonVisible(false);
+      }
+   };
+
+   useEffect(() => {
+      // Munculkan ikon nonton paling pertama
+      setIsButtonVisible(false);
+
+      document.addEventListener('click', handleDocumentClick);
+
+      return () => {
+         document.removeEventListener('click', handleDocumentClick);
+      };
+   }, []);
 
    const { courseId } = useParams();
    const dispatch = useDispatch();
@@ -92,7 +114,7 @@ const CourseDetail = () => {
    return (
       <>
          <div className="container mx-auto pt-24">
-            <div className="flex flex-row justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
+            <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
                <div className="flex flex-row items-center gap-2 lg:mt-2">
                   <BiMessageSquareDetail className="text-indigo-700 w-10 h-10 lg:w-12 lg:h-12" />
                   <h1 className="text-2xl font-bold text-indigo-800 lg:text-3xl">Detail Kelas</h1>
@@ -139,18 +161,19 @@ const CourseDetail = () => {
                               <h2 className="text-xl font-semibold text-white">
                                  {detail.title}
                               </h2>
-                              <div className="relative">
-                                 <AiFillPlayCircle
-                                    className="text-white ml-10 mt-1 w-24 h-24 hover:text-yellow-400 cursor-pointer"
-                                    onClick={handleIconClick}
-                                 />
-                                 {isButtonVisible && (
+                              <div className={`relative ${isButtonVisible ? 'scale-95' : 'scale-100'} transition-all duration-500 ease-out`} ref={iconContainerRef}>
+                                 {isButtonVisible ? (
                                     <button
-                                       className="absolute top-24 left-7 transform border bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:text-indigo-600 hover:bg-yellow-400 duration-200"
+                                       className="absolute top-5 left-7 w-full transform border bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:text-indigo-600 hover:bg-yellow-400 duration-200"
                                        onClick={handleFollowClick}
                                     >
                                        Ikuti Kelas
                                     </button>
+                                 ) : (
+                                    <AiFillPlayCircle
+                                       className="text-white absolute top-1 lg:right-10 xl:right-20 w-20 h-20 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full duration-200"
+                                       onClick={handleIconClick}
+                                    />
                                  )}
                               </div>
                            </div>
@@ -158,16 +181,16 @@ const CourseDetail = () => {
                               <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-cyan-500">
                                  <BiSolidCategoryAlt className="w-8 h-8 text-white" />
                                  {detail && detail.Category && (
-                                    <p className="text-sm text-white">{detail.Category.title}</p>
+                                    <p className="text-sm text-white capitalize">{detail.Category.title}</p>
                                  )}
                               </div>
                               <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-red-400">
                                  <BiLineChart className="w-5 h-5 text-white" />
-                                 <p className="text-sm text-white">{detail.level}</p>
+                                 <p className="text-sm text-white capitalize">{detail.level}</p>
                               </div>
                               <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-blue-400">
                                  <IoDiamondOutline className="text-white w-5 h-5" />
-                                 <p className="text-sm text-white">{detail.type_course}</p>
+                                 <p className="text-sm text-white capitalize">{detail.type_course}</p>
                               </div>
                            </div>
                         </div>
@@ -184,16 +207,16 @@ const CourseDetail = () => {
                         <p className="text-sm first-letter:text-3xl tracking-wider lg:text-base text-justify">
                            {detail.description}
                         </p>
-                        
+
                         {/* ada di mode laptop */}
                         <div className="hidden lg:flex lg:flex-col mt-4">
-                           <div className="border-none border-indigo-600 rounded-xl shadow-md shadow-slate-200 p-4 max-w-2xl h-auto relative">
+                           <div className="relative border-none border-indigo-600 rounded-xl shadow-md shadow-slate-200 p-4 max-w-2xl h-auto">
                               <div className="flex flex-col gap-3 mb-4">
                                  <h2>Kategori Kelas</h2>
                                  <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-cyan-500 w-1/2 shadow-md">
                                     <BiSolidCategoryAlt className="w-8 h-8 text-white" />
                                     {detail && detail.Category && (
-                                       <p className="text-base font-semibold text-white">{detail.Category.title}</p>
+                                       <p className="text-base font-semibold text-white capitalize">{detail.Category.title}</p>
                                     )}
                                  </div>
                               </div>
@@ -201,28 +224,29 @@ const CourseDetail = () => {
                                  <h2>Tingkat Kesulitan</h2>
                                  <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-red-400 w-1/2 shadow-md">
                                     <BiLineChart className="w-8 h-8 text-white" />
-                                    <p className="text-base font-semibold text-white">{detail.level}</p>
+                                    <p className="text-base font-semibold text-white capitalize">{detail.level}</p>
                                  </div>
                               </div>
                               <div className="flex flex-col gap-3">
                                  <h2>Tipe Kelas</h2>
                                  <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-blue-400 w-1/2 shadow-md">
                                     <IoDiamondOutline className="text-white w-8 h-8" />
-                                    <p className="text-base font-semibold text-white">{detail.type_course}</p>
+                                    <p className="text-base font-semibold text-white capitalize">{detail.type_course}</p>
                                  </div>
                               </div>
-                              <div>
-                                 <AiFillPlayCircle
-                                    className="text-indigo-600 absolute top-16 lg:right-10 xl:right-20 w-40 h-40 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full"
-                                    onClick={handleIconClick}
-                                 />
-                                 {isButtonVisible && (
+                              <div className={`${isButtonVisible ? 'scale-y-95' : 'scale-y-105'} transition-all duration-500 ease-out`} ref={iconContainerRef}>
+                                 {isButtonVisible ? (
                                     <button
-                                       className="absolute top-60 lg:right-[32px] xl:right-[74px] border border-indigo-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-indigo-600 hover:bg-indigo-600 hover:text-white duration-200"
+                                       className="absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-indigo-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-indigo-600 hover:bg-indigo-600 hover:text-white duration-200"
                                        onClick={handleFollowClick}
                                     >
                                        Ikuti Kelas
                                     </button>
+                                 ) : (
+                                    <AiFillPlayCircle
+                                       className="text-indigo-600 -top-48 absolute lg:right-5 xl:-top-56 xl:right-20 w-40 h-40 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full"
+                                       onClick={handleIconClick}
+                                    />
                                  )}
                               </div>
                            </div>
