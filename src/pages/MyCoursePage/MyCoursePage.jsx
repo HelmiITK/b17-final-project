@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import { getCourseWithFilter } from "../../redux/actions/courseActions";
+import Navbar from "../../components/NavbarComponent/Navbar";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const MyCoursePage = () => {
 
   return (
     <>
+      <Navbar />
       {/* tampilan utama */}
       <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
         <div className="w-10/12 mx-auto">
@@ -83,7 +85,7 @@ const MyCoursePage = () => {
                   data={data}
                   course={course}
                   isLoading={isLoading}
-                  getFilterFromMain={() => {}}
+                  getFilterFromMain={() => { }}
                 />
               </div>
             </div>
