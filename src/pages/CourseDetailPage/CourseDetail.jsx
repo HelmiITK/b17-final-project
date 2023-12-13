@@ -161,17 +161,17 @@ const CourseDetail = () => {
                               <h2 className="text-xl font-semibold text-white">
                                  {detail.title}
                               </h2>
-                              <div className={`relative ${isButtonVisible ? 'scale-95' : 'scale-100'} transition-all duration-500 ease-out`} ref={iconContainerRef}>
+                              <div className={`${isButtonVisible ? 'scale-x-95' : 'scale-x-100'} transition-all duration-500 ease-out`} ref={iconContainerRef}>
                                  {isButtonVisible ? (
                                     <button
-                                       className="absolute top-5 left-7 w-full transform border bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:text-indigo-600 hover:bg-yellow-400 duration-200"
+                                       className=" w-full transform border mt-4 bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:text-indigo-600 hover:bg-yellow-400 duration-200"
                                        onClick={handleFollowClick}
                                     >
                                        Ikuti Kelas
                                     </button>
                                  ) : (
                                     <AiFillPlayCircle
-                                       className="text-white absolute top-1 lg:right-10 xl:right-20 w-20 h-20 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full duration-200"
+                                       className="text-white mt-4 w-20 h-20 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full duration-200"
                                        onClick={handleIconClick}
                                     />
                                  )}
