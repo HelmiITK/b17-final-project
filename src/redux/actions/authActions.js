@@ -34,7 +34,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(setToken(token));
     navigate("/");
   } catch (error) {
-    alert(error.message);
+    alert('Password Kamu Salah');
   }
 };
 
@@ -71,6 +71,70 @@ export const logout = () => (dispatch) => {
   dispatch(setToken(null));
   dispatch(setUser(null));
 };
+
+export const updateProfile = (name, no_telp, avatar, city, country,) => async (dispatch, getState) => {
+  try {
+    // ambil token user di redux state
+    let { token } = getState().auth;
+
+    const profileData = {
+      name,
+      no_telp,
+      avatar,
+      city,
+      country
+    }
+
+    const response = await axios.put(
+      `${api_url}/profiles/update-profile`, profileData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    const updateProfile = response.data;
+
+    // perbarui user profile di redux state
+    dispatch(setUser(updateProfile));
+    alert("Profil berhasil diperbarui 🥳")
+
+  } catch (error) {
+    alert(error?.message)
+  }
+}
+
+export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+
+    const passwordData = {
+      currentPassword,
+      newPassword,
+    };
+
+    await axios.put(
+      `${api_url}/profiles/update-password`, passwordData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Password Berhasil Diperbarui 🥳")
+        // Reload halaman setelah pembaruan berhasil
+    window.location.reload();
+
+  } catch (error) {
+    if (error.response.status === 400) {
+      alert("password lama kamu salah")
+    } else {
+      alert(error?.message)
+    }
+  }
+}
+
 
 export const register =
   (name, email, phoneNumber, password, confirmPassword, navigate) =>
