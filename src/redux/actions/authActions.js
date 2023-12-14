@@ -98,6 +98,8 @@ export const updateProfile = (name, no_telp, avatar, city, country,) => async (d
     // perbarui user profile di redux state
     dispatch(setUser(updateProfile));
     alert("Profil berhasil diperbarui 🥳")
+    
+    window.location.reload();
 
   } catch (error) {
     alert(error?.message)
