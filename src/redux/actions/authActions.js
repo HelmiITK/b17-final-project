@@ -38,40 +38,34 @@ export const login = (email, password, navigate) => async (dispatch) => {
   }
 };
 
-export const getMe = (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
-  try {
-    let { token } = getState().auth;
-
-    const response = await axios.get(
-      `${api_url}/profiles/my-profile`,
-      {
+export const getMe =
+  (navigate, navigatePathSuccess, navigatePathError) =>
+  async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
+      const response = await axios.get(`${api_url}/profiles/my-profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    const data = response.data;
-    // console.log(data)
-    dispatch(setUser(data));
+      });
+      const data = response.data;
 
-    if (navigatePathSuccess) navigate(navigatePathSuccess);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      //if token is not valid
-      if (error.response.status === 401) {
-        dispatch(logout());
-
+      dispatch(setUser(data));
+      if (navigatePathSuccess) navigate(navigatePathSuccess);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        //if token is not valid
+        if (error.response.status === 401) {
+          dispatch(logout());
+        }
+        // arahin ke halaman yang diizinkan
         if (navigatePathError) navigate(navigatePathError);
         return;
       }
 
-      alert(error?.response?.data?.message);
-      return;
+      alert(error?.message);
     }
-
-    alert(error?.message);
-  }
-}
+  };
 
 export const logout = () => (dispatch) => {
   dispatch(setToken(null));
@@ -143,7 +137,8 @@ export const updatePassword = (currentPassword, newPassword) => async (dispatch,
 
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
+  (name, email, phoneNumber, password, confirmPassword, navigate) =>
+  async () => {
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
         username: name,
@@ -168,7 +163,7 @@ export const register =
 
         setTimeout(() => {
           navigate("/otp");
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       alert(error.message);

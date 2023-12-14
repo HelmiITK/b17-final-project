@@ -51,6 +51,11 @@ const UserPage = () => {
       }
    }, [user]);
 
+   // ambil data user dari redux
+   useEffect(() => {
+         dispatch(getMe(null));
+   }, [dispatch])
+
    const img = useRef();
 
    const handleHamburgerClick = () => {

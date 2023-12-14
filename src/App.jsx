@@ -16,8 +16,8 @@ import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
 import Footer from "./components/FooterComponent/Footer";
 import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
-// import NoAccessToken from "./Security/NoAccessToken";
-// import Protected from "./Security/Protected";
+import NoAccessToken from "./security/NoAccessToken";
+import Protected from "./security/Protected";
 
 function App() {
   return (
@@ -31,73 +31,73 @@ function App() {
           <Route
             path="/mycourse"
             element={
-              // <Protected>
-              <MyCoursePage />
-              // {/* </Protected> */}
+              <Protected>
+                <MyCoursePage />
+              </Protected>
             }
           />
           <Route
             path="/notif"
             element={
-              // <Protected>
-              <NotificationPage />
-              // {/* </Protected> */}
+              <Protected>
+                <NotificationPage />
+              </Protected>
             }
           />
           <Route
             path="/user"
             element={
-              // <Protected>
-              <UserPage />
-              // {/* </Protected> */}
+              <Protected>
+                <UserPage />
+              </Protected>
             }
           />
           <Route
             path="/changepassword"
             element={
-              // <Protected>
-              <ChangePasswordPage />
-              // {/* </Protected> */}
+              <Protected>
+                <ChangePasswordPage />
+              </Protected>
             }
           />
           <Route
             path="/historypayment"
             element={
-              // <Protected>
-              <HistoryPayment />
-              // {/* </Protected> */}
+              <Protected>
+                <HistoryPayment />
+              </Protected>
             }
           />
           <Route
             path="/course-detail/:courseId/video/:materialId"
             element={
-              // <Protected>
-              <VideoPage />
-              // {/* </Protected> */}
+              <Protected>
+                <VideoPage />
+              </Protected>
             }
           />
           <Route
             path="/login"
             element={
-              // <NoAccessToken>
+              <NoAccessToken>
                 <LoginPage />
-              // {/* </NoAccessToken> */}
+              </NoAccessToken>
             }
           />
           <Route
             path="/register"
             element={
-              // <NoAccessToken>
+              <NoAccessToken>
                 <RegisterPage />
-              // {/* </NoAccessToken> */}
+              </NoAccessToken>
             }
           />
           <Route
             path="/otp"
             element={
-              // <NoAccessToken>
+              <NoAccessToken>
                 <OTPPage />
-              // {/* </NoAccessToken> */}
+              </NoAccessToken>
             }
           />
           <Route path="/success" element={<SuccessBuyPage />} />
