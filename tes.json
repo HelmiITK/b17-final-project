@@ -1,0 +1,521 @@
+{
+  "success": true,
+  "enrolledCourses": [
+    {
+      "course": {
+        "id": 14,
+        "title": "Course Kotlin for Android: Beginner",
+        "description": "Course Kotlin for Android: Beginner dirancang khusus untuk membantu pemula memahami dasar-dasar pengembangan aplikasi Android menggunakan bahasa pemrograman Kotlin. Dalam kursus ini, Anda akan diperkenalkan dengan konsep-konsep dasar Kotlin dan bagaimana mengaplikasikannya dalam konteks pengembangan aplikasi Android. Kursus ini dirancang untuk membantu Anda membangun landasan yang kuat dalam penggunaan Kotlin untuk membuat aplikasi Android yang efektif dan efisien.",
+        "price": 0,
+        "type_course": "free",
+        "level": "pemula",
+        "url_group": "www.discord.com/backend2",
+        "thumbnail": "https://ik.imagekit.io/amarafiif/thumbnail_20231213_7KaF3FAw6",
+        "createdAt": "2023-12-09T01:28:22.172Z",
+        "updatedAt": "2023-12-13T16:02:07.773Z",
+        "category_id": 4,
+        "materials": [
+          {
+            "id": 86,
+            "chapter_id": 49,
+            "course_id": 14,
+            "title": "Pengenalan Kotlin",
+            "content": "Kotlin merupakan bahasa pemrograman modern yang sangat diminati dalam pengembangan aplikasi, terutama di platform Android. Dikembangkan oleh JetBrains, Kotlin menawarkan sintaksis yang bersih, ekspresif, dan ringkas, membuatnya mudah dipelajari dan digunakan oleh para pengembang. Salah satu keunggulan utamanya adalah keamanan jenis data yang kuat, mengurangi risiko kesalahan umum seperti NullPointerException dengan sistem yang memeriksa nilai null secara otomatis. Keunggulan lainnya adalah interoperabilitasnya yang baik dengan Java, memungkinkan integrasi yang lancar dengan kode Java yang sudah ada. Fitur-fitur kunci termasuk null safety, extension functions, dukungan penuh terhadap pemrograman fungsional, dan kemampuan coroutines untuk pemrograman asynchronous yang efisien. Kotlin banyak digunakan dalam pengembangan aplikasi Android dan juga dapat diterapkan dalam pengembangan backend serta aplikasi desktop. Dukungan yang kuat dari komunitas dan perusahaan serta keunggulan fiturnya menjadikan Kotlin sebagai pilihan utama bagi pengembang dalam membangun aplikasi yang aman, efisien, dan inovatif.",
+            "url_video": "https://youtu.be/6dSNbskzlz4?si=N4tqsPU0aIS6rIMp"
+          },
+          {
+            "id": 87,
+            "chapter_id": 49,
+            "course_id": 14,
+            "title": "Dasar-dasar Kotlin",
+            "content": "Dasar-dasar Kotlin membentuk fondasi yang penting dalam pemrograman dengan bahasa ini. Dalam Kotlin, pengguna dapat mendefinisikan berbagai jenis variabel dengan tipe data seperti Int, Float, Double, Boolean, Char, dan lainnya, menggunakan kata kunci `val` untuk nilai yang tetap dan `var` untuk nilai yang dapat diubah. Struktur kontrol seperti `if`, `else`, `when`, dan perulangan `for` serta `while` memungkinkan pengontrolan alur eksekusi program dan iterasi melalui data. Fungsi-fungsi dapat didefinisikan dengan kata kunci `fun`, termasuk fungsi tingkat tinggi yang dapat diteruskan atau mengembalikan fungsi lain sebagai hasil. Kotlin juga mendukung konsep OOP seperti kelas, objek, pewarisan, enkapsulasi, dan polimorfisme. Salah satu fitur utama Kotlin adalah null safety yang secara alami mengelola nilai-nilai yang dapat bernilai null untuk menghindari NullPointerException. Ekstensi (Extension Functions) memungkinkan penambahan fungsi baru ke kelas yang sudah ada tanpa mengubah struktur asli kelas tersebut. Kotlin juga mendukung paradigma pemrograman fungsional dengan lambda expressions, operasi pada koleksi, dan fitur coroutines yang memudahkan pemrograman asynchronous untuk menangani tugas-tugas latar belakang tanpa kompleksitas yang terkait dengan threading atau callback secara langsung. Pemahaman mendalam terhadap dasar-dasar Kotlin memungkinkan pengembang untuk membangun aplikasi yang efisien, kuat, dan aman dalam bahasa pemrograman ini.",
+            "url_video": "https://youtu.be/_x8aEC-si5Y?si=SjqY2Kagwb2ClTtw"
+          },
+          {
+            "id": 88,
+            "chapter_id": 49,
+            "course_id": 14,
+            "title": "Pengantar Pengembangan Android dengan Kotlin",
+            "content": "Pengantar Pengembangan Android dengan Kotlin membawa para pemula ke dalam dunia pengembangan aplikasi Android menggunakan bahasa pemrograman Kotlin. Materi ini memperkenalkan lingkungan pengembangan, terutama Android Studio, sebagai IDE utama untuk membuat aplikasi Android dengan Kotlin. Ini juga menjelaskan interaksi antara Kotlin dan XML dalam mengontrol logika aplikasi dan merancang tampilan UI. Fokusnya termasuk pembuatan tampilan sederhana menggunakan XML untuk menampilkan elemen UI dasar seperti tombol, teks, dan gambar, sementara Kotlin memberikan fungsi dan perilaku pada elemen-elemen tersebut. Pengantar ini juga mencakup konsep dasar komponen Android seperti Activities, Fragments, dan Views, serta cara integrasi fitur khusus Android dan praktik terbaik dalam pengembangan aplikasi dengan Kotlin. Tujuannya adalah memberikan landasan pemahaman yang kokoh bagi pemula untuk mulai membangun aplikasi Android dengan Kotlin, memperoleh pemahaman awal yang penting dalam proses pengembangan aplikasi Android.",
+            "url_video": "https://youtu.be/W-SE6lGd1E0?si=1dkacn1YArQx4K7i"
+          },
+          {
+            "id": 90,
+            "chapter_id": 50,
+            "course_id": 14,
+            "title": "Konsep OOP dalam Kotlin",
+            "content": "Konsep OOP (Object-Oriented Programming) dalam Kotlin menawarkan landasan yang integral dalam pembangunan aplikasi dengan fokus pada objek dan hubungan antar mereka. Dalam Kotlin, kelas berperan sebagai cetakan yang mendefinisikan atribut (variabel) dan metode (fungsi), sementara objek merepresentasikan instance dari kelas tersebut. Pewarisan memungkinkan kelas turunan untuk mewarisi sifat-sifat dari kelas induknya, memperluas fungsionalitas, sedangkan enkapsulasi memungkinkan penyembunyian detail implementasi internal objek. Konsep polimorfisme memungkinkan objek menunjukkan berbagai perilaku dengan overriding (penggantian perilaku fungsi dari kelas induk) dan overloading (fungsi dengan nama yang sama tetapi parameter yang berbeda). Abstraksi memungkinkan pembuatan kelas abstrak sebagai kerangka kerja dasar, sementara interface menentukan perilaku yang harus diimplementasikan oleh kelas. Kotlin juga menawarkan fitur `companion object` untuk pembuatan objek yang terkait dengan kelas tanpa perlu menciptakan instance kelas tersebut, serta konsep Singleton yang memastikan hanya ada satu instance kelas yang dapat diakses secara global. Konsep-konsep OOP dalam Kotlin memberikan struktur yang kokoh bagi pengembang untuk mengorganisir kode secara terstruktur dan mudah dimengerti, memungkinkan pengembangan aplikasi yang lebih terkelola dan skalabel.",
+            "url_video": "https://youtu.be/QlmMEagRNnA?si=j3BJzYL4-5MMF0x-"
+          },
+          {
+            "id": 91,
+            "chapter_id": 50,
+            "course_id": 14,
+            "title": "Kotlin Android Extensions",
+            "content": "Kotlin Android Extensions adalah fitur penting dalam pengembangan aplikasi Android dengan Kotlin yang mempermudah koneksi antara kode Kotlin dan file XML yang mendefinisikan tampilan aplikasi. Fitur ini menghilangkan kebutuhan untuk menggunakan `findViewById()` secara manual, memungkinkan penggunaan sintaks yang lebih sederhana untuk mereferensikan elemen UI yang telah didefinisikan dalam file XML. Dengan Kotlin Android Extensions, pengembang dapat mengakses elemen UI langsung dalam kode Kotlin hanya dengan menggunakan nama yang sama seperti yang diberikan pada XML, mengurangi kompleksitas dan boilerplate code. Fitur property extensions juga memperluas fungsionalitas kelas bawaan Android, memungkinkan penambahan properti tambahan ke elemen UI atau menetapkan fungsi click listener secara langsung. Meskipun memudahkan pengembangan, beberapa praktik terbaik menyarankan alternatif seperti View Binding atau Data Binding untuk aplikasi yang lebih besar guna manajemen yang lebih baik. Secara keseluruhan, Kotlin Android Extensions memberikan kemudahan signifikan dalam mengakses dan memanipulasi elemen UI, meningkatkan produktivitas pengembangan, dan mempercepat proses pengembangan aplikasi Android.",
+            "url_video": "https://youtu.be/K1u8S2e41LA?si=mYwtE3LRLt7hppbe"
+          },
+          {
+            "id": 93,
+            "chapter_id": 50,
+            "course_id": 14,
+            "title": "Interaksi dengan Komponen Android",
+            "content": "Interaksi dengan komponen-komponen inti Android merupakan esensi dalam pengembangan aplikasi dengan Kotlin. Hal ini meliputi aktivitas (Activities) yang mewakili layar aplikasi, fragmen (Fragments) sebagai bagian modular yang dapat digunakan kembali, serta views dan layouts untuk mengatur elemen antarmuka pengguna. Intents digunakan untuk memulai komponen baru, mentransfer data, atau menangani aksi tertentu dalam aplikasi. Services berperan di latar belakang untuk menjalankan tugas jangka panjang, sementara Broadcast Receivers mendengarkan pesan sistem atau aplikasi lain. Content Providers memfasilitasi berbagi data antaraplikasi. Pengembang berinteraksi dengan komponen-komponen ini melalui manajemen siklus hidup, pengaturan properti, menangani peristiwa, dan menggunakan berbagai libraries/APIs untuk menambahkan fungsionalitas tambahan seperti sensor perangkat, akses lokasi, kamera, dan lainnya. Pemahaman yang baik tentang interaksi dengan komponen-komponen ini membantu pengembang dalam membuat aplikasi yang responsif, berfungsi optimal, dan memanfaatkan fitur-fitur Android secara efisien.",
+            "url_video": "https://youtu.be/0wYkzDNoaZg?si=8mvKOzRWOOIgbbkS"
+          },
+          {
+            "id": 94,
+            "chapter_id": 52,
+            "course_id": 14,
+            "title": "Pengelolaan Data dengan Kotlin",
+            "content": "Pengelolaan data dengan Kotlin melibatkan serangkaian strategi untuk menyimpan, memproses, dan menggunakan data dalam aplikasi. Bahasa Kotlin menyediakan berbagai jenis tipe data serta kemampuan pengelompokan data dalam struktur data seperti Array, List, Set, dan Map, memudahkan pengelolaan data dalam berbagai bentuk. Kotlin juga mengatasi masalah nilai null dengan sistem null safety, memastikan keamanan dalam penanganan nilai-nilai yang tidak pasti. Operasi pada koleksi data menggunakan fungsi tingkat tinggi seperti map, filter, atau reduce mempermudah manipulasi data dalam koleksi. Untuk pengelolaan data persisten, Kotlin dapat berinteraksi dengan database SQLite atau menggunakan library seperti Room Persistence untuk menyimpan dan mengakses data lokal. Selain itu, Kotlin mendukung proses serialisasi dan deserialisasi data, integrasi dengan layanan web melalui library seperti Retrofit, serta pengelolaan status aplikasi dan pengujian data. Melalui fitur-fitur dan integrasi ini, pengelolaan data dengan Kotlin menjadi lebih efisien, aman, dan dapat diandalkan dalam pengembangan aplikasi.",
+            "url_video": "https://youtu.be/Tmpv2S7fp34?si=T7RSHYKad2nlszAo"
+          },
+          {
+            "id": 95,
+            "chapter_id": 52,
+            "course_id": 14,
+            "title": "Kotlin Coroutines",
+            "content": "Kotlin Coroutines adalah fitur dalam bahasa Kotlin yang memungkinkan penulisan kode asynchronous dengan mudah dan efisien. Mereka memfasilitasi penanganan tugas-tugas yang memerlukan waktu, seperti pemanggilan jaringan atau operasi IO, tanpa menghadapi kompleksitas dari callback atau manajemen thread secara langsung. Coroutines adalah lightweight threads yang dikelola oleh Kotlin Runtime, tidak menggunakan sumber daya banyak seperti thread konvensional, dan dapat menjalankan kode asynchronous tanpa memblokir proses utama. Melalui konsep suspend functions, coroutines dapat menjeda eksekusi tanpa menghalangi thread, memungkinkan untuk melakukan operasi asynchronous tanpa memblokir thread utama. Coroutine Scope mengatur siklus hidup sebuah coroutine, memungkinkan kontrol atas waktu hidup dan pengelolaan coroutines. Mekanisme bawaan untuk menangani pengecualian dalam coroutines memudahkan penanganan kesalahan. Terintegrasi dengan baik dalam berbagai library dan framework populer seperti Retrofit, Room, serta kotlinx.coroutines-android untuk pengembangan Android. Selain itu, Kotlin Coroutines memperkenalkan Kotlin Flows, yang memungkinkan pengeluaran sekuens data yang dapat berubah secara asynchronous, sering digunakan untuk pemrosesan data yang berkelanjutan. Dengan ekspresi yang kuat dan ringan, Kotlin Coroutines memberikan pendekatan yang bersih, mudah dibaca, dan responsif dalam menangani pemrograman asynchronous dalam aplikasi Kotlin.",
+            "url_video": "https://youtu.be/Cu1c77pBFuo?si=PiCpwSgIh4ZKUT8j"
+          },
+          {
+            "id": 96,
+            "chapter_id": 52,
+            "course_id": 14,
+            "title": "Optimisasi Kode dan Debugging",
+            "content": "Optimisasi Kode merupakan praktik penting dalam pengembangan perangkat lunak yang melibatkan pemilihan algoritma efisien, penggunaan struktur data yang tepat, manajemen memori yang bijaksana, penulisan kode yang bersih, serta optimalisasi penggunaan sumber daya seperti jaringan dan database. Sementara itu, debugging adalah proses krusial dalam mengidentifikasi dan memperbaiki kesalahan dalam kode. Menggunakan debugger, menangani pengecualian, logging yang efektif, melakukan pengujian dan profil aplikasi, serta melakukan refaktor kode adalah langkah-langkah penting dalam proses debugging. Keduanya, optimisasi kode dan debugging, merupakan langkah berkelanjutan yang membantu meningkatkan kualitas, kinerja, dan keandalan aplikasi serta meminimalkan kecacatan dan bug yang mungkin terjadi.",
+            "url_video": "https://youtu.be/0WYF7mA1xFA?si=q0E1mhrqhABj886K"
+          }
+        ],
+        "userProgress": [
+          {
+            "id": 1,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 49,
+            "course_material_id": 86,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 2,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 49,
+            "course_material_id": 87,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 4,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 50,
+            "course_material_id": 90,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 5,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 50,
+            "course_material_id": 91,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 6,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 50,
+            "course_material_id": 93,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 7,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 52,
+            "course_material_id": 94,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 8,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 52,
+            "course_material_id": 95,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 9,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 52,
+            "course_material_id": 96,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 3,
+            "user_id": 2,
+            "course_id": 14,
+            "chapter_id": 49,
+            "course_material_id": 88,
+            "is_completed": true,
+            "completed_at": "2023-12-12T11:10:12.598Z"
+          }
+        ]
+      },
+      "enrolled_at": "2023-12-12T10:52:45.947Z",
+      "is_completed": false,
+      "progressPercentage": 11.11111111111111,
+      "userProgress": [
+        {
+          "id": 1,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 49,
+          "course_material_id": 86,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 2,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 49,
+          "course_material_id": 87,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 4,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 50,
+          "course_material_id": 90,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 5,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 50,
+          "course_material_id": 91,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 6,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 50,
+          "course_material_id": 93,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 7,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 52,
+          "course_material_id": 94,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 8,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 52,
+          "course_material_id": 95,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 9,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 52,
+          "course_material_id": 96,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 3,
+          "user_id": 2,
+          "course_id": 14,
+          "chapter_id": 49,
+          "course_material_id": 88,
+          "is_completed": true,
+          "completed_at": "2023-12-12T11:10:12.598Z"
+        }
+      ]
+    },
+    {
+      "course": {
+        "id": 13,
+        "title": "Data Analyst Skillpath: Beginner in Excel, SQL & Python",
+        "description": "Course komprehensif ini dirancang untuk membimbing calon Data Analyst dari pengetahuan dasar hingga level yang kompeten dalam menggunakan alat-alat penting untuk manipulasi, analisis, dan visualisasi data. Course ini terbagi menjadi tiga chapter yang berbeda, masing-masing didedikasikan untuk aspek penting dalam analisis data, yaitu Excel, SQL, dan Python.",
+        "price": 0,
+        "type_course": "free",
+        "level": "pemula",
+        "url_group": "www.discord.com/backend2",
+        "thumbnail": "https://ik.imagekit.io/amarafiif/thumbnail_20231213_3mBHL1HDf",
+        "createdAt": "2023-12-08T23:30:50.407Z",
+        "updatedAt": "2023-12-13T16:04:29.453Z",
+        "category_id": 6,
+        "materials": [
+          {
+            "id": 77,
+            "chapter_id": 46,
+            "course_id": 13,
+            "title": "Pengenalan Excel",
+            "content": "Pengenalan Excel adalah fondasi utama dalam analisis data dan pengelolaan informasi menggunakan spreadsheet. Microsoft Excel, yang sering digunakan, memiliki antarmuka pengguna yang terdiri dari toolbar, ribbon, dan worksheet yang terdiri dari sel-sel tempat data dimasukkan. Di dalamnya, formula dan berbagai fungsi bawaan seperti SUM, AVERAGE, dan VLOOKUP memungkinkan perhitungan matematis serta analisis data. Excel memungkinkan pengguna untuk menyortir, menyaring, dan mengelompokkan data, sementara kemampuannya dalam membuat grafik dan diagram memudahkan visualisasi data untuk pemahaman pola dan tren. Dengan fitur analisis statistik sederhana, pemformatan data, dan kemampuan berbagi data secara online, Excel menjadi alat yang vital dalam berbagai bidang, memungkinkan pengguna untuk melakukan tugas analitis dengan efisien dan efektif.",
+            "url_video": "https://youtu.be/vbMA72Kl8rw?si=0PzGok3gMaIMuF32"
+          },
+          {
+            "id": 78,
+            "chapter_id": 46,
+            "course_id": 13,
+            "title": "Manipulasi Data di Excel",
+            "content": "Manipulasi data di Excel melibatkan serangkaian proses yang memungkinkan pengguna untuk mengelola informasi dengan efisien di dalam spreadsheet. Ini mencakup beragam fitur yang sangat berguna, seperti penyortiran data untuk mengatur data berdasarkan nilai tertentu, penyaringan data untuk menampilkan entri yang memenuhi kriteria yang ditentukan, dan penggunaan fungsi dan formula untuk melakukan perhitungan matematis serta analisis data. Selain itu, pengguna juga dapat melakukan manipulasi teks dan data, mengaplikasikan validasi data untuk memastikan konsistensi, serta menggunakan pengaturan kondisional untuk memberikan format pada sel berdasarkan aturan tertentu. Dengan beragam fitur ini, Excel memungkinkan pengguna untuk mengubah, menyajikan, dan menganalisis data dengan lebih efisien, memudahkan pemahaman informasi yang terdapat dalam dataset yang mereka kelola.",
+            "url_video": "https://youtu.be/svoHIomyE2c?si=y42n1tQa7RVn84Ub"
+          },
+          {
+            "id": 79,
+            "chapter_id": 46,
+            "course_id": 13,
+            "title": "Grafik dan Diagram di Excel",
+            "content": "Grafik dan diagram merupakan fitur kunci dalam Excel yang memfasilitasi pengguna dalam memvisualisasikan data secara lebih menarik dan mudah dipahami. Dalam Excel, tersedia berbagai jenis grafik, seperti grafik garis, batang, pie, dan scatter plot, yang dapat dipilih sesuai dengan jenis data yang ingin disajikan. Proses pembuatan grafik melibatkan pemilihan data yang ingin divisualisasikan dan pemilihan jenis grafik yang tepat dari menu Excel, kemudian dapat disesuaikan dengan menambahkan judul, sumbu, label, serta mengatur tata letak dan gaya visual. Selain grafik, Excel juga menyediakan berbagai jenis diagram, seperti diagram batang atau lingkaran, yang membantu dalam menggambarkan proporsi data dengan jelas. Fitur-fitur manipulasi yang ada memungkinkan pengguna untuk menyesuaikan konfigurasi grafik, termasuk pengaturan warna, tata letak, serta menambahkan elemen tambahan seperti garis tren atau label data. Grafik dan diagram dalam Excel menjadi alat yang sangat berguna dalam memvisualisasikan tren, perbandingan, dan distribusi data, memungkinkan pengguna untuk dengan cepat menganalisis dan memahami informasi yang terkandung dalam dataset dengan lebih efektif.",
+            "url_video": "https://youtu.be/iUU391GgDaY?si=X9oWciScqfIBOqAJ"
+          },
+          {
+            "id": 80,
+            "chapter_id": 47,
+            "course_id": 13,
+            "title": "Pengenalan SQL",
+            "content": "Pengenalan SQL (Structured Query Language) merupakan fondasi krusial dalam mengelola dan mengambil data dari basis data relasional. SQL adalah bahasa yang digunakan untuk berinteraksi dengan basis data, memungkinkan pengguna untuk melakukan operasi seperti pengambilan data, manipulasi data, dan mengelola struktur basis data. Bahasa ini terdiri dari pernyataan-pernyataan yang mencakup SELECT, INSERT, UPDATE, DELETE, dan pernyataan DDL (Data Definition Language) seperti CREATE, ALTER, DROP untuk mengatur struktur tabel. Klausa seperti WHERE digunakan untuk menentukan kriteria dalam operasi yang dilakukan. Fungsi dan operasi matematis serta string seperti SUM, AVG, COUNT, MAX, MIN, JOIN, GROUP BY, ORDER BY memungkinkan pengguna untuk melakukan perhitungan, agregasi, dan pengelompokan data dengan efisiensi tinggi. SQL juga memungkinkan pengambilan data menggunakan pernyataan SELECT, pengelolaan data dengan INSERT, UPDATE, DELETE, serta penggabungan data dari tabel berbeda dengan operasi JOIN, memanfaatkan kunci relasi antar tabel. Pengelolaan struktur basis data seperti pembuatan, modifikasi, dan penghapusan tabel juga dapat dilakukan menggunakan pernyataan DDL. Kemampuan untuk menguasai SQL menjadi keterampilan yang sangat berharga dalam mengelola data, memungkinkan pengguna untuk melakukan berbagai operasi esensial terkait basis data relasional dengan kemudahan dan ketepatan.",
+            "url_video": "https://youtu.be/MXMVPgcN-gY?si=L6xx5KQfAnoogBKq"
+          },
+          {
+            "id": 81,
+            "chapter_id": 47,
+            "course_id": 13,
+            "title": "Pengambilan Data",
+            "content": "Pengambilan data dalam SQL adalah proses inti untuk mengekstrak informasi dari basis data relasional. Ini dilakukan melalui pernyataan SELECT, yang memungkinkan pengguna untuk menentukan data yang ingin diambil dari tabel-tabel dalam basis data. Klausa-klausa seperti FROM digunakan untuk menunjukkan tabel yang diinginkan, sedangkan klausa WHERE digunakan untuk menerapkan filter pada data yang diambil berdasarkan kriteria tertentu. Klausa ORDER BY membantu dalam pengurutan data, sementara klausa GROUP BY digunakan untuk mengelompokkan data. Fungsi agregasi seperti SUM, AVG, COUNT, dan lainnya digunakan untuk melakukan perhitungan statistik pada data yang diambil. Operasi JOIN memungkinkan pengguna untuk menggabungkan data dari beberapa tabel berdasarkan kunci relasional. Subquery atau nested query memungkinkan pengguna untuk menjalankan kueri di dalam kueri, memberikan fleksibilitas tambahan dalam mengekstrak informasi yang kompleks dari basis data. Pengambilan data dalam SQL merupakan pondasi utama untuk analisis data yang efektif, memungkinkan pengguna untuk mengekstrak informasi yang relevan dan spesifik dari basis data yang mereka kelola.",
+            "url_video": "https://youtu.be/WWxoeVL8Brs?si=pA24hucYyft7tzxC"
+          },
+          {
+            "id": 82,
+            "chapter_id": 47,
+            "course_id": 13,
+            "title": "Manipulasi Data dengan SQL",
+            "content": "Manipulasi data dengan SQL melibatkan sejumlah operasi yang penting untuk mengubah, mengelola, dan mengatur data di dalam basis data relasional. Pernyataan SQL seperti INSERT digunakan untuk menambahkan baris data baru ke dalam tabel, sedangkan pernyataan UPDATE memungkinkan pembaruan nilai dalam baris yang ada. Pernyataan DELETE memungkinkan pengguna untuk menghapus baris dari tabel berdasarkan kriteria tertentu. Selain itu, SQL juga menyediakan perintah-perintah Data Definition Language (DDL) seperti CREATE TABLE untuk membuat tabel baru, ALTER TABLE untuk mengubah struktur tabel yang ada, dan DROP TABLE untuk menghapus tabel dari basis data. Di samping itu, fitur transaksi dalam SQL memastikan kelengkapan eksekusi serangkaian perintah atau dapat membatalkannya secara keseluruhan jika diperlukan. Manipulasi data dengan SQL memberikan kontrol yang kuat kepada pengguna untuk memanipulasi dan mengelola data sesuai kebutuhan dalam basis data relasional. Hal ini memungkinkan pengguna untuk menjaga keakuratan, konsistensi, dan integritas data dalam sistem basis data mereka.",
+            "url_video": "https://youtu.be/lhVqna6WFVs?si=hTI_-WtGe_FvDu5b"
+          },
+          {
+            "id": 83,
+            "chapter_id": 48,
+            "course_id": 13,
+            "title": "Pengenalan Python",
+            "content": "Python adalah bahasa pemrograman tingkat tinggi yang populer dan serbaguna. Dikenal dengan sintaksis yang mudah dipahami, Python menjadi pilihan utama bagi pemula dalam pemrograman karena strukturnya yang mirip dengan bahasa Inggris. Kelebihan Python terletak pada kemampuannya dalam beragam pengembangan perangkat lunak, termasuk web, analisis data, kecerdasan buatan, jaringan, dan lainnya. Python juga mendukung metode interpretasi dan kompilasi, memberikan fleksibilitas dalam cara menjalankan kode. Kemampuan dinamisnya dan manajemen tipe data yang kuat memungkinkan pengguna tidak perlu mendeklarasikan tipe variabel secara eksplisit. Selain itu, Python memiliki beragam pustaka dan framework yang memperluas fungsionalitasnya di berbagai bidang. Dukungan Python terhadap paradigma pemrograman yang beragam, seperti berorientasi objek, fungsional, dan prosedural, menjadikannya alat yang fleksibel dalam menyelesaikan berbagai macam masalah pemrograman. Keunggulan ini, bersama dengan komunitas yang besar dan aktif, serta dokumentasi yang kuat, menjadikan Python sebagai salah satu bahasa pemrograman yang diminati dalam pengembangan solusi perangkat lunak yang efisien dan kuat.",
+            "url_video": "https://youtu.be/iA8lLwmtKQM?si=-jn5V1Grli1CWBuA"
+          },
+          {
+            "id": 84,
+            "chapter_id": 48,
+            "course_id": 13,
+            "title": "Penanganan Data dengan Pandas",
+            "content": "Pandas merupakan pustaka yang sangat populer dalam pemrosesan dan analisis data menggunakan Python. Diintegrasikan dengan Python, Pandas menyediakan struktur data utama seperti DataFrame, yang mirip dengan tabel spreadsheet, serta Series, yang merupakan struktur data satu dimensi. Pustaka ini memudahkan pengguna dalam membaca dan menulis data dari berbagai format seperti CSV, Excel, SQL, JSON, dan HTML, memungkinkan impor data dari berbagai sumber. Selain itu, Pandas menawarkan kemampuan manipulasi data yang luas, termasuk seleksi, pengindeksan, pengelompokan, dan pemrosesan data tanggal-waktu. Dalam pengolahan data, Pandas menyediakan berbagai fungsi statistik bawaan, memungkinkan operasi penggabungan data, pengurutan, serta penanganan nilai yang hilang. Selain itu, Pandas dapat berkolaborasi dengan pustaka visualisasi seperti Matplotlib dan Seaborn untuk menciptakan visualisasi data yang informatif. Keunggulan Pandas juga terletak pada kemampuannya mengoptimalkan kinerja dalam memproses data besar dengan teknik vektorisasi dan pengindeksan yang efisien. Secara keseluruhan, Pandas memberikan kemudahan dan kekuatan dalam mengelola, membersihkan, menganalisis, dan memvisualisasikan data, menjadikannya alat yang sangat berharga dalam analisis data dengan Python.",
+            "url_video": "https://youtu.be/ma4rv9RFqtk?si=zo2aCI8kyOrAz5DP"
+          },
+          {
+            "id": 85,
+            "chapter_id": 48,
+            "course_id": 13,
+            "title": "Visualisasi Data dengan Matplotlib",
+            "content": "Matplotlib merupakan pustaka visualisasi data yang sangat penting dalam analisis data menggunakan Python. Pustaka ini menawarkan beragam jenis grafik seperti grafik garis, batang, histogram, scatter plot, dan lainnya. Dalam menggunakan Matplotlib, pengguna memanfaatkan konsep objek (Figure) sebagai jendela utama visualisasi dan (Axes) sebagai area di dalamnya untuk menampilkan data. Pembuatan grafik dilakukan dengan menggunakan fungsi-fungsi seperti `plot()`, `scatter()`, `bar()`, dan sejenisnya, yang dapat disesuaikan dengan penambahan judul, label sumbu, label data, serta penyesuaian visual seperti warna, gaya garis, dan jenis marker. Pengguna juga dapat membuat subplot, yaitu beberapa grafik dalam satu tampilan, serta menyimpan grafik yang dihasilkan dalam berbagai format file. Selain itu, Matplotlib dapat berkolaborasi dengan pustaka lain seperti Pandas dan Seaborn untuk menyederhanakan proses pembuatan grafik dari data dalam DataFrame. Dengan kemampuannya yang kuat dalam visualisasi data, Matplotlib memungkinkan pengguna untuk menyajikan informasi dengan lebih jelas dan menarik, membantu dalam menggambarkan pola, tren, dan temuan penting dari analisis data.",
+            "url_video": "https://youtu.be/5ISmXYJMxmI?si=84yZbNghfCpgOzbr"
+          }
+        ],
+        "userProgress": [
+          {
+            "id": 10,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 46,
+            "course_material_id": 77,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 11,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 46,
+            "course_material_id": 78,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 12,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 46,
+            "course_material_id": 79,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 13,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 47,
+            "course_material_id": 80,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 14,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 47,
+            "course_material_id": 81,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 15,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 47,
+            "course_material_id": 82,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 16,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 48,
+            "course_material_id": 83,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 17,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 48,
+            "course_material_id": 84,
+            "is_completed": false,
+            "completed_at": null
+          },
+          {
+            "id": 18,
+            "user_id": 2,
+            "course_id": 13,
+            "chapter_id": 48,
+            "course_material_id": 85,
+            "is_completed": false,
+            "completed_at": null
+          }
+        ]
+      },
+      "enrolled_at": "2023-12-14T10:25:13.999Z",
+      "is_completed": false,
+      "progressPercentage": 0,
+      "userProgress": [
+        {
+          "id": 10,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 46,
+          "course_material_id": 77,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 11,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 46,
+          "course_material_id": 78,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 12,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 46,
+          "course_material_id": 79,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 13,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 47,
+          "course_material_id": 80,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 14,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 47,
+          "course_material_id": 81,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 15,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 47,
+          "course_material_id": 82,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 16,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 48,
+          "course_material_id": 83,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 17,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 48,
+          "course_material_id": 84,
+          "is_completed": false,
+          "completed_at": null
+        },
+        {
+          "id": 18,
+          "user_id": 2,
+          "course_id": 13,
+          "chapter_id": 48,
+          "course_material_id": 85,
+          "is_completed": false,
+          "completed_at": null
+        }
+      ]
+    }
+  ]
+}
