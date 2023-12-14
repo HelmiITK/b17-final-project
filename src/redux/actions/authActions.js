@@ -78,6 +78,39 @@ export const logout = () => (dispatch) => {
   dispatch(setUser(null));
 };
 
+export const updateProfile = (name, no_telp, avatar, city, country, ) => async (dispatch, getState) => {
+  try {
+    // ambil token user di redux state
+    let { token } = getState().auth;
+
+    const profileData = {
+      name,
+      no_telp,
+      avatar,
+      city,
+      country
+    }
+
+    const response = await axios.put(
+      `${api_url}/profiles/update-profile`, profileData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    const updateProfile = response.data;
+    
+    // perbarui user profile di redux state
+    dispatch(setUser(updateProfile));
+    alert("Profil berhasil diperbarui 🥳")
+
+  } catch (error) {
+    alert(error?.message)
+  }
+}
+
+
 export const register =
   (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
     try {
