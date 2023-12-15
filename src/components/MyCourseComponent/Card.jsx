@@ -3,15 +3,29 @@ import Progressbar from "./ProgressBar";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../libs/formatToIDR";
+import { useEffect } from "react";
+import { getCategory } from "../../redux/actions/categoryActions";
 
 // card course
 const Card = ({ course }) => {
-  const { category } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
 
-  const { title } = category.find((cat) => cat.id === course.category_id);
-  const categoryName = title;
+  const { category } = useSelector((state) => state.category);
+  let categoryName = "";
+
+  if (category.length > 0) {
+    const foundCategory = category.find(
+      (cat) => cat.id === course?.category_id
+    );
+    if (foundCategory) {
+      categoryName = foundCategory.title;
+    }
+  }
 
   return (
     <Link to={`/course-detail/${course.id}`}>
@@ -45,13 +59,16 @@ const Card = ({ course }) => {
                   <span className="text-green-500 mr-[2.5px]">
                     <Shield size={18} />
                   </span>{" "}
-                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)} Level
+                  {course &&
+                    course?.level?.charAt(0).toUpperCase() +
+                      course?.level?.slice(1)}{" "}
+                  Level
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
                     <Book size={18} />
                   </span>{" "}
-                  {course.chapters.length} Modul
+                  {course && course?.chapters?.length} Modul
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -76,7 +93,9 @@ const Card = ({ course }) => {
                   <span className="mr-2">
                     <Gem size={16} />
                   </span>{" "}
-                  {course.type_course.charAt(0).toUpperCase() + course.type_course.slice(1)}
+                  {course &&
+                    course?.type_course?.charAt(0).toUpperCase() +
+                      course?.type_course?.slice(1)}
                 </button>
               </div>
               {/* button ketika mau beli (ada harganya) */}
@@ -112,7 +131,7 @@ const Card = ({ course }) => {
 };
 
 Card.propTypes = {
-  course: PropTypes.object,
+  course: PropTypes.any,
 };
 
 export default Card;
