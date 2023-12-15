@@ -68,35 +68,35 @@ export const getMyCourseWithFilter =
     }
   };
 
-export const enrollFreeCourse =
-  (courseId, navigate) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
-        {
-          course_id: +courseId,
+export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.post(
+      `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
+      {
+        course_id: +courseId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: `application/json`,
+          "Content-Type": `application/json`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            accept: `application/json`,
-            "Content-Type": `application/json`,
-          },
-        }
-      );
-
-      alert("Pembelian berhasil");
-
-      if (response.status == 201) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
       }
-    } catch (error) {
-      alert(error.message);
+    );
+
+    alert("Pembelian berhasil");
+
+    // reload halaman agar terupdate
+    if (response.status == 201) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
-  };
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
 export const removeMyCourse = () => async (dispatch) => {
   dispatch(setMyCourse(null));

@@ -4,17 +4,27 @@ import { FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const CardCourse = ({ course }) => {
   const { category } = useSelector((state) => state.category);
+  const { mycourse } = useSelector((state) => state.course);
 
   // melakukan pelacakan apakah di redux category dan course terdapat kategori berdasarkan id yang sama
   const matchedCategory = category.find((cat) => cat.id === course.category_id);
-
+  const [checkMycourse, setCheckMycourse] = useState(false);
   // Periksa apakah kategori yang sesuai ditemukan
   const categoryName = matchedCategory
     ? matchedCategory.title
     : "Unknown Category";
+
+  // pengecekan apakah course yg ada di home sudah user beli atau belum
+  useEffect(() => {
+    if (mycourse) {
+      const y = mycourse.find((item) => item.course.id == course.id);
+      setCheckMycourse(!!y);
+    }
+  }, [mycourse, course]);
 
   return (
     <div className="">
@@ -66,48 +76,48 @@ const CardCourse = ({ course }) => {
                 </p>
               </div>
               {/* ini button ketika sudah beli */}
-              <div className="my-2">
-                <Progressbar />
-              </div>
-              {/* Ini button ketika gratis */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-primary  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105">
-                  Mulai Kelas
-                </button>
-              </div>
+              {checkMycourse && (
+                <div className="mt-4 mb-3">
+                  <Progressbar />
+                </div>
+              )}
               {/* ini button ketika premium dan belum beli */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                  <span className="mr-2">
-                    <Gem size={16} />
-                  </span>{" "}
-                  {course.type_course}
-                </button>
-              </div>
-              {/* button ketika mau beli (ada harganya) */}
-              <div className="my-2">
-                <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                  Rp. {course.price}
-                </button>
-              </div>
+              {!checkMycourse && (
+                <>
+                  <div className="my-2">
+                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
+                      <span className="mr-2">
+                        <Gem size={16} />
+                      </span>{" "}
+                      {course.type_course}
+                    </button>
+                  </div>
+                  {/* button ketika mau beli (ada harganya) */}
+                  <div className="my-2">
+                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
+                      Rp. {course.price}
+                    </button>
+                  </div>
+                </>
+              )}
               {/* Ini untuk riwayat dan status bayarnya belum bayar */}
-              <div className="my-2">
+              {/* <div className="my-2">
                 <button className="py-1 px-4 bg-red-500  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
                   <span className="mr-2">
                     <Gem size={16} />
                   </span>{" "}
                   Waiting for payment
                 </button>
-              </div>
+              </div> */}
               {/* Ini untuk riwayat dan status bayarnya udah bayar */}
-              <div className="my-2">
+              {/* <div className="my-2">
                 <button className="py-1 px-4 bg-green-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
                   <span className="mr-2">
                     <Gem size={16} />
                   </span>{" "}
                   Paid
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

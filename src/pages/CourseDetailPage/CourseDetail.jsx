@@ -18,6 +18,7 @@ import Navbar from "../../components/NavbarComponent/Navbar";
 import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import { getMyCourse } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
+import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -28,7 +29,7 @@ const CourseDetail = () => {
   const [isLoved, setIsLoved] = useState(false);
   const [checkMycourse, setCheckMycourse] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const [originalPageUrl, setOriginalPageUrl] = useState("");
+  // const [originalPageUrl, setOriginalPageUrl] = useState("");
   const [isPopupBuy, setIsPopupBuy] = useState(false);
   const iconContainerRef = useRef(null);
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const CourseDetail = () => {
 
   const handleIconClick = (event) => {
     event.stopPropagation(); // Hentikan penanganan event lebih lanjut
-    setOriginalPageUrl(window.location.href);
+    // setOriginalPageUrl(window.location.href);
     setIsButtonVisible(true);
   };
 
@@ -282,7 +283,8 @@ const CourseDetail = () => {
                         </p>
                       </div>
                       {/* tombol beli kelas (sementara disini dulu) */}
-                      {user && (
+                      {/* jika user login dan belum beli */}
+                      {user && !checkMycourse && (
                         <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-color-primary w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
                           <button
                             onClick={() => setIsPopupBuy(true)}
@@ -290,6 +292,12 @@ const CourseDetail = () => {
                           >
                             Enroll Kelas
                           </button>
+                        </div>
+                      )}
+                      {/* jika user login dan udh beli course */}
+                      {user && checkMycourse && (
+                        <div className="border p-2 rounded-lg w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
+                          <ProgressBar />
                         </div>
                       )}
                     </div>
