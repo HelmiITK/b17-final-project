@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMe } from '../../redux/actions/authActions';
 import { updateProfile } from '../../redux/actions/authActions';
 import { updateAvatar } from '../../redux/reducers/authReducers';
+import Footer from "../../components/FooterComponent/Footer";
 
 const UserPage = () => {
    const dispatch = useDispatch();
@@ -28,15 +29,15 @@ const UserPage = () => {
    // console.log(user);
 
    // ambil data user dari redux
-   useEffect(() => {
-      // ambil data user di localStorage agar ketika browser di refresh data selalu ada
-      const storedProfile = JSON.parse(localStorage.getItem('userProfile'));
-      if (storedProfile) {
-         setProfile(storedProfile);
-      } else {
-         dispatch(getMe(null));
-      }
-   }, [dispatch])
+   // useEffect(() => {
+   //    // ambil data user di localStorage agar ketika browser di refresh data selalu ada
+   //    const storedProfile = JSON.parse(localStorage.getItem('userProfile'));
+   //    if (storedProfile) {
+   //       setProfile(storedProfile);
+   //    } else {
+   //       dispatch(getMe(null));
+   //    }
+   // }, [dispatch])
 
    // Perbarui nilai profil setelah pengguna dari Redux dimuat
    useEffect(() => {
@@ -120,6 +121,7 @@ const UserPage = () => {
    return (
       <>
          <Navbar />
+
          <div className="w-full relative">
             <div className="bg-layer w-full h-64 pt-24"></div>
             <div className="container mx-auto -mt-40 lg:-mt-32">
@@ -269,6 +271,8 @@ const UserPage = () => {
                </div>
             </div>
          </div>
+
+         <Footer />
       </>
    )
 }

@@ -9,6 +9,7 @@ import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
 import { useDispatch } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
@@ -75,6 +76,7 @@ const VideoPage = () => {
         {/* background yang beda warna */}
         <div className="bg-layer h-[280px] hidden md:block" />
       </div>
+      <Footer />
     </>
   );
 };

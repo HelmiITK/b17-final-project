@@ -2,6 +2,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Main from "../../components/NotificationComponent/Main";
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 
 const NotificationPage = () => {
   return (
@@ -25,6 +26,7 @@ const NotificationPage = () => {
         </div>
         <div className="bg-layer absolute top-0 left-0 right-0 -z-10 h-[40vh] md:h-[30vh] lg:h-64"></div>
       </div>
+      <Footer />
     </>
   );
 };

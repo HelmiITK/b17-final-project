@@ -9,6 +9,7 @@ import {
   getMyCourseWithFilter,
 } from "../../redux/actions/courseActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
@@ -104,6 +105,7 @@ const MyCoursePage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
