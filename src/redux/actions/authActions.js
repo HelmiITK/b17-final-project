@@ -214,7 +214,7 @@ export const resetPassword = (key, password) => async () => {
     });
 
     if (response.status === 200) {
-      alert("Berhasil update password 🥳");
+      alert("Berhasil update password 🥳 🥳");
     }
   } catch (error) {
     alert(error.message);
