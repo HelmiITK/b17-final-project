@@ -4,12 +4,16 @@ import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourseWithFilter } from "../../redux/actions/courseActions";
+import {
+  getMyCourse,
+  getMyCourseWithFilter,
+} from "../../redux/actions/courseActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
-  const { course } = useSelector((state) => state.course);
+  const { mycourse } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingCat, setIsLoadingCat] = useState(false);
 
@@ -22,6 +26,13 @@ const MyCoursePage = () => {
     setIsLoadingCat(true);
     dispatch(getCategory()).then(() => setIsLoadingCat(false));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoadingCat(true);
+      dispatch(getMyCourse(user?.id)).then(() => setIsLoadingCat(false));
+    }
+  }, [dispatch, user]);
 
   const handleCategory = (x) => {
     setCategory(x);
@@ -40,7 +51,7 @@ const MyCoursePage = () => {
   // ambil data course dari api lewat redux
   useEffect(() => {
     setIsLoading(true);
-    dispatch(getCourseWithFilter(stringCategory, stringLevel, "")).then(() =>
+    dispatch(getMyCourseWithFilter(stringCategory, stringLevel, "")).then(() =>
       setIsLoading(false)
     );
   }, [dispatch, stringCategory, stringLevel]);
@@ -83,9 +94,10 @@ const MyCoursePage = () => {
               <div className="col-span-3 md:col-span-2">
                 <Main
                   data={data}
-                  course={course}
+                  // ERROR HERE
+                  course={mycourse && mycourse[0].course}
                   isLoading={isLoading}
-                  getFilterFromMain={() => { }}
+                  getFilterFromMain={() => {}}
                 />
               </div>
             </div>

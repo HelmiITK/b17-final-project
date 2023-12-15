@@ -8,7 +8,7 @@ import CardCourse from "../../components/HomeComponent/CardCourse";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourse } from "../../redux/actions/courseActions";
+import { getCourse, getMyCourse } from "../../redux/actions/courseActions";
 import ClockLoader from "react-spinners/ClockLoader";
 import { TypeAnimation } from "react-type-animation";
 import { BsChatLeftQuoteFill } from "react-icons/bs";
@@ -21,6 +21,7 @@ const HomePage = () => {
   // ambil data kategori dan course dari redux
   const { category } = useSelector((state) => state.category);
   const { course } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
 
   // state untuk menyimpan kategori yang dipilih
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -43,6 +44,13 @@ const HomePage = () => {
         setLoading(false);
       });
   }, [dispatch]);
+
+  // ambil data course milik user
+  useEffect(() => {
+    if (user) {
+      dispatch(getMyCourse(user.id));
+    }
+  }, [dispatch, user]);
 
   const handleFilterClick = (categoryId) => {
     setSelectedCategory(categoryId);

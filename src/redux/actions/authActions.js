@@ -6,22 +6,6 @@ import { setToken, setUser } from "../reducers/authReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
-// export const login = (email, password, navigate) => async (dispatch) => {
-//   try {
-//     const response = await axios.post(`${api_url}/auth/login`, {
-//       email,
-//       password,
-//     });
-//     const { data } = response.data;
-//     const { token } = data;
-
-//     dispatch(setToken(token));
-//     navigate("/");
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// };
-
 export const login = (email, password, navigate) => async (dispatch) => {
   try {
     const response = await axios.post(`${api_url}/auth/login`, {
@@ -34,7 +18,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
     dispatch(setToken(token));
     navigate("/");
   } catch (error) {
-    alert('Password Kamu Salah');
+    alert("Password Kamu Salah");
   }
 };
 
@@ -108,36 +92,33 @@ export const updateProfile = (name, no_telp, avatar, city, country) => async (di
   }
 };
 
-export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
-  try {
-    let { token } = getState().auth;
+export const updatePassword =
+  (currentPassword, newPassword) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    const passwordData = {
-      currentPassword,
-      newPassword,
-    };
+      const passwordData = {
+        currentPassword,
+        newPassword,
+      };
 
-    await axios.put(
-      `${api_url}/profiles/update-password`, passwordData,
-      {
+      await axios.put(`${api_url}/profiles/update-password`, passwordData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+      });
+
+      alert("Password Berhasil Diperbarui 🥳");
+      // Reload halaman setelah pembaruan berhasil
+      window.location.reload();
+    } catch (error) {
+      if (error.response.status === 400) {
+        alert("password lama kamu salah");
+      } else {
+        alert(error?.message);
       }
-    );
-
-    alert("Password Berhasil Diperbarui 🥳")
-        // Reload halaman setelah pembaruan berhasil
-    window.location.reload();
-
-  } catch (error) {
-    if (error.response.status === 400) {
-      alert("password lama kamu salah")
-    } else {
-      alert(error?.message)
     }
-  }
-}
+  };
 
 export const register =
   (name, email, phoneNumber, password, confirmPassword, navigate) =>
@@ -187,12 +168,7 @@ export const verify = (otp, navigate) => async () => {
     // localStorage.setItem("token", token)
 
     localStorage.removeItem("email");
-
-    // setTimeout(() => {
     navigate("/login");
-    console.log("");
-    // }, 2000);
-    // navigate("/login");
 
     // }
   } catch (error) {
@@ -217,78 +193,3 @@ export const resendOtp = () => async () => {
     alert(error.message);
   }
 };
-
-// export const register =
-//   (name, email, password, confirmPassword, phoneNumber, navigate) => async (dispatch) => {
-//     try {
-//       if (password != confirmPassword) {
-//         alert("password anda tidak sama!");
-//         return;
-//       }
-//       let data = JSON.stringify({
-//         name,
-//         email,
-//         password,
-//         phoneNumber,
-//       });
-//       let config = {
-//         method: "post",
-//         url: `${api_url}/auth/register`,
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         data: data,
-//       };
-
-//       const response = await axios.request(config);
-//       const { token } = response.data.data;
-
-//       localStorage.setItem("token", token);
-
-//       dispatch(setToken(token));
-//       navigate("/");
-//     } catch (error) {
-//       alert(error.message);
-//     }
-//   };
-
-// export const register =
-//   (name, email, phoneNumber, password, confirmPassword, navigate, setErors, errors) => async (dispatch) => {
-//     try {
-//       if (password != confirmPassword) {
-//         alert("password anda tidak sama!");
-//         return;
-//       }
-//       let data = JSON.stringify({
-//         name,
-//         email,
-//         phoneNumber,
-//         password,
-//       });
-//       let config = {
-//         method: "post",
-//         url: `${api_url}/auth/register`,
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         data: data,
-//       };
-
-//       const response = await axios.request(config);
-
-//       const { email } = response.data;
-
-//       localStorage.setItem("token", token);
-
-//       dispatch(setToken(token));
-//       navigate("/otp");
-//       setErors({ ...errors, isError: false });
-//     }
-//     catch (error) {
-//       if (axios.isAxiosError(error)) {
-//         alert(error?.response?.data?.message);
-//         return;
-//       }
-//       alert(error?.message);
-//     }
-//   };
