@@ -10,6 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { getMe } from "../../redux/actions/authActions";
+import { IoMdHome } from "react-icons/io";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -64,36 +65,45 @@ const Navbar = () => {
 
   const Menus = [
     {
+      name: "Home",
+      icon: <IoMdHome className="w-8 h-6" />,
+      link: "/",
+      dis: "translate-x-[4px]",
+    },
+    {
       name: "Kelasku",
       icon: <TfiMenuAlt className="w-8 h-6" />,
       link: "/mycourse",
-      dis: "translate-x-[10px]",
+      dis: "translate-x-[83px]",
     },
     {
       name: "Notifikasi",
       icon: <IoNotifications className="w-8 h-6" />,
       link: "/notif",
-      dis: "translate-x-[102px]",
+      dis: "translate-x-[175px]",
     },
     {
       name: "Akun",
       icon: <FaUser className="w-8 h-6" />,
       link: "/user",
-      dis: "translate-x-[185.5px]",
+      dis: "translate-x-[257px]",
     },
   ];
 
   // state navmenu web
   const [active, setActive] = useState(0);
 
+  useEffect(() => {
+
+  }, [active])
+
   return (
     <>
       <nav
-        className={`w-full fixed z-20 bg-indigo-600 ${
-          navbar
-            ? "bg-indigo-500 bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
-            : ""
-        }`}
+        className={`w-full fixed z-20 bg-indigo-600 ${navbar
+          ? "bg-indigo-500 bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
+          : ""
+          }`}
       >
         <div className="flex justify-between px-2 py-4 lg:pt-6 lg:px-10 items-center">
           {/* logo */}
@@ -118,9 +128,8 @@ const Navbar = () => {
                   onClick={handleSearchClick}
                 />
                 <div
-                  className={`${
-                    isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
-                  }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
+                  className={`${isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
+                    }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
                 >
                   <input
                     type="text"
@@ -146,9 +155,8 @@ const Navbar = () => {
                   )}
                 </button>
                 <div
-                  className={`${
-                    openHamburger ? "translate-y-0" : "-translate-y-[290px]"
-                  } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
+                  className={`${openHamburger ? "translate-y-0" : "-translate-y-[290px]"
+                    } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
                 >
                   <ul className="flex flex-col gap-4">
                     {!user ? (
@@ -275,18 +283,16 @@ const Navbar = () => {
                         onClick={() => setActive(i)}
                       >
                         <span
-                          className={`z-10 duration-500 text-white hover:text-slate-400 ${
-                            i === active && "-mb-12 text-yellow-500"
-                          }`}
+                          className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
+                            }`}
                         >
                           {menu.icon}
                         </span>
                         <p
-                          className={`text-white font-poppins font-medium ${
-                            active === i
-                              ? "-translate-y-4 duration-700 opacity-100"
-                              : "opacity-0 -translate-y-16"
-                          }`}
+                          className={`text-white font-poppins font-medium ${active === i
+                            ? "-translate-y-4 duration-700 opacity-100"
+                            : "opacity-0 -translate-y-16"
+                            }`}
                         >
                           {menu.name}
                         </p>

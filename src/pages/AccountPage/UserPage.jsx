@@ -9,6 +9,7 @@ import MenuList from '../../components/AccountComponent/MenuList'
 import { useDispatch, useSelector } from 'react-redux';
 import { getMe } from '../../redux/actions/authActions';
 import { updateProfile } from '../../redux/actions/authActions';
+import { updateAvatar } from '../../redux/reducers/authReducers';
 
 const UserPage = () => {
    const dispatch = useDispatch();
@@ -43,17 +44,19 @@ const UserPage = () => {
          setProfile({
             avatar: user?.avatar || '',
             name: user?.name || '',
-            email: user?.user?.email , // data tidak bisa diedit
+            email: user?.user?.email, // data tidak bisa diedit
             phoneNumber: user?.no_telp || '',
             country: user?.country || '',
             city: user?.city || '',
          });
+         // Tetapkan state picture ke URL avatar
+         setPicture(user?.avatar || '');
       }
    }, [user]);
 
    // ambil data user dari redux
    useEffect(() => {
-         dispatch(getMe(null));
+      dispatch(getMe(null));
    }, [dispatch])
 
    const img = useRef();
@@ -69,28 +72,49 @@ const UserPage = () => {
    };
 
    const handleSaveProfile = () => {
-      // Disni nanti kita akan req ke server database untuk disimpan datanya
-      // console.log('Profil disimpan:', profile);
+      dispatch(updateProfile(profile.name, profile.phoneNumber, profile.avatar, profile.city, profile.country))
+         .then(() => {
+            // Dispatch updateAvatar jika avatar diubah
+            if (profile.avatar !== user?.avatar) {
+               dispatch(updateAvatar(profile.avatar));
+            }
+            setProfile((prevProfile) => ({
+               ...prevProfile,
+               avatar: profile.avatar,
+            }));
+            setPicture(profile.avatar || '');  // Tetapkan state picture ke URL avatar yang baru
+         })
+         .catch((error) => {
+            alert(error?.message);
+         });
+   };
 
-      // validasi apakah semua data sudah diisi
-      // if (Object.values(profile).some((value) => value.trim() !== '')) {
+   const handleAvatarChange = (e) => {
+      const selectedFile = e.target.files[0];
 
-         // Panggil fungsi updateProfile dengan data dari state profile
-         dispatch(updateProfile(profile.name, profile.phoneNumber, profile.avatar, profile.city, profile.country))
+      if (selectedFile && selectedFile.type.startsWith('image/')) {
+         let pic = URL.createObjectURL(selectedFile);
+         setPicture(pic);
 
-      //    toast.success('Profilmu Berhasil Disimpan Horee🥳', {
-      //       position: "top-center",
-      //       autoClose: 5000,
-      //       hideProgressBar: false,
-      //       closeOnClick: true,
-      //       pauseOnHover: true,
-      //       draggable: true,
-      //       progress: undefined,
-      //       theme: "colored",
-      //    });
-      // } else {
-      //    toast.error('Harap isi setidaknya satu data profilmu yah!😊')
-      // }
+         // Memeriksa apakah avatar berubah sebelum melakukan pembaruan
+         if (selectedFile !== profile.avatar) {
+            setProfile((prevProfile) => ({ ...prevProfile, avatar: selectedFile }));
+
+            // Dispatch pembaruan profil dan avatar
+            dispatch(updateProfile(profile.name, profile.phoneNumber, selectedFile, profile.city, profile.country))
+               .then(() => {
+                  // Dispatch updateAvatar jika avatar diubah
+                  if (selectedFile !== user?.avatar) {
+                     dispatch(updateAvatar(selectedFile));
+                  }
+               })
+               .catch((error) => {
+                  alert(error?.message);
+               });
+         }
+      } else {
+         console.error('File yang dipilih bukan gambar.');
+      }
    };
 
    return (
@@ -145,10 +169,7 @@ const UserPage = () => {
                                        ref={img}
                                        hidden
                                        accept='image/*'
-                                       onChange={(e) => {
-                                          let pic = URL.createObjectURL(e.target.files[0]);
-                                          setPicture(pic);
-                                       }}
+                                       onChange={handleAvatarChange}
                                     />
                                  </div>
                                  <div className='flex flex-row items-center gap-1 mt-2 mb-1'>
@@ -232,8 +253,7 @@ const UserPage = () => {
                                     <button
                                        onClick={handleSaveProfile}
                                        className={`w-full bg-indigo-500 text-sm font-medium text-white py-2 px-6 rounded-2xl hover:bg-indigo-600 focus:outline-none focus:shadow-outline-blue
-                                             ${Object.values(profile).some((value) => value.trim() !== '') ? '' : 'cursor-not-allowed opacity-50'
-                                          }`}
+                                             ${Object.values(profile).some((value) => typeof value === 'string' && value.trim() !== '') ? '' : 'cursor-not-allowed opacity-50'}`}
                                     >
                                        Simpan Profil Saya
                                     </button>
