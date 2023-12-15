@@ -23,8 +23,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
 };
 
 export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) =>
-  async (dispatch, getState) => {
+  (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
     try {
       let { token } = getState().auth;
       const response = await axios.get(`${api_url}/profiles/my-profile`, {
@@ -70,15 +69,11 @@ export const updateProfile =
         country,
       };
 
-      const response = await axios.put(
-        `${api_url}/profiles/update-profile`,
-        profileData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.put(`${api_url}/profiles/update-profile`, profileData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const updateProfile = response.data;
 
       // perbarui user profile di redux state
@@ -91,37 +86,35 @@ export const updateProfile =
     }
   };
 
-export const updatePassword =
-  (currentPassword, newPassword) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
+export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
 
-      const passwordData = {
-        currentPassword,
-        newPassword,
-      };
+    const passwordData = {
+      currentPassword,
+      newPassword,
+    };
 
-      await axios.put(`${api_url}/profiles/update-password`, passwordData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    await axios.put(`${api_url}/profiles/update-password`, passwordData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      alert("Password Berhasil Diperbarui 🥳");
-      // Reload halaman setelah pembaruan berhasil
-      window.location.reload();
-    } catch (error) {
-      if (error.response.status === 400) {
-        alert("password lama kamu salah");
-      } else {
-        alert(error?.message);
-      }
+    alert("Password Berhasil Diperbarui 🥳");
+    // Reload halaman setelah pembaruan berhasil
+    window.location.reload();
+  } catch (error) {
+    if (error.response.status === 400) {
+      alert("password lama kamu salah");
+    } else {
+      alert(error?.message);
     }
-  };
+  }
+};
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) =>
-  async () => {
+  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
         username: name,
@@ -183,10 +176,40 @@ export const resendOtp = () => async () => {
       email,
     });
 
-    console.log(email);
+    // console.log(email);
 
     if (response.status === 200) {
       alert("done ga bang done");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const sendPassword = (email) => async () => {
+  try {
+    const response = await axios.post(`${api_url}/auth/reset-password`, {
+      email,
+    });
+
+    console.log(email);
+    if (response.status === 200) {
+      alert("Berhasil Mengirimkan Verify Email 🥳");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const resetPassword = (key, password) => async () => {
+  try {
+    const response = await axios.post(`${api_url}/auth/set-password`, {
+      id:key,
+      password,
+    });
+
+    if (response.status === 200) {
+      alert("Berhasil update password 🥳");
     }
   } catch (error) {
     alert(error.message);
