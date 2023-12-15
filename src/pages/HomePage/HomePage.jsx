@@ -1,4 +1,5 @@
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -242,7 +243,7 @@ const HomePage = () => {
         <button
           onClick={() => handleFilterClick("")}
           className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
-                           hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold"
+                      hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold"
         >
           All
         </button>
@@ -266,6 +267,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
