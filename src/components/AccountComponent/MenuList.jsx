@@ -18,6 +18,7 @@ const Menu = () => {
     dispatch(logout());
     dispatch(removeMyCourse());
     navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {

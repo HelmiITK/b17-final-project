@@ -13,7 +13,7 @@ const CardKategori = ({ title, img, id }) => {
           <img
             src={img}
             alt={title}
-            className="w-80 md:w-80 md:h-44 p-2 rounded-3xl lg:blur-[2px] hover:blur-0"
+            className="w-80 md:w-80 md:h-44 p-2 rounded-3xl"
           />
           <h1 className="my-4 font-medium text-black">{title}</h1>
         </Link>
