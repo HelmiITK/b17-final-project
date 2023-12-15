@@ -55,36 +55,41 @@ export const logout = () => (dispatch) => {
   dispatch(setUser(null));
 };
 
-export const updateProfile =
-  (name, no_telp, avatar, city, country) => async (dispatch, getState) => {
-    try {
-      // ambil token user di redux state
-      let { token } = getState().auth;
+export const updateProfile = (name, no_telp, avatar, city, country) => async (dispatch, getState) => {
+  try {
+    // ambil token user di redux state
+    let { token } = getState().auth;
 
-      const profileData = {
-        name,
-        no_telp,
-        avatar,
-        city,
-        country,
-      };
+    // Buat objek FormData untuk mengirim data sebagai multipart/form-data
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('no_telp', no_telp);
+    formData.append('avatar', avatar); // Ini diharapkan berupa file atau string base64
+    formData.append('city', city);
+    formData.append('country', country);
 
-      const response = await axios.put(`${api_url}/profiles/update-profile`, profileData, {
+    const response = await axios.put(
+      `${api_url}/profiles/update-profile`,
+      formData,
+      {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-      });
-      const updateProfile = response.data;
+      }
+    );
 
-      // perbarui user profile di redux state
-      dispatch(setUser(updateProfile));
-      alert("Profil berhasil diperbarui 🥳");
+    const updatedProfile = response.data;
 
-      window.location.reload();
-    } catch (error) {
-      alert(error?.message);
-    }
-  };
+    // perbarui user profile di redux state
+    dispatch(setUser(updatedProfile));
+    alert("Profil berhasil diperbarui 🥳");
+
+    window.location.reload();
+  } catch (error) {
+    alert(error?.message);
+  }
+};
 
 export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
   try {

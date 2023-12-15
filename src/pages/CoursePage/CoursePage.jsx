@@ -9,6 +9,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
@@ -127,6 +128,7 @@ const CoursePage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

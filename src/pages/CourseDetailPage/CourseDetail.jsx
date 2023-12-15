@@ -19,6 +19,7 @@ import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import { getMyCourse } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
 import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
+import Footer from "../../components/FooterComponent/Footer";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -335,6 +336,7 @@ const CourseDetail = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

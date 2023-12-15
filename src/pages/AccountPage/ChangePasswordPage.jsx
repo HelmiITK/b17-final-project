@@ -7,6 +7,7 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import Navbar from '../../components/NavbarComponent/Navbar';
 import { useDispatch } from 'react-redux';
 import { updatePassword } from '../../redux/actions/authActions';
+import Footer from '../../components/FooterComponent/Footer';
 
 const UserPage = () => {
    const dispatch = useDispatch();
@@ -182,6 +183,7 @@ const UserPage = () => {
                </div>
             </div>
          </div>
+         <Footer />
       </>
    )
 }
