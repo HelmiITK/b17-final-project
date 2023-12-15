@@ -60,7 +60,7 @@ const Main = ({ data, course, isLoading, getFilterFromMain }) => {
             className="hover:-translate-y-3 transition-all duration-300"
             key={item.id}
           >
-            <Card key={item.id} course={item} />
+            <Card course={item} />
           </div>
         ))}
       </div>

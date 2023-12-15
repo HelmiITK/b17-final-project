@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import { enrollFreeCourse } from "../../redux/actions/courseActions";
-import { useNavigate } from "react-router-dom";
 
 const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
     isError: false,
     message: null,
   });
-  const navigate = useNavigate();
+
   useEffect(() => {
     // get data dari redux
     dispatch(getDetailCourse(courseId, setErrors, errors));
@@ -23,8 +22,11 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const { detail } = useSelector((state) => state.course);
 
   const handleBuy = async () => {
+    // pembelian untuk yang berbayar
     if (detail.price === 0 && detail.type_course === "free") {
-      dispatch(enrollFreeCourse(courseId, navigate));
+      dispatch(enrollFreeCourse(courseId));
+    } else {
+      console.log("Kamu premium");
     }
   };
 
