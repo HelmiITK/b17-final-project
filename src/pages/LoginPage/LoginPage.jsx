@@ -40,7 +40,7 @@ const LoginPage = () => {
             </span>
             <form onSubmit={handleLogin}>
               <div className="py-1">
-                <span className="mb-2 text-sm font-poppins">Email</span>
+                {/* <span className="mb-2 text-sm font-poppins">Email</span> */}
                 <input
                   type="email"
                   id="email"
@@ -51,12 +51,12 @@ const LoginPage = () => {
                   required
                 />
               </div>
-              <div className="py-1">
-                <span className="mb-2 text-sm font-poppins">Password</span>
+              <div className="py-1 relative">
+                {/* <span className="mb-2 text-sm font-poppins">Password</span> */}
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
-                  className=" text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
+                  className="text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
                   placeholder="Password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
@@ -65,7 +65,7 @@ const LoginPage = () => {
                   type="button"
                   aria-label="toggle password visibility"
                   onClick={togglePassword}
-                  className="absolute top-1/2 right-2 transform -translate-y-10 px-8 py-2"
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 px-1 py-2"
                 >
                   {showPassword ? (
                     <FiEyeOff className="border-none" />
@@ -79,9 +79,9 @@ const LoginPage = () => {
                   <input type="checkbox" name="remember" id="ch" className="mr-1 font-poppins" />
                   Remember me
                 </label>
-                <a href="#" className="font-poppins text-xs">
+                <Link to={"/verify-email"} className="font-poppins text-xs">
                   Forgot Password?
-                </a>
+                </Link>
               </div>
               <button className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300">
                 Sign in
@@ -96,7 +96,7 @@ const LoginPage = () => {
             <p className="mt-2 text-gray-400 text-sm text-center">
               Dont have an account ? &nbsp;
               <Link to={"/register"} className="underline text-red-500">
-                Sign up for free
+                Sign up
               </Link>
             </p>
           </div>

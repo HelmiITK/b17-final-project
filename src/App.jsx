@@ -18,6 +18,8 @@ import BuyPage from "./pages/BuyPage/BuyPage";
 import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
 import NoAccessToken from "./security/NoAccessToken";
 import Protected from "./security/Protected";
+import SendEmail from "./pages/ResetPassword/SendEmail";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   return (
@@ -98,6 +100,22 @@ function App() {
               <NoAccessToken>
                 <OTPPage />
               </NoAccessToken>
+            }
+          />
+          <Route
+            path="/verify-email"
+            element={
+              // <Protected>
+              <SendEmail />
+              //</Protected>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              // <Protected>
+              <ResetPassword />
+              //</Protected>
             }
           />
           <Route path="/success" element={<SuccessBuyPage />} />
