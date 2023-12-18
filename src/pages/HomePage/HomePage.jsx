@@ -262,7 +262,7 @@ const HomePage = () => {
             ))
           ) : (
             <div className="col-span-3 text-center text-gray-500 mt-8 mb-4">
-              Data is Not Found
+              Data tidak tersedia
             </div>
           )}
         </div>
