@@ -3,6 +3,7 @@ import InfoCourse from "./InfoCourse";
 import DescriptionCourse from "./DescriptionCourse";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import CompletedButton from "./CompletedButton";
 
 const Main = ({ materialId }) => {
   const { detail } = useSelector((state) => state.course);
@@ -31,6 +32,7 @@ const Main = ({ materialId }) => {
                 // onEnded={}
               />
             </div>
+            <CompletedButton />
           </div>
         </div>
         {/* Infocourse ketika mobile */}

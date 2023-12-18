@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { formatPrice } from "../../libs/formatToIDR";
 
 const CardCourse = ({ course }) => {
   const { category } = useSelector((state) => state.category);
@@ -83,9 +84,9 @@ const CardCourse = ({ course }) => {
               )}
               {/* ini button ketika premium dan belum beli */}
               {!checkMycourse && (
-                <>
-                  <div className="my-2">
-                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
+                <div className="flex">
+                  <div className="my-2 mx-2">
+                    <button className="py-1 px-4 bg-blue-400 cursor-default text-white font-semibold rounded-xl text-xs items-center flex justify-between">
                       <span className="mr-2">
                         <Gem size={16} />
                       </span>{" "}
@@ -94,11 +95,11 @@ const CardCourse = ({ course }) => {
                   </div>
                   {/* button ketika mau beli (ada harganya) */}
                   <div className="my-2">
-                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                      Rp. {course.price}
+                    <button className="py-1 px-4 bg-blue-400 cursor-default text-white font-semibold rounded-xl text-xs items-center flex justify-between">
+                      {formatPrice(course.price)}
                     </button>
                   </div>
-                </>
+                </div>
               )}
               {/* Ini untuk riwayat dan status bayarnya belum bayar */}
               {/* <div className="my-2">

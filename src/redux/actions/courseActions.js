@@ -48,11 +48,11 @@ export const getMyCourse = () => async (dispatch, getState) => {
 };
 
 export const getMyCourseWithFilter =
-  (category, level, typeCourse) => async (dispatch, getState) => {
+  (category, level) => async (dispatch, getState) => {
     try {
       let { token } = getState().auth;
       const response = await axios.get(
-        `${api_url}/profiles/my-course?page=1&category=${category}&level=${level}&typeCourse=${typeCourse}`,
+        `${api_url}/profiles/my-course?page=1&category=${category}&level=${level}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
