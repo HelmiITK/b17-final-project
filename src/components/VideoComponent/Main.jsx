@@ -2,8 +2,9 @@ import ReactPlayer from "react-player";
 import InfoCourse from "./InfoCourse";
 import DescriptionCourse from "./DescriptionCourse";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CompletedButton from "./CompletedButton";
+import { updateMaterialStatus } from "../../redux/actions/courseActions";
 
 const Main = ({ materialId }) => {
   const { detail } = useSelector((state) => state.course);
@@ -11,6 +12,11 @@ const Main = ({ materialId }) => {
   const material = detail?.materials?.filter(
     (material) => material.id == materialId
   );
+
+  const dispatch = useDispatch();
+  const updateMaterial = () => {
+    dispatch(updateMaterialStatus(materialId));
+  };
   return (
     <>
       <div className="flex flex-col">
@@ -29,10 +35,10 @@ const Main = ({ materialId }) => {
                 width="100%"
                 height="100%"
                 className="react-player"
-                // onEnded={}
+                onEnded={updateMaterial}
               />
             </div>
-            <CompletedButton />
+            <CompletedButton materialId={materialId} />
           </div>
         </div>
         {/* Infocourse ketika mobile */}

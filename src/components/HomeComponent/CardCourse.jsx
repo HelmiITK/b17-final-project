@@ -49,7 +49,7 @@ const CardCourse = ({ course }) => {
                 <span className="mr-1 lg:mr-2">
                   <FaStar color="#F9CC00" className="w-4 h-4 lg:w-5 lg:h-5" />
                 </span>
-                4.8
+                {course.averageRating ? course.averageRating : 0}
               </p>
             </div>
             <div className="flex flex-col">

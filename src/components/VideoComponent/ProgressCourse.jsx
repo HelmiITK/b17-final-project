@@ -4,7 +4,7 @@ import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-const ProgressCourse = ({ isOpen }) => {
+const ProgressCourse = ({ isOpen, getCourseVideo }) => {
   const { detail } = useSelector((state) => state.course);
   const { chapters, materials } = detail;
   const chapterWithMaterials = chapters?.map((chapter) => {
@@ -14,6 +14,13 @@ const ProgressCourse = ({ isOpen }) => {
     const x = { title: chapter.title, materials: materialsAtChapter };
     return x;
   });
+
+  // ambil semua data yang sudah beres ditonton oleh user
+  const allDoneMaterials = getCourseVideo.userProgress.filter(
+    (course) => course.is_completed
+  );
+  console.log(allDoneMaterials);
+
   // untuk menampilkan angka pada setiap chapter material
   let number = 0;
 
@@ -46,7 +53,7 @@ const ProgressCourse = ({ isOpen }) => {
               <p className="text-blue-400 mr-2 text-xs">60 Menit</p>
             </div>
             {/* loop untuk mengambil list data dari setiap chapter */}
-            {item.materials.map((chapter, x) => {
+            {item.materials.map((material, x) => {
               // number increment setiap kali ada loop
               number = number + 1;
               return (
@@ -58,9 +65,15 @@ const ProgressCourse = ({ isOpen }) => {
                 >
                   {/* item chapter */}
                   <ChapterItem
-                    chapter={chapter}
+                    chapter={material}
                     numb={number}
                     isActive={isActive.title === i && isActive.chapter === x}
+                    // cek apakah material sudah is_completed atau belum, fungsinya untuk memberi tanda bahwa mana yang sudah is_completed dan mana yang belum
+                    isDone={
+                      !!allDoneMaterials.find(
+                        (mat) => mat.course_material_id === material.id
+                      )
+                    }
                   />
                 </div>
               );
@@ -74,6 +87,7 @@ const ProgressCourse = ({ isOpen }) => {
 
 ProgressCourse.propTypes = {
   isOpen: PropTypes.bool,
+  getCourseVideo: PropTypes.object,
 };
 
 export default ProgressCourse;
