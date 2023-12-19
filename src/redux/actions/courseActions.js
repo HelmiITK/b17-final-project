@@ -98,6 +98,64 @@ export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
   }
 };
 
+export const enrollPremiumCourse =
+  (courseId, userId) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_API_ADDRESS}/orders`,
+        {
+          course_id: +courseId,
+          user_id: userId,
+          payment_method_id: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            accept: `application/json`,
+            "Content-Type": `application/json`,
+          },
+        }
+      );
+      console.log(response.data);
+      // alert("Pembelian berhasil");
+
+      // reload halaman agar terupdate
+      // if (response.status == 201) {
+      //   setTimeout(() => {
+      //     window.location.reload();
+      //   }, 1000);
+      // }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+export const updateMaterialStatus = (id) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+
+    await axios.post(
+      `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/complete/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    alert("Video ini sudah selesai");
+  } catch (error) {
+    if (error.response.status === 400) {
+      alert("Video ini sudah anda selesaikan");
+    } else if (error.response.status === 404) {
+      alert("Video tidak ditemukan");
+    } else {
+      alert(error.message);
+    }
+  }
+};
+
 export const removeMyCourse = () => async (dispatch) => {
   dispatch(setMyCourse(null));
 };

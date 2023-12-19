@@ -6,10 +6,11 @@ import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
 import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
+import { getMyCourse } from "../../redux/actions/courseActions";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
@@ -21,7 +22,7 @@ const VideoPage = () => {
   });
 
   const dispatch = useDispatch();
-
+  const { mycourse } = useSelector((state) => state.course);
   // Ambil API dari komponen dari CardCourse berdasarkan id
   useEffect(() => {
     // get data dari redux
@@ -29,6 +30,15 @@ const VideoPage = () => {
       console.error("Error fetching course data:", error);
     });
   }, [courseId]); // lakukan setiap perubahan berdasarkan id
+
+  useEffect(() => {
+    // get data dari redux
+    dispatch(getMyCourse()).catch((error) => {
+      console.error("Error fetching course data:", error);
+    });
+  }, [courseId]); // lakukan setiap perubahan berdasarkan id
+
+  const getCourseVideo = mycourse.find((x) => x.course.id == courseId);
 
   return (
     <>
@@ -68,7 +78,10 @@ const VideoPage = () => {
               </div>
               {/* progress course, ada di sebelah kanan */}
               <div className="col-span-3 lg:col-span-1">
-                <ProgressCourse isOpen={isOpen} />
+                <ProgressCourse
+                  getCourseVideo={getCourseVideo}
+                  isOpen={isOpen}
+                />
               </div>
             </div>
           </div>

@@ -59,7 +59,7 @@ const MainMyCourse = ({ data, course, isLoading, getFilterFromMain }) => {
         {course.map((item) => (
           <div
             className="hover:-translate-y-3 transition-all duration-300"
-            key={item.id}
+            key={item.course.id}
           >
             <Card course={item.course} />
           </div>

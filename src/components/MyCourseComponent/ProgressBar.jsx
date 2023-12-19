@@ -5,14 +5,6 @@ import { useState } from "react";
 export default function ProgressBar() {
   const [percentage] = useState(90);
 
-  // useEffect(() => {
-  //   if (percentage < 99) {
-  //     setTimeout(() => {
-  //       setpercentage((prev) => prev + 1);
-  //     }, 30);
-  //   }
-  // }, [percentage]);
-
   return (
     <div className="flex items-center">
       <div className="mr-2">
