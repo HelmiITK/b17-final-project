@@ -316,7 +316,7 @@ const CourseDetail = () => {
                             checkMycourse &&
                               "hover:bg-indigo-600 hover:text-white duration-200",
                             !checkMycourse &&
-                              "cursor-not-allowed text-slate-500 border-slate-500 bg-slate-200"
+                              "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
                           )}
                           onClick={handleFollowClick}
                         >

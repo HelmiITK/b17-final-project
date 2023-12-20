@@ -32,7 +32,7 @@ const Card = ({ course }) => {
   useEffect(() => {
     if (mycourse) {
       const y = mycourse.find((item) => item.course.id == course.id);
-      setCheckMycourse(!!y);
+      setCheckMycourse(y);
     }
   }, [mycourse, course]);
 
@@ -89,7 +89,9 @@ const Card = ({ course }) => {
               {/* ini button ketika sudah beli */}
               {checkMycourse && (
                 <div className="mt-4 mb-3">
-                  <Progressbar />
+                  <Progressbar
+                    percentage={checkMycourse.progressPercentage.toFixed()}
+                  />
                 </div>
               )}
               {/* ini button ketika premium dan belum beli */}

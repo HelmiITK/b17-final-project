@@ -98,16 +98,43 @@ export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
   }
 };
 
-export const enrollPremiumCourse =
-  (courseId, userId) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_API_ADDRESS}/orders`,
+export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.post(
+      `${import.meta.env.VITE_REACT_API_ADDRESS}/orders/create`,
+      {
+        course_id: +courseId,
+        payment_method_id: 1,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: `application/json`,
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+    console.log(response.data);
+    // Buka link dalam tab baru jika respons memiliki link
+    if (response.data && response.data.paymentLink) {
+      const newTab = window.open(response.data.paymentLink, "_blank");
+      if (newTab) {
+        newTab.focus();
+      } else {
+        alert(
+          "Terblokir oleh penyekat popup, harap izinkan pop-up untuk membuka tautan."
+        );
+      }
+    } else {
+      console.log("Tidak ada tautan dalam respons");
+    }
+
+    if (response.data.order.status === "paid") {
+      const response2 = await axios.post(
+        `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
         {
           course_id: +courseId,
-          user_id: userId,
-          payment_method_id: 1,
         },
         {
           headers: {
@@ -117,19 +144,19 @@ export const enrollPremiumCourse =
           },
         }
       );
-      console.log(response.data);
-      // alert("Pembelian berhasil");
+      alert("Pembelian berhasil");
 
       // reload halaman agar terupdate
-      // if (response.status == 201) {
-      //   setTimeout(() => {
-      //     window.location.reload();
-      //   }, 1000);
-      // }
-    } catch (error) {
-      alert(error.message);
+      if (response2.status == 201) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
     }
-  };
+  } catch (error) {
+    alert(`ERROR ${error.response.status} : ${error.response.data.error}`);
+  }
+};
 
 export const updateMaterialStatus = (id) => async (dispatch, getState) => {
   try {

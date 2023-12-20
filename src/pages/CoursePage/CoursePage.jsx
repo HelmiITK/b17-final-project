@@ -4,7 +4,10 @@ import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourseWithFilter } from "../../redux/actions/courseActions";
+import {
+  getCourseWithFilter,
+  getMyCourse,
+} from "../../redux/actions/courseActions";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -14,6 +17,7 @@ import Footer from "../../components/FooterComponent/Footer";
 const CoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
 
   // loading
   const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +74,10 @@ const CoursePage = () => {
       () => setIsLoading(false)
     );
   }, [dispatch, stringCategory, stringLevel, typeCourse]);
+
+  useEffect(() => {
+    dispatch(getMyCourse(user?.id));
+  }, [dispatch, user]);
 
   return (
     <>

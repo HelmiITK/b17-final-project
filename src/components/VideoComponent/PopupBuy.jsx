@@ -23,7 +23,6 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   }, [courseId]);
 
   const { detail } = useSelector((state) => state.course);
-  const { user } = useSelector((state) => state.auth);
 
   const handleBuy = async () => {
     // pembelian untuk yang berbayar
@@ -35,7 +34,12 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
         dispatch(enrollFreeCourse(courseId));
       }
     } else {
-      dispatch(enrollPremiumCourse(courseId, user.id));
+      const decision = confirm(
+        "Course ini merupakan course berbayar, apakah anda yakin ingin membelinya ?"
+      );
+      if (decision) {
+        dispatch(enrollPremiumCourse(courseId));
+      }
     }
   };
 
