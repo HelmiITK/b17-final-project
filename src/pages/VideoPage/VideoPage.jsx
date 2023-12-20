@@ -36,7 +36,7 @@ const VideoPage = () => {
     dispatch(getMyCourse()).catch((error) => {
       console.error("Error fetching course data:", error);
     });
-  }, [courseId]); // lakukan setiap perubahan berdasarkan id
+  }, [dispatch]); // lakukan setiap perubahan berdasarkan id
 
   const getCourseVideo = mycourse.find((x) => x.course.id == courseId);
 
