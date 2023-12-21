@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { formatPrice } from "../../libs/formatToIDR";
 
 const CardCourse = ({ course }) => {
   const { category } = useSelector((state) => state.category);
@@ -22,7 +23,7 @@ const CardCourse = ({ course }) => {
   useEffect(() => {
     if (mycourse) {
       const y = mycourse.find((item) => item.course.id == course.id);
-      setCheckMycourse(!!y);
+      setCheckMycourse(y);
     }
   }, [mycourse, course]);
 
@@ -48,7 +49,7 @@ const CardCourse = ({ course }) => {
                 <span className="mr-1 lg:mr-2">
                   <FaStar color="#F9CC00" className="w-4 h-4 lg:w-5 lg:h-5" />
                 </span>
-                4.8
+                {course.averageRating ? course.averageRating : 0}
               </p>
             </div>
             <div className="flex flex-col">
@@ -78,14 +79,16 @@ const CardCourse = ({ course }) => {
               {/* ini button ketika sudah beli */}
               {checkMycourse && (
                 <div className="mt-4 mb-3">
-                  <Progressbar />
+                  <Progressbar
+                    percentage={checkMycourse.progressPercentage.toFixed()}
+                  />
                 </div>
               )}
               {/* ini button ketika premium dan belum beli */}
               {!checkMycourse && (
-                <>
-                  <div className="my-2">
-                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
+                <div className="flex">
+                  <div className="my-2 mx-2">
+                    <button className="py-1 px-4 bg-blue-400 cursor-default text-white font-semibold rounded-xl text-xs items-center flex justify-between">
                       <span className="mr-2">
                         <Gem size={16} />
                       </span>{" "}
@@ -94,11 +97,11 @@ const CardCourse = ({ course }) => {
                   </div>
                   {/* button ketika mau beli (ada harganya) */}
                   <div className="my-2">
-                    <button className="py-1 px-4 bg-blue-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                      Rp. {course.price}
+                    <button className="py-1 px-4 bg-blue-400 cursor-default text-white font-semibold rounded-xl text-xs items-center flex justify-between">
+                      {formatPrice(course.price)}
                     </button>
                   </div>
-                </>
+                </div>
               )}
               {/* Ini untuk riwayat dan status bayarnya belum bayar */}
               {/* <div className="my-2">

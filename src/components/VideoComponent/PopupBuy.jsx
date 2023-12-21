@@ -5,7 +5,10 @@ import Card from "../MyCourseComponent/Card";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
-import { enrollFreeCourse } from "../../redux/actions/courseActions";
+import {
+  enrollFreeCourse,
+  enrollPremiumCourse,
+} from "../../redux/actions/courseActions";
 
 const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const dispatch = useDispatch();
@@ -24,9 +27,19 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const handleBuy = async () => {
     // pembelian untuk yang berbayar
     if (detail.price === 0 && detail.type_course === "free") {
-      dispatch(enrollFreeCourse(courseId));
+      const decision = confirm(
+        "Course ini merupakan course gratis, Jika anda menekan YES maka anda akan meng-enroll course ini"
+      );
+      if (decision) {
+        dispatch(enrollFreeCourse(courseId));
+      }
     } else {
-      console.log("Kamu premium");
+      const decision = confirm(
+        "Course ini merupakan course berbayar, apakah anda yakin ingin membelinya ?"
+      );
+      if (decision) {
+        dispatch(enrollPremiumCourse(courseId));
+      }
     }
   };
 
