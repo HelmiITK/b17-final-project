@@ -4,9 +4,16 @@ import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-const ProgressCourse = ({ isOpen, getCourseVideo }) => {
-  const { detail } = useSelector((state) => state.course);
-  const { chapters, materials } = detail;
+import { useParams } from "react-router-dom";
+
+const ProgressCourse = ({ isOpen }) => {
+  const { courseId } = useParams();
+  const { mycourse } = useSelector((state) => state.course);
+  // cari dari mycourse yang sesuai dengan url
+  const getCourseVideo = mycourse.find((x) => x.course.id == courseId);
+  const { chapters, materials } = getCourseVideo
+    ? getCourseVideo.course
+    : { chapters: [], materials: [] };
   const chapterWithMaterials = chapters?.map((chapter) => {
     const materialsAtChapter = materials?.filter(
       (material) => material.chapter_id === chapter.id
@@ -16,10 +23,9 @@ const ProgressCourse = ({ isOpen, getCourseVideo }) => {
   });
 
   // ambil semua data yang sudah beres ditonton oleh user
-  const allDoneMaterials = getCourseVideo.userProgress.filter(
+  const allDoneMaterials = getCourseVideo?.userProgress.filter(
     (course) => course.is_completed
   );
-  console.log(allDoneMaterials);
 
   // untuk menampilkan angka pada setiap chapter material
   let number = 0;
@@ -42,7 +48,11 @@ const ProgressCourse = ({ isOpen, getCourseVideo }) => {
             Materi Belajar
           </h1>
           <div className="">
-            <ProgressBar />
+            <ProgressBar
+              percentage={
+                getCourseVideo && getCourseVideo.progressPercentage.toFixed()
+              }
+            />
           </div>
         </div>
         {/* loop judul chapter  */}
@@ -70,7 +80,8 @@ const ProgressCourse = ({ isOpen, getCourseVideo }) => {
                     isActive={isActive.title === i && isActive.chapter === x}
                     // cek apakah material sudah is_completed atau belum, fungsinya untuk memberi tanda bahwa mana yang sudah is_completed dan mana yang belum
                     isDone={
-                      !!allDoneMaterials.find(
+                      !!allDoneMaterials &&
+                      allDoneMaterials.find(
                         (mat) => mat.course_material_id === material.id
                       )
                     }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../libs/utils";
-import Card from "./Card";
+import CardMyCourse from "./CardMyCourse";
 import PropTypes from "prop-types";
 import ClockLoader from "react-spinners/ClockLoader";
 
@@ -61,7 +61,7 @@ const MainMyCourse = ({ data, course, isLoading, getFilterFromMain }) => {
             className="hover:-translate-y-3 transition-all duration-300"
             key={item.course.id}
           >
-            <Card course={item.course} />
+            <CardMyCourse course={item.course} rating={item.averageRating} />
           </div>
         ))}
       </div>
