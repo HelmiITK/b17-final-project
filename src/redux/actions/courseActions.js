@@ -52,7 +52,7 @@ export const getMyCourseWithFilter =
     try {
       let { token } = getState().auth;
       const response = await axios.get(
-        `${api_url}/profiles/my-course?page=1&category=${category}&level=${level}`,
+        `${api_url}/profiles/my-course?category_id=${category}&level=${level}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -60,9 +60,9 @@ export const getMyCourseWithFilter =
         }
       );
 
-      const { courses } = response.data;
+      const { enrolledCourses } = response.data;
 
-      dispatch(setMyCourse(courses));
+      dispatch(setMyCourse(enrolledCourses));
     } catch (error) {
       alert(error.message);
     }

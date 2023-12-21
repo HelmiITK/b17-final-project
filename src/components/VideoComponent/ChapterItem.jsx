@@ -65,7 +65,7 @@ ChapterItem.propTypes = {
   chapter: PropTypes.object,
   isActive: PropTypes.bool,
   numb: PropTypes.number,
-  isDone: PropTypes.object,
+  isDone: PropTypes.any,
 };
 
 export default ChapterItem;
