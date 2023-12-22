@@ -1,24 +1,21 @@
-import { FcGoogle } from "react-icons/fc";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
-import { register } from "../../redux/actions/authActions";
+import { resetPassword } from "../../redux/actions/authActions";
 
-const RegisterPage = () => {
-  const navigate = useNavigate();
+const ResetPassword = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passworderror, setPasswordError] = useState("");
-
-  const [errors, setErrors] = useState("");
+  //   const [errors, setErrors] = useState("");
+  const [isLoading, setIsLoading] = useState("");
 
   const passwordValidation = (password, confirm) => {
     if (password !== confirm) {
@@ -46,64 +43,28 @@ const RegisterPage = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const registAcc = async (event) => {
+  const handleResetPassword = async (event) => {
     event.preventDefault();
 
     if (passworderror) {
       alert("Password and Confirm Password not match");
     }
 
-    dispatch(
-      register(name, email, password, confirmPassword, phoneNumber, navigate, setErrors, errors)
-    );
+    dispatch(resetPassword(password, id, navigate, setIsLoading));
   };
-
   return (
     <>
       <div className="flex items-center justify-center min-h-screen py-20 bg-gray-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl font-bold text-">Sign Up Account</span>
+            <span className="mb-3 text-4xl font-bold text-">Change Password</span>
             <span className="font-light text-gray-400 mb-8">
-              Welcome back! please enter your details
+              Please Enter a new password below.
             </span>
-            <form action="" onSubmit={registAcc}>
-              <div className="py-1">
-                {/* <span className="mb-2 text-sm font-poppins">Full Name</span> */}
-                <input
-                  type="text"
-                  id="name"
-                  className="font-poppins text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
-                  placeholder="Username"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </div>
-              <div className="py-1">
-                {/* <span className="mb-2 text-sm font-poppins">Email</span> */}
-                <input
-                  type="email"
-                  id="email"
-                  className="font-poppins text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-              </div>
-              <div className="py-1">
-                {/* <span className="mb-2 text-sm font-poppins">Phone Number</span> */}
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  className="font-poppins text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
-                  placeholder="Phone Number"
-                  value={phoneNumber}
-                  onChange={(event) => setPhoneNumber(event.target.value)}
-                />
-              </div>
+            <form action="" onSubmit={handleResetPassword}>
               <div className="py-1 relative">
-                {/* <span className="mb-2 text-sm font-poppins">Password</span> */}
+                <span className="mb-2 text-sm font-poppins">New Password</span>
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
@@ -116,7 +77,7 @@ const RegisterPage = () => {
                   type="button"
                   aria-label="toggle password visibility"
                   onClick={togglePassword}
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 px-1 py-2"
+                  className="absolute top-1/2 right-2 transform -translate-y-1 px-1 py-2"
                 >
                   {showPassword ? (
                     <FiEyeOff className="border-none" />
@@ -126,7 +87,7 @@ const RegisterPage = () => {
                 </button>
               </div>
               <div className="py-1 relative">
-                {/* <span className="mb-2 text-sm font-poppins">Password</span> */}
+                <span className="mb-2 text-sm font-poppins">Confirm a new password</span>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmpassword"
@@ -139,7 +100,7 @@ const RegisterPage = () => {
                   type="button"
                   aria-label="toggle password visibility"
                   onClick={toggleConfirmPassword}
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 px-1 py-2"
+                  className="absolute top-1/2 right-2 transform -translate-y-1 px-1 py-2"
                 >
                   {showConfirmPassword ? (
                     <FiEyeOff className="border-none" />
@@ -149,34 +110,24 @@ const RegisterPage = () => {
                 </button>
               </div>
 
-              <div className="flex justify-between w-full py-4">
+              {/* <div className="flex justify-between w-full py-4">
                 <label className="flex items-center text-xs font-poppins">
                   <input type="checkbox" name="remember" id="ch" className="mr-2" />i agree all
                   &nbsp;
                   <p className="text-blue-900 font-semibold">terms and conditions</p>
-                  {/* <p className="ml-1">and &nbsp;</p>
-                <p className="text-blue-900 font-semibold">Privacy Policies of evolko</p> */}
+                  <p className="ml-1">and &nbsp;</p>
+                <p className="text-blue-900 font-semibold">Privacy Policies of evolko</p>
                 </label>
+              </div> */}
+              <div className="flex justify-between w-full py-4">
+                <button
+                  className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:scale-105"
+                  type="sumbit"
+                >
+                  {isLoading ? "Loading..." : "Send Reset Link"}
+                </button>
               </div>
-              <button
-                className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300"
-                type="sumbit"
-              >
-                Create an account
-              </button>
             </form>
-
-            <p className="text-gray-400 mb-2 text-center text-sm underline">or use another login</p>
-            <button className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
-              <FcGoogle className="w-6 h-6 inline mr-2" />
-              Sign in with Google
-            </button>
-            <p className="mt-2 text-gray-400 text-sm text-center">
-              Already have account ? &nbsp;
-              <Link to={"/login"} className="font-semibold underline text-red-500">
-                Sign in
-              </Link>
-            </p>
           </div>
           <div className="relative">
             <img
@@ -194,4 +145,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default ResetPassword;

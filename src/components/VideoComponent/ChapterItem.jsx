@@ -5,7 +5,7 @@ import { cn } from "../../libs/utils";
 import { useNavigate, useParams } from "react-router-dom";
 
 // isi dari setiap chapter
-const ChapterItem = ({ chapter, isActive, numb }) => {
+const ChapterItem = ({ chapter, isActive, numb, isDone }) => {
   // untuk mengambil lokasi course saat ini
   const { courseId } = useParams();
   const navigate = useNavigate();
@@ -19,13 +19,26 @@ const ChapterItem = ({ chapter, isActive, numb }) => {
     >
       <div className="flex justify-between mt-3">
         <div className="flex items-center w-full">
-          <div className="aspect-square w-6 md:w-8 rounded-full flex items-center justify-center bg-slate-200">
-            <p className=" text-[10px] text-xs font-bold">{numb}</p>
+          <div
+            className={cn(
+              "aspect-square w-6 md:w-8 rounded-full flex items-center justify-center bg-slate-200",
+              isDone && "bg-green-300 rounded-none rotate-45"
+            )}
+          >
+            <p
+              className={cn(
+                " text-[10px] text-xs font-bold ",
+                isDone && "-rotate-45"
+              )}
+            >
+              {numb}
+            </p>
           </div>
           <div className="mx-2 w-full  duration-300 transition-all">
             <p
               className={cn(
                 "text-xs md:text-sm font-semibold",
+                isDone && !isActive && "text-green-400",
                 isActive && "underline"
               )}
             >
@@ -52,6 +65,7 @@ ChapterItem.propTypes = {
   chapter: PropTypes.object,
   isActive: PropTypes.bool,
   numb: PropTypes.number,
+  isDone: PropTypes.any,
 };
 
 export default ChapterItem;

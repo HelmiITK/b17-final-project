@@ -4,6 +4,8 @@ import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMen
 import ButtonBack from '../../components/AccountComponent/ButtonBack';
 import MenuList from '../../components/AccountComponent/MenuList'
 import Card from '../../components/MyCourseComponent/Card';
+import Navbar from '../../components/NavbarComponent/Navbar';
+import Footer from '../../components/FooterComponent/Footer';
 
 const UserPage = () => {
    const [openHamburger, setOpenHamburger] = useState(false);
@@ -14,6 +16,7 @@ const UserPage = () => {
 
    return (
       <>
+         <Navbar />
          <div className="w-full relative">
             <div className="bg-layer w-full h-64 pt-24"></div>
             <div className="container mx-auto -mt-40 lg:-mt-32">
@@ -53,6 +56,7 @@ const UserPage = () => {
                </div>
             </div>
          </div>
+         <Footer />
       </>
    )
 }

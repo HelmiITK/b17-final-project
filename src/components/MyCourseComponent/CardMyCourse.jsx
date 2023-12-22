@@ -8,7 +8,7 @@ import { formatPrice } from "../../libs/formatToIDR";
 import { useEffect, useState } from "react";
 import { getCategory } from "../../redux/actions/categoryActions";
 // card course
-const Card = ({ course }) => {
+const Card = ({ course, rating }) => {
   const [checkMycourse, setCheckMycourse] = useState(false);
   const { mycourse } = useSelector((state) => state.course);
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const Card = ({ course }) => {
                 <span className="mr-1 lg:mr-2">
                   <FaStar color="#F9CC00" className="w-4 h-4 lg:w-5 lg:h-5" />
                 </span>
-                {course.averangeRating ? course.averangeRating : 0}
+                {rating ? rating : 0}
               </p>
             </div>
             <div className="flex flex-col">
@@ -115,24 +115,6 @@ const Card = ({ course }) => {
                   </div>
                 </div>
               )}
-              {/* Ini untuk riwayat dan status bayarnya belum bayar */}
-              {/* <div className="my-2">
-                    <button className="py-1 px-4 bg-red-500  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                      <span className="mr-2">
-                        <Gem size={16} />
-                      </span>{" "}
-                      Waiting for payment
-                    </button>
-                  </div> */}
-              {/* Ini untuk riwayat dan status bayarnya udah bayar */}
-              {/* <div className="my-2">
-                    <button className="py-1 px-4 bg-green-400  text-white font-semibold rounded-full text-xs transition-all duration-300 hover:scale-105 items-center flex justify-between">
-                      <span className="mr-2">
-                        <Gem size={16} />
-                      </span>{" "}
-                      Paid
-                    </button>
-                  </div> */}
             </div>
           </div>
         </div>
@@ -143,6 +125,7 @@ const Card = ({ course }) => {
 
 Card.propTypes = {
   course: PropTypes.any,
+  rating: PropTypes.number,
 };
 
 export default Card;

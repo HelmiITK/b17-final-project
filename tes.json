@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "enrolledCourses": [
+    {
+      "course": {
+        "category_id": 4
+      },
+      "enrolled_at": "2023-12-14T10:25:13.999Z",
+      "is_completed": false,
+      "progressPercentage": 11.11111111111111,
+      "averageRating": 4.8
+    },
+    {
+      "course": {
+        "category_id": 4
+      },
+      "enrolled_at": "2023-12-14T12:27:04.751Z",
+      "is_completed": false,
+      "progressPercentage": 0,
+      "averageRating": 4.5
+    },
+    {
+      "course": {
+        "category_id": 4
+      },
+      "enrolled_at": "2023-12-14T13:15:53.230Z",
+      "is_completed": false,
+      "progressPercentage": 0,
+      "averageRating": 3.9
+    },
+    {
+      "course": {
+        "category_id": 4
+      },
+      "enrolled_at": "2023-12-12T10:52:45.947Z",
+      "is_completed": false,
+      "progressPercentage": 100,
+      "averageRating": 3.85
+    }
+  ]
+}

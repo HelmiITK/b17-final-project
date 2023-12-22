@@ -1,4 +1,5 @@
 import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -8,7 +9,7 @@ import CardCourse from "../../components/HomeComponent/CardCourse";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourse } from "../../redux/actions/courseActions";
+import { getCourse, getMyCourse } from "../../redux/actions/courseActions";
 import ClockLoader from "react-spinners/ClockLoader";
 import { TypeAnimation } from "react-type-animation";
 import { BsChatLeftQuoteFill } from "react-icons/bs";
@@ -21,6 +22,7 @@ const HomePage = () => {
   // ambil data kategori dan course dari redux
   const { category } = useSelector((state) => state.category);
   const { course } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
 
   // state untuk menyimpan kategori yang dipilih
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -43,6 +45,13 @@ const HomePage = () => {
         setLoading(false);
       });
   }, [dispatch]);
+
+  // ambil data course milik user
+  useEffect(() => {
+    if (user) {
+      dispatch(getMyCourse(user.id));
+    }
+  }, [dispatch, user]);
 
   const handleFilterClick = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -234,7 +243,7 @@ const HomePage = () => {
         <button
           onClick={() => handleFilterClick("")}
           className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
-                           hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold"
+                      hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold"
         >
           All
         </button>
@@ -253,11 +262,12 @@ const HomePage = () => {
             ))
           ) : (
             <div className="col-span-3 text-center text-gray-500 mt-8 mb-4">
-              Data is Not Found
+              Data tidak tersedia
             </div>
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

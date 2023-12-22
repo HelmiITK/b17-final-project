@@ -5,10 +5,11 @@ import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
-import PopupBuy from "../../components/VideoComponent/PopupBuy";
-import PopupOnboarding from "../../components/VideoComponent/PopupOnboarding";
 import { useDispatch } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
+import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
+import { getMyCourse } from "../../redux/actions/courseActions";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
@@ -20,7 +21,6 @@ const VideoPage = () => {
   });
 
   const dispatch = useDispatch();
-
   // Ambil API dari komponen dari CardCourse berdasarkan id
   useEffect(() => {
     // get data dari redux
@@ -29,10 +29,18 @@ const VideoPage = () => {
     });
   }, [courseId]); // lakukan setiap perubahan berdasarkan id
 
+  useEffect(() => {
+    // get data dari redux
+    dispatch(getMyCourse()).catch((error) => {
+      console.error("Error fetching course data:", error);
+    });
+  }, [dispatch]);
+
+  // console.log(getCourseVideo);
   return (
     <>
-      <PopupOnboarding />
-      <PopupBuy />
+      <Navbar />
+
       {/* tombol untuk menampilkan/menghilangkan progressCourse */}
       <div className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all">
         <button
@@ -75,6 +83,7 @@ const VideoPage = () => {
         {/* background yang beda warna */}
         <div className="bg-layer h-[280px] hidden md:block" />
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { cn } from "../../libs/utils";
-import Card from "./Card";
+import CardMyCourse from "./CardMyCourse";
 import PropTypes from "prop-types";
 import ClockLoader from "react-spinners/ClockLoader";
 
-const Main = ({ data, course, isLoading, getFilterFromMain }) => {
+const MainMyCourse = ({ data, course, isLoading, getFilterFromMain }) => {
   const [flag, setFlag] = useState(0);
   // jika data tidak ada, maka anggap course sebagai array kosong, agar tidak error
   if (!course) {
@@ -59,9 +59,9 @@ const Main = ({ data, course, isLoading, getFilterFromMain }) => {
         {course.map((item) => (
           <div
             className="hover:-translate-y-3 transition-all duration-300"
-            key={item.id}
+            key={item.course.id}
           >
-            <Card course={item} />
+            <CardMyCourse course={item.course} rating={item.averageRating} />
           </div>
         ))}
       </div>
@@ -69,11 +69,11 @@ const Main = ({ data, course, isLoading, getFilterFromMain }) => {
   );
 };
 
-Main.propTypes = {
+MainMyCourse.propTypes = {
   data: PropTypes.array,
   course: PropTypes.any,
   isLoading: PropTypes.bool,
   getFilterFromMain: PropTypes.func,
 };
 
-export default Main;
+export default MainMyCourse;

@@ -4,10 +4,14 @@ import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMen
 import ButtonBack from '../../components/AccountComponent/ButtonBack';
 import MenuList from '../../components/AccountComponent/MenuList'
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import Navbar from '../../components/NavbarComponent/Navbar';
+import { useDispatch } from 'react-redux';
+import { updatePassword } from '../../redux/actions/authActions';
+import Footer from '../../components/FooterComponent/Footer';
 
 const UserPage = () => {
+   const dispatch = useDispatch();
    const [openHamburger, setOpenHamburger] = useState(false);
-
    const [showPasswords, setShowPasswords] = useState({
       lama: false,
       baru: false,
@@ -15,9 +19,9 @@ const UserPage = () => {
    });
 
    const [passwords, setPasswords] = useState({
-      lama: '',
-      baru: '',
-      ulangi: '',
+      lama: "",
+      baru: "",
+      ulangi: "",
    });
 
    // fungsi buka tutup hamburger menu
@@ -43,8 +47,32 @@ const UserPage = () => {
       }));
    };
 
+   const handleChangePassword = async () => {
+      try {
+         // validasi bahwa semua data harus terisi
+         if (!passwords.lama || !passwords.baru || !passwords.ulangi) {
+            alert('Silahkan lengkapi semua data terlebih dahulu.')
+            return;
+         }
+
+         // validasi bahwa password baru dan konfirmasi password sesuai
+         if (passwords.baru !== passwords.ulangi) {
+            alert('Password baru dan konfirmasi password tidak sesuai')
+            return;
+         }
+
+         // panggil aksi updatePassword
+         await dispatch(updatePassword(passwords.lama, passwords.baru));      
+
+      } catch (error) {
+         console.error("Terjadi kesalahan:", error);
+         alert('Terjadi Kesalahan Saat Mengubah Password!');
+      }
+   }
+
    return (
       <>
+         <Navbar />
          <div className="w-full relative">
             <div className="bg-layer w-full h-64 pt-24"></div>
             <div className="container mx-auto -mt-40 lg:-mt-32">
@@ -144,7 +172,9 @@ const UserPage = () => {
                               </div>
                            </div>
                            {/* button simpan perubahan */}
-                           <button className='mt-2 border-none bg-indigo-500 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-indigo-700'>
+                           <button
+                              onClick={handleChangePassword}
+                              className='mt-2 border-none bg-indigo-500 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-indigo-700'>
                               Ubah Password
                            </button>
                         </div>
@@ -153,6 +183,7 @@ const UserPage = () => {
                </div>
             </div>
          </div>
+         <Footer />
       </>
    )
 }

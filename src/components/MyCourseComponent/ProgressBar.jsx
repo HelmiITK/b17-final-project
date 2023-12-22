@@ -1,18 +1,9 @@
 import { BadgeCheck } from "lucide-react";
-import { useState } from "react";
+// import { useState } from "react";
+import PropTypes from "prop-types";
 
 // persentase progress
-export default function ProgressBar() {
-  const [percentage] = useState(90);
-
-  // useEffect(() => {
-  //   if (percentage < 99) {
-  //     setTimeout(() => {
-  //       setpercentage((prev) => prev + 1);
-  //     }, 30);
-  //   }
-  // }, [percentage]);
-
+export default function ProgressBar({ percentage }) {
   return (
     <div className="flex items-center">
       <div className="mr-2">
@@ -37,3 +28,7 @@ export default function ProgressBar() {
     </div>
   );
 }
+
+ProgressBar.propTypes = {
+  percentage: PropTypes.string,
+};
