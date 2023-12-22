@@ -10,6 +10,7 @@ const SideFilter = ({
   handleCategory,
   isLoading,
   handleLevel,
+  handleFilter,
   categoryFromHome,
 }) => {
   const filter = ["Paling Baru", "Paling Populer"];
@@ -24,7 +25,15 @@ const SideFilter = ({
   useEffect(() => {
     handleCategory(checkedCategories);
     handleLevel(checkedLevels);
-  }, [checkedCategories, handleCategory, handleLevel, checkedLevels]);
+    handleFilter(checkedFilter);
+  }, [
+    checkedCategories,
+    handleCategory,
+    handleLevel,
+    checkedLevels,
+    checkedFilter,
+    handleFilter,
+  ]);
 
   const deleteFilter = () => {
     setCheckedCategories([]);
@@ -182,6 +191,7 @@ SideFilter.propTypes = {
   handleCategory: PropTypes.func,
   isLoading: PropTypes.bool,
   handleLevel: PropTypes.func,
+  handleFilter: PropTypes.func,
   categoryFromHome: PropTypes.number,
 };
 
