@@ -179,6 +179,21 @@ const Navbar = () => {
                     ) : (
                       // if login
                       <>
+                        <NavLink as={Link} to={"/"}>
+                          <li
+                            onClick={() => handleIconClick("home")}
+                            className="flex flex-row-reverse"
+                          >
+                            {selectedIcon === "home" ? (
+                              <div className="flex flex-row-reverse gap-2  bg-indigo-600 py-2 px-3 rounded-lg text-white">
+                                <IoMdHome className="w-8 h-6" />
+                                <span>Kelas</span>
+                              </div>
+                            ) : (
+                              <IoMdHome className="w-8 h-6 text-indigo-600" />
+                            )}
+                          </li>
+                        </NavLink>
                         <NavLink as={Link} to={"/mycourse"}>
                           <li
                             onClick={() => handleIconClick("Kelas")}
