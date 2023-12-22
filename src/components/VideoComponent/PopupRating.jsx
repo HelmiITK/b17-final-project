@@ -3,20 +3,38 @@ import { IoMdClose } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createRating, updateRating } from "../../redux/actions/courseActions";
+import { useParams } from "react-router-dom";
 
 const PopupRating = ({ isPopupRating, handleRating }) => {
-  const [rating, setRating] = useState(null);
+  const [ratings, setRatings] = useState(null);
   const [hover, setHover] = useState(null);
+  const { user } = useSelector((state) => state.auth);
+  const { rating } = useSelector((state) => state.course);
+  const { courseId } = useParams();
   const dispatch = useDispatch();
   const handleSubmit = () => {
+    const { id } = rating.find(
+      (rate) => rate.course_id == courseId && rate.user_id === user.id
+    );
+    console.log(id);
+    console.log(courseId);
+    console.log(user.id);
     const validate = confirm(
-      `Apakah anda yakin akan memberikan nilai  ${rating} pada course ini ?`
+      `Apakah anda yakin akan memberikan nilai  ${ratings} pada course ini ?`
     );
     if (validate) {
-      alert("ayam");
-
-      window.location.reload();
+      if (
+        id &&
+        rating.find(
+          (rate) => rate.course_id == courseId && rate.user_id === user.id
+        )
+      ) {
+        dispatch(updateRating(+courseId, user.id, ratings, id));
+      } else {
+        dispatch(createRating(+courseId, user.id, ratings));
+      }
     }
   };
   return (
@@ -50,7 +68,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
                       type="radio"
                       name="rating"
                       value={currentRating}
-                      onClick={() => setRating(currentRating)}
+                      onClick={() => setRatings(currentRating)}
                       className="hidden"
                     />
                     <FaStar
@@ -69,7 +87,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
               })}
             </div>
             <div className="mt-4">
-              Nilaimu terhadap course ini adalah {rating}
+              Nilaimu terhadap course ini adalah {ratings}
             </div>
             <div className="flex justify-center mt-3">
               <button

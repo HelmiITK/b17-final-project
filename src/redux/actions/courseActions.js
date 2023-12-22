@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCourse, setMyCourse } from "../reducers/courseReducers";
+import { setCourse, setMyCourse, setRating } from "../reducers/courseReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
@@ -182,6 +182,66 @@ export const updateMaterialStatus = (id) => async (dispatch, getState) => {
     }
   }
 };
+
+export const allRating = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`${api_url}/ratings`);
+
+    const { data } = response.data;
+
+    dispatch(setRating(data));
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const createRating =
+  (course_id, user_id, rating) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
+      await axios.post(
+        `${import.meta.env.VITE_REACT_API_ADDRESS}/ratings/create`,
+        {
+          course_id,
+          user_id,
+          rating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("kamu sudah memberikan rating pada course ini !");
+      window.location.reload();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+export const updateRating =
+  (course_id, user_id, rating, id_rating) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
+      await axios.put(
+        `${import.meta.env.VITE_REACT_API_ADDRESS}/ratings/update/${id_rating}`,
+        {
+          course_id,
+          user_id,
+          rating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Terima kasih telah memberikan nilai pada course ini");
+      window.location.reload();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 export const removeMyCourse = () => async (dispatch) => {
   dispatch(setMyCourse(null));

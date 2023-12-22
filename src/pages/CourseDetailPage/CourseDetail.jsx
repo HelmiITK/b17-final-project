@@ -9,24 +9,18 @@ import { BiMessageSquareDetail } from "react-icons/bi";
 import { BiLineChart } from "react-icons/bi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { BsChatRightQuote } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiFillHeart } from "react-icons/ai";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import ClockLoader from "react-spinners/ClockLoader";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import PopupBuy from "../../components/VideoComponent/PopupBuy";
-import { getMyCourse } from "../../redux/actions/courseActions";
+import { allRating, getMyCourse } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
 import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 import Footer from "../../components/FooterComponent/Footer";
-import PopupOnboarding from "../../components/VideoComponent/PopupRating";
+import PopupRating from "../../components/VideoComponent/PopupRating";
 
 const CourseDetail = () => {
-  const getRandomLoveCount = () => {
-    return Math.floor(Math.random() * 100) + 1;
-  };
-
   // const [loveCount, setLoveCount] = useState(getRandomLoveCount());
   // const [isLoved, setIsLoved] = useState(false);
   const [checkMycourse, setCheckMycourse] = useState(false);
@@ -46,6 +40,7 @@ const CourseDetail = () => {
   const { detail } = useSelector((state) => state.course);
   const { user } = useSelector((state) => state.auth);
   const { mycourse } = useSelector((state) => state.course);
+  const { rating } = useSelector((state) => state.course);
   const { chapters, materials } = detail
     ? detail
     : { chapters: [], materials: [] };
@@ -56,7 +51,6 @@ const CourseDetail = () => {
     const x = { title: chapter.title, materials: materialsAtChapter };
     return x;
   });
-
   // const handleLoveClick = () => {
   //   if (isLoved) {
   //     setLoveCount(loveCount - 1);
@@ -143,6 +137,10 @@ const CourseDetail = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
+    dispatch(allRating());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (mycourse) {
       const y = mycourse.find((course) => course.course.id == courseId);
       setCheckMycourse(y);
@@ -156,10 +154,7 @@ const CourseDetail = () => {
         handlePopup={handlePopup}
         courseId={courseId}
       />
-      <PopupOnboarding
-        isPopupRating={isPopupRating}
-        handleRating={handleRating}
-      />
+      <PopupRating isPopupRating={isPopupRating} handleRating={handleRating} />
       <Navbar />
       <div className="container mx-auto pt-24">
         <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
@@ -205,12 +200,34 @@ const CourseDetail = () => {
                   )}
                   {loveCount}
                 </button> */}
-                  <button
-                    onClick={() => setIsPopupRating(true)}
-                    className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
-                  >
-                    Beri Rating
-                  </button>
+                  {user &&
+                    !!rating.find(
+                      (rate) =>
+                        rate.course_id == courseId && rate.user_id == user.id
+                    ) &&
+                    !!checkMycourse && (
+                      <div>
+                        <button
+                          onClick={() => setIsPopupRating(true)}
+                          className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
+                        >
+                          Ubah Rating
+                        </button>
+                      </div>
+                    )}
+                  {user &&
+                    !rating.find(
+                      (rate) =>
+                        rate.course_id == courseId && rate.user_id == user.id
+                    ) &&
+                    !!checkMycourse && (
+                      <button
+                        onClick={() => setIsPopupRating(true)}
+                        className="bg-violet-200 w-fit p-2 rounded-lg font-semibold"
+                      >
+                        Beri Rating
+                      </button>
+                    )}
 
                   {/* ini ada di mode hp dan tablet */}
                   <div className="flex flex-row justify-between my-5 lg:hidden">
