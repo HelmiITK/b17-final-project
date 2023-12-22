@@ -203,21 +203,6 @@ export const sendPassword = (email) => async () => {
   }
 };
 
-// export const resetPassword = (key, password) => async () => {
-//   try {
-//     const response = await axios.post(`${api_url}/auth/set-password`, {
-//       id: key,
-//       password,
-//     });
-
-//     if (response.status === 200) {
-//       alert("Berhasil update password 🥳 🥳");
-//     }
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// };
-
 export const resetPassword =
   (newPassword, confirmNewPassword, navigate) => async (dispatch, getState) => {
     try {
