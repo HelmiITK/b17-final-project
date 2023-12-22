@@ -55,41 +55,38 @@ export const logout = () => (dispatch) => {
   dispatch(setUser(null));
 };
 
-export const updateProfile = (name, no_telp, avatar, city, country) => async (dispatch, getState) => {
-  try {
-    // ambil token user di redux state
-    let { token } = getState().auth;
+export const updateProfile =
+  (name, no_telp, avatar, city, country) => async (dispatch, getState) => {
+    try {
+      // ambil token user di redux state
+      let { token } = getState().auth;
 
-    // Buat objek FormData untuk mengirim data sebagai multipart/form-data
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('no_telp', no_telp);
-    formData.append('avatar', avatar); // Ini diharapkan berupa file atau string base64
-    formData.append('city', city);
-    formData.append('country', country);
+      // Buat objek FormData untuk mengirim data sebagai multipart/form-data
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("no_telp", no_telp);
+      formData.append("avatar", avatar); // Ini diharapkan berupa file atau string base64
+      formData.append("city", city);
+      formData.append("country", country);
 
-    const response = await axios.put(
-      `${api_url}/profiles/update-profile`,
-      formData,
-      {
+      const response = await axios.put(`${api_url}/profiles/update-profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
-      }
-    );
+      });
 
-    const updatedProfile = response.data;
+      const updatedProfile = response.data;
 
-    // perbarui user profile di redux state
-    dispatch(setUser(updatedProfile));
-    alert("Profil berhasil diperbarui 🥳");
+      // perbarui user profile di redux state
+      dispatch(setUser(updatedProfile));
+      alert("Profil berhasil diperbarui 🥳");
 
-    window.location.reload();
-  } catch (error) {
-    alert(error?.message);
-  }
-};
+      window.location.reload();
+    } catch (error) {
+      alert(error?.message);
+    }
+  };
 
 export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
   try {
@@ -206,17 +203,49 @@ export const sendPassword = (email) => async () => {
   }
 };
 
-export const resetPassword = (key, password) => async () => {
-  try {
-    const response = await axios.post(`${api_url}/auth/set-password`, {
-      id:key,
-      password,
-    });
+// export const resetPassword = (key, password) => async () => {
+//   try {
+//     const response = await axios.post(`${api_url}/auth/set-password`, {
+//       id: key,
+//       password,
+//     });
 
-    if (response.status === 200) {
-      alert("Berhasil update password 🥳 🥳");
+//     if (response.status === 200) {
+//       alert("Berhasil update password 🥳 🥳");
+//     }
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// };
+
+export const resetPassword =
+  (newPassword, confirmNewPassword, navigate) => async (dispatch, getState) => {
+    try {
+      const { token } = getState().auth;
+
+      const passwordNew = {
+        newPassword: newPassword,
+        confirmPassword: confirmNewPassword,
+      };
+
+      const response = await axios.put(
+        `${api_url}/auth/set-password?resetPasswordToken=${token}`,
+        passwordNew,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // alert("Password Berhasil Diganti 🥳");
+      if (response.status === 200) {
+        alert("Berhasil Mengirimkan Verify Email 🥳");
+      }
+      navigate("/");
+
+      console.log(response);
+    } catch (error) {
+      alert(error.message);
     }
-  } catch (error) {
-    alert(error.message);
-  }
-};
+  };
