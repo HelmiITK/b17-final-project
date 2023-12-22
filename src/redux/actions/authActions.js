@@ -204,9 +204,9 @@ export const sendPassword = (email) => async () => {
 };
 
 export const resetPassword =
-  (newPassword, confirmNewPassword, navigate) => async (dispatch, getState) => {
+  (resetToken, newPassword, confirmNewPassword, navigate) => async () => {
     try {
-      const { token } = getState().auth;
+      // const { token } = getState().auth;
 
       const passwordNew = {
         newPassword: newPassword,
@@ -214,13 +214,8 @@ export const resetPassword =
       };
 
       const response = await axios.put(
-        `${api_url}/auth/set-password?resetPasswordToken=${token}`,
-        passwordNew,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${api_url}/auth/set-password?resetPasswordToken=${resetToken}`,
+        passwordNew
       );
 
       // alert("Password Berhasil Diganti 🥳");

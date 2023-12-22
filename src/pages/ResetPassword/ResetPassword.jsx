@@ -1,14 +1,16 @@
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { resetPassword } from "../../redux/actions/authActions";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useParams();
 
+  // let resetPasswordToken; = use
+
+  const [resetPasswordToken, setResetPasswordToken] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -53,7 +55,7 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     try {
-      await dispatch(resetPassword(newPassword, token, navigate));
+      await dispatch(resetPassword(resetPasswordToken, newPassword, confirmNewPassword, navigate));
       alert("Password Berhasil Diganti 🥳");
       navigate("/");
     } catch (error) {
@@ -62,6 +64,22 @@ const ResetPassword = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Mendapatkan URL saat ini
+    const currentUrl = window.location.href;
+
+    // Membuat objek URL
+    const url = new URL(currentUrl);
+
+    // Mendapatkan nilai dari parameter 'resetPasswordToken'
+    setResetPasswordToken(url.searchParams.get("resetPasswordToken"));
+    // Menampilkan nilai pada konsol
+    console.log(resetPasswordToken);
+
+    // Do something with resetPasswordToken, like calling your resetPassword action
+    // Lakukan sesuatu dengan resetPasswordToken, seperti memanggil aksi resetPassword
+  }, [resetPasswordToken]);
 
   return (
     <>
