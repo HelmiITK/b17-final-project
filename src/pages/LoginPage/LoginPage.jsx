@@ -68,9 +68,9 @@ const LoginPage = () => {
                   className="absolute top-1/2 right-2 transform -translate-y-1/2 px-1 py-2"
                 >
                   {showPassword ? (
-                    <FiEyeOff className="border-none" />
-                  ) : (
                     <FiEye className="border-none" />
+                  ) : (
+                    <FiEyeOff className="border-none" />
                   )}
                 </button>
               </div>

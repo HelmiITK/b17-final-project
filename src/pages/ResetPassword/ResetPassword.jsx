@@ -7,15 +7,24 @@ import { resetPassword } from "../../redux/actions/authActions";
 const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { token } = useParams();
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passworderror, setPasswordError] = useState("");
-  //   const [errors, setErrors] = useState("");
-  const [isLoading, setIsLoading] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePasswordMatch = (event) => {
+    setNewPassword(event.target.value);
+    passwordValidation(event.target.value, confirmNewPassword);
+  };
+
+  const handleConfirmPasswordMatch = (event) => {
+    setConfirmNewPassword(event.target.value);
+    passwordValidation(newPassword, event.target.value);
+  };
 
   const passwordValidation = (password, confirm) => {
     if (password !== confirm) {
@@ -23,16 +32,6 @@ const ResetPassword = () => {
     } else {
       setPasswordError("");
     }
-  };
-
-  const handlePasswordMatch = (event) => {
-    setPassword(event.target.value);
-    passwordValidation(event.target.value, confirmPassword);
-  };
-
-  const handleConfirmPasswordMatch = (event) => {
-    setConfirmPassword(event.target.value);
-    passwordValidation(password, event.target.value);
   };
 
   const togglePassword = () => {
@@ -46,12 +45,24 @@ const ResetPassword = () => {
   const handleResetPassword = async (event) => {
     event.preventDefault();
 
-    if (passworderror) {
+    if (passwordError) {
       alert("Password and Confirm Password not match");
+      return;
     }
 
-    dispatch(resetPassword(password, id, navigate, setIsLoading));
+    setIsLoading(true);
+
+    try {
+      await dispatch(resetPassword(newPassword, token, navigate));
+      alert("Password Berhasil Diganti 🥳");
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen py-20 bg-gray-100">
@@ -62,7 +73,7 @@ const ResetPassword = () => {
             <span className="font-light text-gray-400 mb-8">
               Please Enter a new password below.
             </span>
-            <form action="" onSubmit={handleResetPassword}>
+            <form onSubmit={handleResetPassword}>
               <div className="py-1 relative">
                 <span className="mb-2 text-sm font-poppins">New Password</span>
                 <input
@@ -70,7 +81,7 @@ const ResetPassword = () => {
                   id="password"
                   className="text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
                   placeholder="Password"
-                  value={password}
+                  value={newPassword}
                   onChange={handlePasswordMatch}
                 />
                 <button
@@ -80,9 +91,9 @@ const ResetPassword = () => {
                   className="absolute top-1/2 right-2 transform -translate-y-1 px-1 py-2"
                 >
                   {showPassword ? (
-                    <FiEyeOff className="border-none" />
-                  ) : (
                     <FiEye className="border-none" />
+                  ) : (
+                    <FiEyeOff className="border-none" />
                   )}
                 </button>
               </div>
@@ -93,7 +104,7 @@ const ResetPassword = () => {
                   id="confirmpassword"
                   className="text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
                   placeholder="Konfirmasi Password"
-                  value={confirmPassword}
+                  value={confirmNewPassword}
                   onChange={handleConfirmPasswordMatch}
                 />
                 <button
@@ -103,26 +114,18 @@ const ResetPassword = () => {
                   className="absolute top-1/2 right-2 transform -translate-y-1 px-1 py-2"
                 >
                   {showConfirmPassword ? (
-                    <FiEyeOff className="border-none" />
-                  ) : (
                     <FiEye className="border-none" />
+                  ) : (
+                    <FiEyeOff className="border-none" />
                   )}
                 </button>
               </div>
 
-              {/* <div className="flex justify-between w-full py-4">
-                <label className="flex items-center text-xs font-poppins">
-                  <input type="checkbox" name="remember" id="ch" className="mr-2" />i agree all
-                  &nbsp;
-                  <p className="text-blue-900 font-semibold">terms and conditions</p>
-                  <p className="ml-1">and &nbsp;</p>
-                <p className="text-blue-900 font-semibold">Privacy Policies of evolko</p>
-                </label>
-              </div> */}
               <div className="flex justify-between w-full py-4">
                 <button
                   className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:scale-105"
-                  type="sumbit"
+                  type="submit"
+                  disabled={isLoading}
                 >
                   {isLoading ? "Loading..." : "Send Reset Link"}
                 </button>
@@ -133,11 +136,8 @@ const ResetPassword = () => {
             <img
               src="https://plus.unsplash.com/premium_photo-1683135219860-44ad80fc9bb7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y291cnNlfGVufDB8fDB8fHww"
               alt=""
-              className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
+              className="w-[500px] h-full hidden rounded-r-2xl md:block object-cover"
             />
-            {/* <div className="absolute hidden bottom-10 right-6 p-6 bg-blue-950 bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
-              <span className="text-black text-xl">ayo beli course ini</span>
-            </div> */}
           </div>
         </div>
       </div>
