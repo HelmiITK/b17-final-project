@@ -9,8 +9,9 @@ import { BiMessageSquareDetail } from "react-icons/bi";
 import { BiLineChart } from "react-icons/bi";
 import { IoDiamondOutline } from "react-icons/io5";
 import { BsChatRightQuote } from "react-icons/bs";
-import { AiFillPlayCircle } from "react-icons/ai";
+import { AiFillPlayCircle, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiSolidCategoryAlt } from "react-icons/bi";
+import { FaStar } from "react-icons/fa";
 import ClockLoader from "react-spinners/ClockLoader";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import PopupBuy from "../../components/VideoComponent/PopupBuy";
@@ -21,8 +22,12 @@ import Footer from "../../components/FooterComponent/Footer";
 import PopupRating from "../../components/VideoComponent/PopupRating";
 
 const CourseDetail = () => {
-  // const [loveCount, setLoveCount] = useState(getRandomLoveCount());
-  // const [isLoved, setIsLoved] = useState(false);
+  const getRandomLoveCount = () => {
+    return Math.floor(Math.random() * 100) + 1;
+  };
+
+  const [loveCount, setLoveCount] = useState(getRandomLoveCount());
+  const [isLoved, setIsLoved] = useState(false);
   const [checkMycourse, setCheckMycourse] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   // const [originalPageUrl, setOriginalPageUrl] = useState("");
@@ -51,14 +56,14 @@ const CourseDetail = () => {
     const x = { title: chapter.title, materials: materialsAtChapter };
     return x;
   });
-  // const handleLoveClick = () => {
-  //   if (isLoved) {
-  //     setLoveCount(loveCount - 1);
-  //   } else {
-  //     setLoveCount(loveCount + 1);
-  //   }
-  //   setIsLoved(!isLoved);
-  // };
+  const handleLoveClick = () => {
+    if (isLoved) {
+      setLoveCount(loveCount - 1);
+    } else {
+      setLoveCount(loveCount + 1);
+    }
+    setIsLoved(!isLoved);
+  };
 
   const handleIconClick = (event) => {
     event.stopPropagation(); // Hentikan penanganan event lebih lanjut
@@ -189,45 +194,52 @@ const CourseDetail = () => {
                     alt={detail.title}
                     className="rounded-lg shadow-lg shadow-slate-700"
                   />
-                  {/* <button
-                  className="flex items-center gap-2 mt-2 text-white lg:mt-4 lg:mb-6"
-                  onClick={handleLoveClick}
-                >
-                  {isLoved ? (
-                    <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
-                  ) : (
-                    <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
-                  )}
-                  {loveCount}
-                </button> */}
-                  {user &&
-                    !!rating.find(
-                      (rate) =>
-                        rate.course_id == courseId && rate.user_id == user.id
-                    ) &&
-                    !!checkMycourse && (
-                      <div>
-                        <button
-                          onClick={() => setIsPopupRating(true)}
-                          className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
-                        >
-                          Ubah Rating
-                        </button>
-                      </div>
-                    )}
-                  {user &&
-                    !rating.find(
-                      (rate) =>
-                        rate.course_id == courseId && rate.user_id == user.id
-                    ) &&
-                    !!checkMycourse && (
-                      <button
-                        onClick={() => setIsPopupRating(true)}
-                        className="bg-violet-200 w-fit p-2 rounded-lg font-semibold"
-                      >
-                        Beri Rating
-                      </button>
-                    )}
+                  {/* grup love dan rating */}
+                  <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
+                    <button
+                      className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
+                      onClick={handleLoveClick}
+                    >
+                      {isLoved ? (
+                        <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
+                      ) : (
+                        <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
+                      )}
+                      {loveCount}
+                    </button>
+                    {/* rating button */}
+                    <div className="">
+                      {user &&
+                        !!rating.find(
+                          (rate) =>
+                            rate.course_id == courseId && rate.user_id == user.id
+                        ) &&
+                        !!checkMycourse && (
+                          <div>
+                            <button
+                              onClick={() => setIsPopupRating(true)}
+                              className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
+                            >
+                              Ubah Rating
+                            </button>
+                          </div>
+                        )}
+                      {user &&
+                        !rating.find(
+                          (rate) =>
+                            rate.course_id == courseId && rate.user_id == user.id
+                        ) &&
+                        !!checkMycourse && (
+                          <button
+                            onClick={() => setIsPopupRating(true)}
+                            className="bg-violet-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-indigo-600 duration-200 group"
+                          >
+                            <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                            Beri Rating
+                          </button>
+                        )}
+                    </div>
+                  </div>
 
                   {/* ini ada di mode hp dan tablet */}
                   <div className="flex flex-row justify-between my-5 lg:hidden">
@@ -236,9 +248,8 @@ const CourseDetail = () => {
                         {detail.title}
                       </h2>
                       <div
-                        className={`${
-                          isButtonVisible ? "scale-x-95" : "scale-x-100"
-                        } transition-all duration-500 ease-out`}
+                        className={`${isButtonVisible ? "scale-x-95" : "scale-x-100"
+                          } transition-all duration-500 ease-out`}
                         ref={iconContainerRef}
                       >
                         {isButtonVisible ? (
@@ -277,10 +288,51 @@ const CourseDetail = () => {
                           {detail.type_course}
                         </p>
                       </div>
+                      {user && !checkMycourse && (
+                        <div className="flex flex-row mt-4 items-center gap-2 border p-2 rounded-lg bg-color-primary w-full shadow-md hover:scale-105 duration-300 transition-all">
+                          <button
+                            onClick={() => setIsPopupBuy(true)}
+                            className="text-base font-semibold text-white capitalize text-center w-full "
+                          >
+                            Enroll Kelas
+                          </button>
+                        </div>
+                      )}
+                      {/* jika user login dan udh beli course */}
+                      {user && checkMycourse && (
+                        <div className="border mt-4 p-2 rounded-lg w-full shadow-md hover:scale-105 duration-300 transition-all">
+                          <ProgressBar
+                            percentage={
+                              checkMycourse &&
+                              checkMycourse.progressPercentage.toFixed()
+                            }
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {/* target pada siapa kelas ini dituju */}
+                  <div className="mx-4 flex flex-col gap-3 border-none p-4 rounded-lg mb-4 shadow-md bg-indigo-700 bg-opacity-40">
+                    <div className="text-white">
+                      <h2 className="font-semibold text-base">Persiapan Sebelum Kelas :</h2>
+                      <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
+                        <li>Install COC</li>
+                        <li>Install Valorant</li>
+                        <li>Beli Baju Lebaran</li>
+                      </ol>
+                    </div>
+                    <div className="text-white">
+                      <h2 className="font-semibold text-base">Kelas Ditujukan Untuk :</h2>
+                      <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
+                        <li>Orang Yang Mau Belajar</li>
+                        <li>Sudah Jadi Sepuh</li>
+                        <li>Dewa Segala Bahasa Koding</li>
+                      </ol>
                     </div>
                   </div>
                 </div>
 
+                {/* ini mode laptop */}
                 <div className="my-7 rounded-lg p-2 flex flex-col gap-2 lg:w-1/2 lg:my-0">
                   <div>
                     <h2 className="hidden text-3xl lg:block mb-4 font-medium underline">
@@ -331,7 +383,7 @@ const CourseDetail = () => {
                         {/* tombol beli kelas (sementara disini dulu) */}
                         {/* jika user login dan belum beli */}
                         {user && !checkMycourse && (
-                          <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-color-primary w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
+                          <div className="flex flex-row mt-4 items-center gap-2 border p-2 rounded-lg bg-color-primary w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
                             <button
                               onClick={() => setIsPopupBuy(true)}
                               className="text-base font-semibold text-white capitalize text-center w-full "
@@ -342,7 +394,7 @@ const CourseDetail = () => {
                         )}
                         {/* jika user login dan udh beli course */}
                         {user && checkMycourse && (
-                          <div className="border p-2 rounded-lg w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
+                          <div className="border mt-4 p-2 rounded-lg w-1/2 shadow-md hover:scale-105 duration-300 transition-all">
                             <ProgressBar
                               percentage={
                                 checkMycourse &&
@@ -352,10 +404,10 @@ const CourseDetail = () => {
                           </div>
                         )}
                       </div>
+                      {/* button video kelas mode laptop */}
                       <div
-                        className={`${
-                          isButtonVisible ? "scale-y-95" : "scale-y-105"
-                        } transition-all duration-500 ease-out`}
+                        className={`${isButtonVisible ? "scale-y-95" : "scale-y-105"
+                          } transition-all duration-500 ease-out`}
                         ref={iconContainerRef}
                       >
                         {isButtonVisible ? (
@@ -364,9 +416,9 @@ const CourseDetail = () => {
                             className={cn(
                               "absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-indigo-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-indigo-600",
                               checkMycourse &&
-                                "hover:bg-indigo-600 hover:text-white duration-200",
+                              "hover:bg-indigo-600 hover:text-white duration-200",
                               !checkMycourse &&
-                                "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
+                              "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
                             )}
                             onClick={handleFollowClick}
                           >
@@ -379,25 +431,47 @@ const CourseDetail = () => {
                           />
                         )}
                       </div>
+                      {/* alur kelas mode laptop */}
+                      <div className="mx-2 mt-4 border-none shadow-md shadow-slate-300 p-4 rounded-md mb-4">
+                        <h2>Kelas yang akan dipelajari : </h2>
+                        {chapterWithMaterials?.map((chapter, i) => (
+                          <div key={i}>
+                            <div>
+                              <h1 className="font-semibold text-lg">{chapter.title}</h1>
+                              <ul>
+                                {chapter?.materials?.map((material) => (
+                                  <li className="list-decimal ml-4" key={material.id}>
+                                    {material.title}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div>Kelas yang akan dipelajari : </div>
-              {chapterWithMaterials?.map((chapter, i) => (
-                <div key={i}>
-                  <div>
-                    <h1 className="font-semibold text-lg">{chapter.title}</h1>
-                    <ul>
-                      {chapter?.materials?.map((material) => (
-                        <li className="list-decimal ml-4" key={material.id}>
-                          {material.title}
-                        </li>
-                      ))}
-                    </ul>
+
+              {/* alur kelas mobile dan tablet */}
+              <div className="mx-5 border-none shadow-md shadow-slate-300 p-4 rounded-md mb-4 lg:hidden">
+                <h2>Kelas yang akan dipelajari : </h2>
+                {chapterWithMaterials?.map((chapter, i) => (
+                  <div key={i}>
+                    <div>
+                      <h1 className="font-semibold text-lg">{chapter.title}</h1>
+                      <ul>
+                        {chapter?.materials?.map((material) => (
+                          <li className="list-decimal ml-4" key={material.id}>
+                            {material.title}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </>
           )}
         </div>
