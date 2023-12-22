@@ -316,17 +316,17 @@ const CourseDetail = () => {
                     <div className="text-white">
                       <h2 className="font-semibold text-base">Persiapan Sebelum Kelas :</h2>
                       <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
-                        <li>Install COC</li>
-                        <li>Install Valorant</li>
-                        <li>Beli Baju Lebaran</li>
+                        {detail.prerequisite && detail.prerequisite.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
                       </ol>
                     </div>
                     <div className="text-white">
                       <h2 className="font-semibold text-base">Kelas Ditujukan Untuk :</h2>
                       <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
-                        <li>Orang Yang Mau Belajar</li>
-                        <li>Sudah Jadi Sepuh</li>
-                        <li>Dewa Segala Bahasa Koding</li>
+                        {detail.target_audience && detail.target_audience.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
                       </ol>
                     </div>
                   </div>
