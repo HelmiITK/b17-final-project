@@ -91,11 +91,11 @@ const Navbar = () => {
   ];
 
   // state navmenu web
-  const [active, setActive] = useState(0);
+  // const [active, setActive] = useState(0);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [active])
+  // }, [active])
 
   return (
     <>
@@ -268,34 +268,52 @@ const Navbar = () => {
               </NavLink>
             ) : (
               // if done login
+              // <>
+              //   <ul className="flex relative gap-6 items-center">
+              //     <span
+              //       className={`bg-white duration-500 ${Menus[active].dis} border-2 border-white h-14 w-14 absolute -left-2 top-2 rounded-t-full`}
+              //     ></span>
+              //     {Menus.map((menu, i) => (
+              //       <li key={i}>
+              //         {/* {acttive} */}
+              //         <NavLink
+              //           as={Link}
+              //           to={menu.link}
+              //           className="flex flex-col items-center"
+              //           onClick={() => setActive(i)}
+              //         >
+              //           <span
+              //             className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
+              //               }`}
+              //           >
+              //             {menu.icon}
+              //           </span>
+              //           <p
+              //             className={`text-white font-poppins font-medium ${active === i
+              //               ? "-translate-y-4 duration-700 opacity-100"
+              //               : "opacity-0 -translate-y-16"
+              //               }`}
+              //           >
+              //             {menu.name}
+              //           </p>
+              //         </NavLink>
+              //       </li>
+              //     ))}
+              //   </ul>
+              // </>
               <>
-                <ul className="flex relative gap-6 items-center">
-                  <span
-                    className={`bg-white duration-500 ${Menus[active].dis} border-2 border-white h-14 w-14 absolute -left-2 top-2 rounded-t-full`}
-                  ></span>
-                  {Menus.map((menu, i) => (
-                    <li key={i}>
-                      {/* {acttive} */}
+                <ul className="flex flex-row gap-8">
+                  {Menus.map((item, index) => (
+                    <li className="flex items-center text-white cursor-pointer " key={index}>
                       <NavLink
-                        as={Link}
-                        to={menu.link}
-                        className="flex flex-col items-center"
-                        onClick={() => setActive(i)}
+                        to={item.link}
+                        className={({ isActive }) =>
+                          isActive
+                            ? "flex flex-row gap-2 border-none bg-blue-500 py-2 pl-2 pr-3 rounded-lg"
+                            : "text-white flex flex-row gap-2 hover:text-green-500 duration-200 hover:scale-105"
+                        }
                       >
-                        <span
-                          className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
-                            }`}
-                        >
-                          {menu.icon}
-                        </span>
-                        <p
-                          className={`text-white font-poppins font-medium ${active === i
-                            ? "-translate-y-4 duration-700 opacity-100"
-                            : "opacity-0 -translate-y-16"
-                            }`}
-                        >
-                          {menu.name}
-                        </p>
+                        {item.icon} {item.name}
                       </NavLink>
                     </li>
                   ))}
