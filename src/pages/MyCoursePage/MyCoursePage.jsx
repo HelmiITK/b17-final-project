@@ -24,7 +24,7 @@ const MyCoursePage = () => {
   const [filter, setFilter] = useState([]);
   const [progress, setProgress] = useState("");
   const [filteringCourse, setFiltertingCourse] = useState(mycourse && mycourse);
-  console.log(filter);
+
   // ambil data kategori dari api lewat redux
   useEffect(() => {
     setIsLoadingCat(true);
