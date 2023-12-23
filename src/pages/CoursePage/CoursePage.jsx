@@ -7,30 +7,36 @@ import { getCategory } from "../../redux/actions/categoryActions";
 import {
   getCourseWithFilter,
   getMyCourse,
+  getPagesCourse,
 } from "../../redux/actions/courseActions";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
+import { cn } from "../../libs/utils";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
-  const { user } = useSelector((state) => state.auth);
+  const { pageCourse } = useSelector((state) => state.course);
 
   // loading
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingCat, setIsLoadingCat] = useState(false);
+  // const [isLoadingInfinite, setIsLoadingInfinite] = useState(true);
+
+  // keperluan infinite loop
+  const [pages, setPages] = useState(1);
 
   // ambil kategori yang dipencet dari home
   const { state } = useLocation();
-
   const data = ["All", "Kelas Premium", "Kelas Gratis"];
 
   // variabl untuk filtering
   const [category, setCategory] = useState(state ? [state.categoryId] : []);
   const [level, setLevel] = useState([]);
+  const [filter, setFilter] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
 
   // ambil data kategori dari api lewat redux
@@ -39,6 +45,9 @@ const CoursePage = () => {
     dispatch(getCategory()).then(() => setIsLoadingCat(false));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getPagesCourse());
+  }, [dispatch]);
   // ambil data dari sideFilter untuk keperluan filtering
   const handleCategory = (x) => {
     setCategory(x);
@@ -46,6 +55,10 @@ const CoursePage = () => {
 
   const handleLevel = (x) => {
     setLevel(x);
+  };
+
+  const handleFilter = (x) => {
+    setFilter(x);
   };
 
   // ambil data dari filtering yang ada di Main
@@ -59,7 +72,6 @@ const CoursePage = () => {
       setTypeCourse("free");
     }
   };
-
   // data id kategori yang diceklis, diubah menjadi string sesuai dengan ketentuan api
   const stringCategory = category
     .map((item) => encodeURIComponent(item))
@@ -69,16 +81,40 @@ const CoursePage = () => {
 
   // ambil data course dari api lewat redux
   useEffect(() => {
+    // kondisi ini digunakan untuk mengecek apakah ada filtering atau tidak
+    // disini juga di cek apakah course hasil filter panjangnya lebih dari 10 atau tidak
+    if ((stringCategory || stringLevel) && course?.length < 10) {
+      // set jadi 1 karena harus akses page 1 terlebih dahulu
+      setPages(1);
+    }
     setIsLoading(true);
-    dispatch(getCourseWithFilter(stringCategory, stringLevel, typeCourse)).then(
-      () => setIsLoading(false)
-    );
-  }, [dispatch, stringCategory, stringLevel, typeCourse]);
+    dispatch(
+      getCourseWithFilter(pages, stringCategory, stringLevel, typeCourse)
+    ).then(() => setIsLoading(false));
+  }, [dispatch, stringCategory, stringLevel, typeCourse, pages]);
 
+  // mycourse di dispatch agar card bisa membedakan mana yang sudah dibeli user dan belum
   useEffect(() => {
-    dispatch(getMyCourse(user?.id));
-  }, [dispatch, user]);
+    dispatch(getMyCourse());
+  }, [dispatch]);
 
+  // untuk mengarahkan ke page berikutnya
+  const handleLoadMoreNext = () => {
+    if (pages < pageCourse.totalPages) {
+      setPages((prev) => prev + 1);
+    } else {
+      setPages((prev) => prev);
+    }
+  };
+
+  // untuk mengarahkan ke page sebelumnya
+  const handleLoadMorePrev = () => {
+    if (pages > 1) {
+      setPages((prev) => prev - 1);
+    } else {
+      setPages((prev) => prev);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -97,23 +133,8 @@ const CoursePage = () => {
             <h1 className="font-bold text-lg md:text-xl lg:text-2xl mx-auto md:mx-0 mt-4">
               Kelas Berjalan
             </h1>
-
-            {/* search bar dikanan */}
-            {/* <div className="lg:w-3/12">
-              <form className="relative w-full">
-                <input
-                  type="text"
-                  className="rounded-3xl ring-2 ring-color-primary font-semibold pl-6 h-8 lg:h-11 w-full outline-none focus:outline-1  text-black transition-all"
-                />
-                <span className="text-slate-500 absolute -left-3 lg:left-0 top-2 lg:top-[10px] mx-5 font-semibold px-2 transition duration-200 input-text text-xs md:text-sm lg:text-base">
-                  Cari kelas...
-                </span>
-                <span className="absolute right-2 md:right-5 top-[2.5px] inline-block bg-primary p-2 rounded-xl">
-                  <Search className="text-white w-3 h-3 lg:w-5 lg:h-5" />
-                </span>
-              </form>
-            </div> */}
           </div>
+          {/* Content */}
           <div className="mt-6 lg:mt-8">
             <div className="grid grid-cols-3 gap-x-4 lg:gap-x-20">
               <div className="col-span-3 md:col-span-1">
@@ -122,6 +143,7 @@ const CoursePage = () => {
                   isLoading={isLoadingCat}
                   handleLevel={handleLevel}
                   categoryFromHome={state?.categoryId}
+                  handleFilter={handleFilter}
                 />
               </div>
               <div className="col-span-3 md:col-span-2">
@@ -131,6 +153,40 @@ const CoursePage = () => {
                   isLoading={isLoading}
                   getFilterFromMain={getFilterFromMain}
                 />
+                <div
+                  className={cn(
+                    "w-full mt-4 justify-center flex"
+                    // (stringCategory || stringLevel) && "hidden"
+                  )}
+                >
+                  <button
+                    disabled={pages === 1}
+                    onClick={handleLoadMorePrev}
+                    className={cn(
+                      " font-medium text-white bg-primary text-xs rounded-md py-1 px-2 mr-4",
+                      pages === 1 && "bg-slate-300 text-slate-500"
+                    )}
+                  >
+                    &lt; prev
+                  </button>
+                  <p>{pages}</p>
+                  <button
+                    // cek apakah course yang sudah di filter panjangnya lebih dari 10 atau tidak
+                    // jika tidak, maka disable aktif
+                    disabled={
+                      pages === pageCourse.totalPages || course?.length < 10
+                    }
+                    onClick={handleLoadMoreNext}
+                    className={cn(
+                      " font-medium text-white bg-primary text-xs rounded-md py-1 px-2 ml-4",
+                      (pages === pageCourse.totalPages ||
+                        course?.length < 10) &&
+                        "bg-slate-300 text-slate-500"
+                    )}
+                  >
+                    next &gt;
+                  </button>
+                </div>
               </div>
             </div>
           </div>
