@@ -18,9 +18,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
     const { id } = rating.find(
       (rate) => rate.course_id == courseId && rate.user_id === user.id
     );
-    console.log(id);
-    console.log(courseId);
-    console.log(user.id);
+
     const validate = confirm(
       `Apakah anda yakin akan memberikan nilai  ${ratings} pada course ini ?`
     );

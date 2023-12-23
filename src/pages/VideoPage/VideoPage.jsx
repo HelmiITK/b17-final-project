@@ -5,21 +5,24 @@ import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import { getMyCourse } from "../../redux/actions/courseActions";
+import { ConfettiEffect } from "../../components/FinishCourseComponent/ConfettiEffect";
+import PopupFinishCourse from "../../components/FinishCourseComponent/PopupFinishCourse";
 
 const VideoPage = () => {
   // keperluan untuk layar mobile
   const [isOpen, setIsOpen] = useState(false);
+  const [isPopupFinish, setIsPopupFinish] = useState(true);
   const { materialId, courseId } = useParams();
   const [errors, setErrors] = useState({
     isError: false,
     message: null,
   });
-
+  const { mycourse } = useSelector((state) => state.course);
   const dispatch = useDispatch();
   // Ambil API dari komponen dari CardCourse berdasarkan id
   useEffect(() => {
@@ -36,11 +39,26 @@ const VideoPage = () => {
     });
   }, [dispatch]);
 
-  // console.log(getCourseVideo);
+  const courseDetailVideo = mycourse.find(
+    (course) => course.course.id == courseId
+  );
+
+  const handlePopupFinish = () => {
+    setIsPopupFinish(false);
+  };
+
   return (
     <>
       <Navbar />
-
+      {mycourse && courseDetailVideo?.progressPercentage === 100 && (
+        <>
+          <PopupFinishCourse
+            isPopupFinish={isPopupFinish}
+            handlePopupFinish={handlePopupFinish}
+          />
+          {!isPopupFinish && <ConfettiEffect />}
+        </>
+      )}
       {/* tombol untuk menampilkan/menghilangkan progressCourse */}
       <div className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all">
         <button
@@ -59,12 +77,12 @@ const VideoPage = () => {
         <div className="z-10 w-full md:w-10/12">
           <div className=" mt-20 md:mt-24">
             {/* Tombol kembali ke halaman kelas */}
-            <Link to={"/course"}>
+            <Link to={`/course-detail/${courseId}`}>
               <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
                 <span className="mr-1 block md:mr-2">
                   <ArrowLeft className="w-4 h-4" />
                 </span>{" "}
-                Kelas Lainnya
+                Kembali
               </h1>
             </Link>
             {/* content */}

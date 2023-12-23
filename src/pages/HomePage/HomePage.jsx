@@ -34,7 +34,7 @@ const HomePage = () => {
 
     // kirim ke reducer untuk mengambil data yg ada di redux
     dispatch(getCategory());
-    dispatch(getCourse())
+    dispatch(getCourse(1))
       .then(() => {
         // data di dapat maka loading berhenti
         setLoading(false);

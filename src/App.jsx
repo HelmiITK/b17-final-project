@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Navbar from "./components/NavbarComponent/Navbar";
 import HomePage from "./pages/HomePage/HomePage";
 import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
@@ -14,7 +13,6 @@ import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
 import UserPage from "./pages/AccountPage/UserPage";
 import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
-// import Footer from "./components/FooterComponent/Footer";
 import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
 import NoAccessToken from "./security/NoAccessToken";
 import Protected from "./security/Protected";

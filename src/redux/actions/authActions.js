@@ -23,7 +23,8 @@ export const login = (email, password, navigate) => async (dispatch) => {
 };
 
 export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
+  (navigate, navigatePathSuccess, navigatePathError) =>
+  async (dispatch, getState) => {
     try {
       let { token } = getState().auth;
       const response = await axios.get(`${api_url}/profiles/my-profile`, {
@@ -69,12 +70,16 @@ export const updateProfile =
       formData.append("city", city);
       formData.append("country", country);
 
-      const response = await axios.put(`${api_url}/profiles/update-profile`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.put(
+        `${api_url}/profiles/update-profile`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       const updatedProfile = response.data;
 
@@ -88,35 +93,37 @@ export const updateProfile =
     }
   };
 
-export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
-  try {
-    let { token } = getState().auth;
+export const updatePassword =
+  (currentPassword, newPassword) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    const passwordData = {
-      currentPassword,
-      newPassword,
-    };
+      const passwordData = {
+        currentPassword,
+        newPassword,
+      };
 
-    await axios.put(`${api_url}/profiles/update-password`, passwordData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      await axios.put(`${api_url}/profiles/update-password`, passwordData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    alert("Password Berhasil Diperbarui 🥳");
-    // Reload halaman setelah pembaruan berhasil
-    window.location.reload();
-  } catch (error) {
-    if (error.response.status === 400) {
-      alert("password lama kamu salah");
-    } else {
-      alert(error?.message);
+      alert("Password Berhasil Diperbarui 🥳");
+      // Reload halaman setelah pembaruan berhasil
+      window.location.reload();
+    } catch (error) {
+      if (error.response.status === 400) {
+        alert("password lama kamu salah");
+      } else {
+        alert(error?.message);
+      }
     }
-  }
-};
+  };
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
+  (name, email, phoneNumber, password, confirmPassword, navigate) =>
+  async () => {
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
         username: name,

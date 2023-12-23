@@ -1,11 +1,16 @@
 import axios from "axios";
-import { setCourse, setMyCourse, setRating } from "../reducers/courseReducers";
+import {
+  setCourse,
+  setMyCourse,
+  setRating,
+  setPageCourse,
+} from "../reducers/courseReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
-export const getCourse = () => async (dispatch) => {
+export const getCourse = (page) => async (dispatch) => {
   try {
-    const response = await axios.get(`${api_url}/courses?page=1`);
+    const response = await axios.get(`${api_url}/courses?page=${page}`);
 
     const courses = response.data.courses;
 
@@ -15,15 +20,25 @@ export const getCourse = () => async (dispatch) => {
   }
 };
 
+export const getPagesCourse = (page) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${api_url}/courses?page=${page}`);
+
+    const { pagination } = response.data;
+
+    dispatch(setPageCourse(pagination));
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
 export const getCourseWithFilter =
-  (category, level, typeCourse) => async (dispatch) => {
+  (pages, category, level, typeCourse) => async (dispatch) => {
     try {
       const response = await axios.get(
-        `${api_url}/courses?page=1&category=${category}&level=${level}&typeCourse=${typeCourse}`
+        `${api_url}/courses?page=${pages}&category=${category}&level=${level}&typeCourse=${typeCourse}`
       );
-
       const { courses } = response.data;
-
       dispatch(setCourse(courses));
     } catch (error) {
       alert(error.message);
@@ -115,7 +130,7 @@ export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
         },
       }
     );
-    console.log(response.data);
+
     // Buka link dalam tab baru jika respons memiliki link
     if (response.data && response.data.paymentLink) {
       const newTab = window.open(response.data.paymentLink, "_blank");
