@@ -41,6 +41,7 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
         dispatch(enrollPremiumCourse(courseId));
       }
     }
+    handlePopup();
   };
 
   return (
