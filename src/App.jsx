@@ -32,9 +32,7 @@ function App() {
           <Route
             path="/search"
             element={
-              // <Protected>
-                <SearchCourse />
-              // {/* </Protected> */}
+              <SearchCourse />
             }
           />
           <Route

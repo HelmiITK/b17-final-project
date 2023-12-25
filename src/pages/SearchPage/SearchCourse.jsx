@@ -37,8 +37,6 @@ const SearchCourse = () => {
       })
   }, [dispatch, search, page])
 
-
-
   return (
     <>
       <Navbar />
