@@ -313,40 +313,6 @@ const Navbar = () => {
                 </div>
               </NavLink>
             ) : (
-              // if done login
-              // <>
-              //   <ul className="flex relative gap-6 items-center">
-              //     <span
-              //       className={`bg-white duration-500 ${Menus[active].dis} border-2 border-white h-14 w-14 absolute -left-2 top-2 rounded-t-full`}
-              //     ></span>
-              //     {Menus.map((menu, i) => (
-              //       <li key={i}>
-              //         {/* {acttive} */}
-              //         <NavLink
-              //           as={Link}
-              //           to={menu.link}
-              //           className="flex flex-col items-center"
-              //           onClick={() => setActive(i)}
-              //         >
-              //           <span
-              //             className={`z-10 duration-500 text-white hover:text-slate-400 ${i === active && "-mb-12 text-yellow-500"
-              //               }`}
-              //           >
-              //             {menu.icon}
-              //           </span>
-              //           <p
-              //             className={`text-white font-poppins font-medium ${active === i
-              //               ? "-translate-y-4 duration-700 opacity-100"
-              //               : "opacity-0 -translate-y-16"
-              //               }`}
-              //           >
-              //             {menu.name}
-              //           </p>
-              //         </NavLink>
-              //       </li>
-              //     ))}
-              //   </ul>
-              // </>
               <>
                 <ul className="flex flex-row gap-8">
                   {Menus.map((item, index) => (
