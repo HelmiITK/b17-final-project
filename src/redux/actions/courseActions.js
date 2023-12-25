@@ -83,11 +83,70 @@ export const getMyCourseWithFilter =
     }
   };
 
-export const enrollFreeCourse =
-  (courseId, navigate) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
-      const response = await axios.post(
+export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.post(
+      `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
+      {
+        course_id: +courseId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: `application/json`,
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+
+    alert("Pembelian berhasil");
+
+    // reload halaman agar terupdate
+    if (response.status == 201) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
+    const response = await axios.post(
+      `${import.meta.env.VITE_REACT_API_ADDRESS}/orders/create`,
+      {
+        course_id: +courseId,
+        payment_method_id: 1,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: `application/json`,
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+
+    // Buka link dalam tab baru jika respons memiliki link
+    if (response.data && response.data.paymentLink) {
+      const newTab = window.open(response.data.paymentLink, "_blank");
+      if (newTab) {
+        newTab.focus();
+      } else {
+        alert(
+          "Terblokir oleh penyekat popup, harap izinkan pop-up untuk membuka tautan."
+        );
+      }
+    } else {
+      console.log("Tidak ada tautan dalam respons");
+    }
+
+    if (response.data.order.status === "paid") {
+      const response2 = await axios.post(
         `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
         {
           course_id: +courseId,
@@ -100,78 +159,17 @@ export const enrollFreeCourse =
           },
         }
       );
-
       alert("Pembelian berhasil");
 
       // reload halaman agar terupdate
-      if (response.status == 201) {
-        setTimeout(() => {
-          navigate(window.location.pathname);
-        }, 1000);
+      if (response2.status == 201) {
+        window.location.reload();
       }
-    } catch (error) {
-      alert(error.message);
     }
-  };
-
-export const enrollPremiumCourse =
-  (courseId, navigate) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
-      const response = await axios.post(
-        `${import.meta.env.VITE_REACT_API_ADDRESS}/orders/create`,
-        {
-          course_id: +courseId,
-          payment_method_id: 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            accept: `application/json`,
-            "Content-Type": `application/json`,
-          },
-        }
-      );
-
-      // Buka link dalam tab baru jika respons memiliki link
-      if (response.data && response.data.paymentLink) {
-        const newTab = window.open(response.data.paymentLink, "_blank");
-        if (newTab) {
-          newTab.focus();
-        } else {
-          alert(
-            "Terblokir oleh penyekat popup, harap izinkan pop-up untuk membuka tautan."
-          );
-        }
-      } else {
-        console.log("Tidak ada tautan dalam respons");
-      }
-
-      if (response.data.order.status === "paid") {
-        const response2 = await axios.post(
-          `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/create`,
-          {
-            course_id: +courseId,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              accept: `application/json`,
-              "Content-Type": `application/json`,
-            },
-          }
-        );
-        alert("Pembelian berhasil");
-
-        // reload halaman agar terupdate
-        if (response2.status == 201) {
-          navigate(window.location.pathname);
-        }
-      }
-    } catch (error) {
-      alert(`ERROR ${error.response.status} : ${error.response.data.error}`);
-    }
-  };
+  } catch (error) {
+    alert(`ERROR ${error.response.status} : ${error.response.data.error}`);
+  }
+};
 
 export const updateMaterialStatus =
   (id, navigate, courseId, materialNextIndex) => async (dispatch, getState) => {
@@ -194,6 +192,7 @@ export const updateMaterialStatus =
         navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
           replace: true,
         });
+        window.location.reload();
       }
     } catch (error) {
       if (error.response.status === 400) {

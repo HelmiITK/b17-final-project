@@ -51,7 +51,7 @@ const CourseDetail = () => {
 
   // sorting asc berdasarkan id material
   const sortingAsc = materials && [...materials].sort((a, b) => a.id - b.id);
-  console.log(sortingAsc);
+
   // kelompokkan antara chapter dan materialnya
   const chapterWithMaterials = chapters?.map((chapter) => {
     const materialsAtChapter = sortingAsc?.filter(
@@ -72,12 +72,6 @@ const CourseDetail = () => {
   const handleIconClick = (event) => {
     event.stopPropagation(); // Hentikan penanganan event lebih lanjut
     setIsButtonVisible(true);
-  };
-
-  const handleFollowClick = () => {
-    setIsButtonVisible(false);
-
-    navigate(`/course-detail/${courseId}/video/${sortingAsc[0].id}`);
   };
 
   const handleDocumentClick = (event) => {
@@ -145,6 +139,31 @@ const CourseDetail = () => {
       setCheckMycourse(y);
     }
   }, [mycourse, courseId]);
+
+  // sorting asc untuk progressUser agar tau dimana material yang is_completednya false
+  const userProgressSort =
+    checkMycourse &&
+    [...checkMycourse.userProgress].sort(
+      (a, b) => a.course_material_id - b.course_material_id
+    );
+
+  // ambil data pertama yang is_completednya false
+  const materialNotCompleted =
+    userProgressSort && userProgressSort.find((y) => y.is_completed === false);
+
+  // conditional click ikut kelas
+  const handleFollowClick = () => {
+    setIsButtonVisible(false);
+    // jika progressnya dibawah 100, maka cari course yang belum selesai
+    if (checkMycourse && checkMycourse.progressPercentage < 100) {
+      navigate(
+        `/course-detail/${courseId}/video/${materialNotCompleted.course_material_id}`
+      );
+      // cari course index pertama
+    } else {
+      navigate(`/course-detail/${courseId}/video/${sortingAsc[0].id}`);
+    }
+  };
 
   return (
     <>
