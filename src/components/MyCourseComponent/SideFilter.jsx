@@ -10,10 +10,8 @@ const SideFilter = ({
   handleCategory,
   isLoading,
   handleLevel,
-  handleFilter,
   categoryFromHome,
 }) => {
-  const filter = ["Paling Baru", "Paling Populer"];
   const { category } = useSelector((state) => state.category);
   const levelKesulitan = ["pemula", "menengah", "lanjutan"];
   const [open, setOpen] = useState(false);
@@ -25,14 +23,12 @@ const SideFilter = ({
   useEffect(() => {
     handleCategory(checkedCategories);
     handleLevel(checkedLevels);
-    handleFilter(checkedFilter);
   }, [
     checkedCategories,
     handleCategory,
     handleLevel,
     checkedLevels,
     checkedFilter,
-    handleFilter,
   ]);
 
   const deleteFilter = () => {
@@ -69,40 +65,8 @@ const SideFilter = ({
           >
             <XCircle />
           </div>
-          {/* filter  */}
-          <div className="mx-5 my-2 mt-6">
-            <h1 className="tracking-wider font-bold text-lg">Filter</h1>
-            {filter.map((item, i) => {
-              const checked = checkedFilter?.includes(item);
-              return (
-                <div className="flex items-center my-2 ml-1" key={i}>
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => {
-                        if (checked) {
-                          // remove dari array jika sudah diceklis
-                          setCheckedFilter(
-                            checkedFilter.filter((i) => i !== item)
-                          );
-                        } else {
-                          // tambahkan ke array jika belum diceklis
-                          setCheckedFilter([...checkedFilter, item]);
-                        }
-                      }}
-                    />
-                    <span className="checkbox-custom" />
-                  </label>
-                  <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                    {item}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
           {/* kategori */}
-          <div className="mx-5 my-2">
+          <div className="mx-5 my-2 mt-6">
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
             {isLoading && (
               <div className="h-32 w-full items-center flex justify-center sticky top-24 ">
@@ -191,7 +155,6 @@ SideFilter.propTypes = {
   handleCategory: PropTypes.func,
   isLoading: PropTypes.bool,
   handleLevel: PropTypes.func,
-  handleFilter: PropTypes.func,
   categoryFromHome: PropTypes.number,
 };
 

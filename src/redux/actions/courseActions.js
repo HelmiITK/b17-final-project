@@ -163,9 +163,7 @@ export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
 
       // reload halaman agar terupdate
       if (response2.status == 201) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        window.location.reload();
       }
     }
   } catch (error) {
@@ -173,30 +171,39 @@ export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
   }
 };
 
-export const updateMaterialStatus = (id) => async (dispatch, getState) => {
-  try {
-    let { token } = getState().auth;
+export const updateMaterialStatus =
+  (id, navigate, courseId, materialNextIndex) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    await axios.post(
-      `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/complete/${id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.post(
+        `${import.meta.env.VITE_REACT_API_ADDRESS}/enrollments/complete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Video ini sudah selesai");
+      if (id == materialNextIndex) {
+        window.location.reload();
+      } else {
+        navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
+          replace: true,
+        });
+        window.location.reload();
       }
-    );
-    alert("Video ini sudah selesai");
-  } catch (error) {
-    if (error.response.status === 400) {
-      alert("Video ini sudah anda selesaikan");
-    } else if (error.response.status === 404) {
-      alert("Video tidak ditemukan");
-    } else {
-      alert(error.message);
+    } catch (error) {
+      if (error.response.status === 400) {
+        alert("Video ini sudah anda selesaikan");
+      } else if (error.response.status === 404) {
+        alert("Video tidak ditemukan");
+      } else {
+        alert(error.message);
+      }
     }
-  }
-};
+  };
 
 export const allRating = () => async (dispatch) => {
   try {
@@ -228,7 +235,9 @@ export const createRating =
         }
       );
       alert("kamu sudah memberikan rating pada course ini !");
+      // console.log(window.location.pathname);
       window.location.reload();
+      // navigate(window.location.pathname, { replace: true });
     } catch (error) {
       alert(error.message);
     }
@@ -252,6 +261,8 @@ export const updateRating =
         }
       );
       alert("Terima kasih telah memberikan nilai pada course ini");
+      // console.log(window.location.pathname);
+      // navigate(window.location.pathname);
       window.location.reload();
     } catch (error) {
       alert(error.message);
