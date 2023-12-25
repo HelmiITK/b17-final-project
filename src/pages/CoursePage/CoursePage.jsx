@@ -36,8 +36,13 @@ const CoursePage = () => {
   // variabl untuk filtering
   const [category, setCategory] = useState(state ? [state.categoryId] : []);
   const [level, setLevel] = useState([]);
-  const [filter, setFilter] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
+  const scrollTop = () => {
+    scrollTo({
+      behavior: "smooth",
+      top: 0,
+    });
+  };
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
@@ -55,10 +60,6 @@ const CoursePage = () => {
 
   const handleLevel = (x) => {
     setLevel(x);
-  };
-
-  const handleFilter = (x) => {
-    setFilter(x);
   };
 
   // ambil data dari filtering yang ada di Main
@@ -91,13 +92,13 @@ const CoursePage = () => {
     dispatch(
       getCourseWithFilter(pages, stringCategory, stringLevel, typeCourse)
     ).then(() => setIsLoading(false));
+    scrollTop();
   }, [dispatch, stringCategory, stringLevel, typeCourse, pages]);
 
   // mycourse di dispatch agar card bisa membedakan mana yang sudah dibeli user dan belum
   useEffect(() => {
     dispatch(getMyCourse());
   }, [dispatch]);
-
   // untuk mengarahkan ke page berikutnya
   const handleLoadMoreNext = () => {
     if (pages < pageCourse.totalPages) {
@@ -143,7 +144,6 @@ const CoursePage = () => {
                   isLoading={isLoadingCat}
                   handleLevel={handleLevel}
                   categoryFromHome={state?.categoryId}
-                  handleFilter={handleFilter}
                 />
               </div>
               <div className="col-span-3 md:col-span-2">

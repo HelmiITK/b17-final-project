@@ -89,7 +89,7 @@ const VideoPage = () => {
             <div className="mx-auto grid grid-cols-3 gap-x-14 md:mt-5">
               {/* main section, isinya video sama deskripsi course */}
               <div className="col-span-3 lg:col-span-2">
-                <Main materialId={materialId} />
+                <Main materialId={materialId} myCourse={courseDetailVideo} />
               </div>
               {/* progress course, ada di sebelah kanan */}
               <div className="col-span-3 lg:col-span-1">

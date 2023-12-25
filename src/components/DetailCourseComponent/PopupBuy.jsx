@@ -9,9 +9,11 @@ import {
   enrollFreeCourse,
   enrollPremiumCourse,
 } from "../../redux/actions/courseActions";
+import { useNavigate } from "react-router";
 
 const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({
     isError: false,
     message: null,
@@ -31,16 +33,17 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
         "Course ini merupakan course gratis, Jika anda menekan YES maka anda akan meng-enroll course ini"
       );
       if (decision) {
-        dispatch(enrollFreeCourse(courseId));
+        dispatch(enrollFreeCourse(courseId, navigate));
       }
     } else {
       const decision = confirm(
         "Course ini merupakan course berbayar, apakah anda yakin ingin membelinya ?"
       );
       if (decision) {
-        dispatch(enrollPremiumCourse(courseId));
+        dispatch(enrollPremiumCourse(courseId, navigate));
       }
     }
+    handlePopup();
   };
 
   return (
