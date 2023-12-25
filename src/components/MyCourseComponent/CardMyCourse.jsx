@@ -56,7 +56,7 @@ const Card = ({ course, rating }) => {
                 <span className="mr-1 lg:mr-2">
                   <FaStar color="#F9CC00" className="w-4 h-4 lg:w-5 lg:h-5" />
                 </span>
-                {rating ? rating : 0}
+                {rating ? rating.toFixed(1) : 0}
               </p>
             </div>
             <div className="flex flex-col">
