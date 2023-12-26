@@ -14,12 +14,12 @@ import { BiSolidCategoryAlt } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 import ClockLoader from "react-spinners/ClockLoader";
 import Navbar from "../../components/NavbarComponent/Navbar";
-import PopupBuy from "../../components/VideoComponent/PopupBuy";
 import { allRating, getMyCourse } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
 import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 import Footer from "../../components/FooterComponent/Footer";
-import PopupRating from "../../components/VideoComponent/PopupRating";
+import PopupBuy from "../../components/DetailCourseComponent/PopupBuy";
+import PopupRating from "../../components/DetailCourseComponent/PopupRating";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -30,7 +30,6 @@ const CourseDetail = () => {
   const [isLoved, setIsLoved] = useState(false);
   const [checkMycourse, setCheckMycourse] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  // const [originalPageUrl, setOriginalPageUrl] = useState("");
   const [isPopupBuy, setIsPopupBuy] = useState(false);
   const [isPopupRating, setIsPopupRating] = useState(false);
   const iconContainerRef = useRef(null);
@@ -49,8 +48,13 @@ const CourseDetail = () => {
   const { chapters, materials } = detail
     ? detail
     : { chapters: [], materials: [] };
+
+  // sorting asc berdasarkan id material
+  const sortingAsc = materials && [...materials].sort((a, b) => a.id - b.id);
+
+  // kelompokkan antara chapter dan materialnya
   const chapterWithMaterials = chapters?.map((chapter) => {
-    const materialsAtChapter = materials?.filter(
+    const materialsAtChapter = sortingAsc?.filter(
       (material) => material.chapter_id === chapter.id
     );
     const x = { title: chapter.title, materials: materialsAtChapter };
@@ -67,23 +71,7 @@ const CourseDetail = () => {
 
   const handleIconClick = (event) => {
     event.stopPropagation(); // Hentikan penanganan event lebih lanjut
-    // setOriginalPageUrl(window.location.href);
     setIsButtonVisible(true);
-  };
-
-  const handleFollowClick = () => {
-    setIsButtonVisible(false);
-    // const isConfirmed = window.confirm('Hemm antum belum login nih, login dulu yuk 😊');
-
-    // if (isConfirmed) {
-    //    // Mengarahkan pengguna ke halaman video jika dikonfirmasi
-    //    window.location.href = '/login';
-    // } else {
-    //    // Mengarahkan pengguna kembali ke halaman saat ini jika dibatalkan
-    //    window.location.href = originalPageUrl;
-    // }
-
-    navigate(`/course-detail/${courseId}/video/${detail.materials[0].id}`);
   };
 
   const handleDocumentClick = (event) => {
@@ -152,6 +140,31 @@ const CourseDetail = () => {
     }
   }, [mycourse, courseId]);
 
+  // sorting asc untuk progressUser agar tau dimana material yang is_completednya false
+  const userProgressSort =
+    checkMycourse &&
+    [...checkMycourse.userProgress].sort(
+      (a, b) => a.course_material_id - b.course_material_id
+    );
+
+  // ambil data pertama yang is_completednya false
+  const materialNotCompleted =
+    userProgressSort && userProgressSort.find((y) => y.is_completed === false);
+
+  // conditional click ikut kelas
+  const handleFollowClick = () => {
+    setIsButtonVisible(false);
+    // jika progressnya dibawah 100, maka cari course yang belum selesai
+    if (checkMycourse && checkMycourse.progressPercentage < 100) {
+      navigate(
+        `/course-detail/${courseId}/video/${materialNotCompleted.course_material_id}`
+      );
+      // cari course index pertama
+    } else {
+      navigate(`/course-detail/${courseId}/video/${sortingAsc[0].id}`);
+    }
+  };
+
   return (
     <>
       <PopupBuy
@@ -159,6 +172,7 @@ const CourseDetail = () => {
         handlePopup={handlePopup}
         courseId={courseId}
       />
+
       <PopupRating isPopupRating={isPopupRating} handleRating={handleRating} />
       <Navbar />
       <div className="container mx-auto pt-24">
@@ -212,7 +226,8 @@ const CourseDetail = () => {
                       {user &&
                         !!rating.find(
                           (rate) =>
-                            rate.course_id == courseId && rate.user_id == user.id
+                            rate.course_id == courseId &&
+                            rate.user_id == user.id
                         ) &&
                         !!checkMycourse && (
                           <div>
@@ -227,7 +242,8 @@ const CourseDetail = () => {
                       {user &&
                         !rating.find(
                           (rate) =>
-                            rate.course_id == courseId && rate.user_id == user.id
+                            rate.course_id == courseId &&
+                            rate.user_id == user.id
                         ) &&
                         !!checkMycourse && (
                           <button
@@ -248,8 +264,9 @@ const CourseDetail = () => {
                         {detail.title}
                       </h2>
                       <div
-                        className={`${isButtonVisible ? "scale-x-95" : "scale-x-100"
-                          } transition-all duration-500 ease-out`}
+                        className={`${
+                          isButtonVisible ? "scale-x-95" : "scale-x-100"
+                        } transition-all duration-500 ease-out`}
                         ref={iconContainerRef}
                       >
                         {isButtonVisible ? (
@@ -289,10 +306,10 @@ const CourseDetail = () => {
                         </p>
                       </div>
                       {user && !checkMycourse && (
-                        <div className="flex flex-row mt-4 items-center gap-2 border p-2 rounded-lg bg-color-primary w-full shadow-md hover:scale-105 duration-300 transition-all">
+                        <div className="flex flex-row mt-4 items-center gap-2 border p-2 rounded-lg bg-color-primary w-full shadow-md ">
                           <button
                             onClick={() => setIsPopupBuy(true)}
-                            className="text-base font-semibold text-white capitalize text-center w-full "
+                            className="text-base font-semibold text-white capitalize text-center w-full hover:scale-105 duration-300 transition-all"
                           >
                             Enroll Kelas
                           </button>
@@ -300,7 +317,7 @@ const CourseDetail = () => {
                       )}
                       {/* jika user login dan udh beli course */}
                       {user && checkMycourse && (
-                        <div className="border mt-4 p-2 rounded-lg w-full shadow-md hover:scale-105 duration-300 transition-all">
+                        <div className="border mt-4 p-2 rounded-lg w-full shadow-md ">
                           <ProgressBar
                             percentage={
                               checkMycourse &&
@@ -314,19 +331,25 @@ const CourseDetail = () => {
                   {/* target pada siapa kelas ini dituju */}
                   <div className="mx-4 flex flex-col gap-3 border-none p-4 rounded-lg mb-4 shadow-md bg-indigo-700 bg-opacity-40">
                     <div className="text-white">
-                      <h2 className="font-semibold text-base">Persiapan Sebelum Kelas :</h2>
+                      <h2 className="font-semibold text-base">
+                        Persiapan Sebelum Kelas :
+                      </h2>
                       <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
-                        {detail.prerequisite && detail.prerequisite.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
+                        {detail.prerequisite &&
+                          detail.prerequisite.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                       </ol>
                     </div>
                     <div className="text-white">
-                      <h2 className="font-semibold text-base">Kelas Ditujukan Untuk :</h2>
+                      <h2 className="font-semibold text-base">
+                        Kelas Ditujukan Untuk :
+                      </h2>
                       <ol className="list-decimal ml-4 text-sm flex flex-col gap-1">
-                        {detail.target_audience && detail.target_audience.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
+                        {detail.target_audience &&
+                          detail.target_audience.map((item, index) => (
+                            <li key={index}>{item}</li>
+                          ))}
                       </ol>
                     </div>
                   </div>
@@ -406,8 +429,9 @@ const CourseDetail = () => {
                       </div>
                       {/* button video kelas mode laptop */}
                       <div
-                        className={`${isButtonVisible ? "scale-y-95" : "scale-y-105"
-                          } transition-all duration-500 ease-out`}
+                        className={`${
+                          isButtonVisible ? "scale-y-95" : "scale-y-105"
+                        } transition-all duration-500 ease-out`}
                         ref={iconContainerRef}
                       >
                         {isButtonVisible ? (
@@ -416,9 +440,9 @@ const CourseDetail = () => {
                             className={cn(
                               "absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-indigo-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-indigo-600",
                               checkMycourse &&
-                              "hover:bg-indigo-600 hover:text-white duration-200",
+                                "hover:bg-indigo-600 hover:text-white duration-200",
                               !checkMycourse &&
-                              "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
+                                "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
                             )}
                             onClick={handleFollowClick}
                           >
@@ -433,14 +457,21 @@ const CourseDetail = () => {
                       </div>
                       {/* alur kelas mode laptop */}
                       <div className="mx-2 mt-4 border-none shadow-md shadow-slate-300 p-4 rounded-md mb-4">
-                        <h2>Kelas yang akan dipelajari : </h2>
+                        <h2 className="text-color-primary">
+                          Materi yang akan didapatkan di kelas ini :{" "}
+                        </h2>
                         {chapterWithMaterials?.map((chapter, i) => (
                           <div key={i}>
                             <div>
-                              <h1 className="font-semibold text-lg">{chapter.title}</h1>
+                              <h1 className="font-semibold text-lg">
+                                {chapter.title}
+                              </h1>
                               <ul>
                                 {chapter?.materials?.map((material) => (
-                                  <li className="list-decimal ml-4" key={material.id}>
+                                  <li
+                                    className="list-decimal ml-4"
+                                    key={material.id}
+                                  >
                                     {material.title}
                                   </li>
                                 ))}

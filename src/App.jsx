@@ -18,6 +18,7 @@ import NoAccessToken from "./security/NoAccessToken";
 import Protected from "./security/Protected";
 import SendEmail from "./pages/ResetPassword/SendEmail";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import SearchCourse from "./pages/SearchPage/SearchCourse";
 
 function App() {
   return (
@@ -28,6 +29,12 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/course" element={<CoursePage />} />
+          <Route
+            path="/search"
+            element={
+              <SearchCourse />
+            }
+          />
           <Route
             path="/mycourse"
             element={

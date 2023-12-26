@@ -15,24 +15,28 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
   const { courseId } = useParams();
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    const { id } = rating.find(
+    const ratingThisCourse = rating.find(
       (rate) => rate.course_id == courseId && rate.user_id === user.id
     );
 
     const validate = confirm(
       `Apakah anda yakin akan memberikan nilai  ${ratings} pada course ini ?`
     );
+    // cek apakah sudah pernah memberi nilai atau belum
     if (validate) {
       if (
-        id &&
+        ratingThisCourse &&
         rating.find(
           (rate) => rate.course_id == courseId && rate.user_id === user.id
         )
       ) {
-        dispatch(updateRating(+courseId, user.id, ratings, id));
+        dispatch(
+          updateRating(+courseId, user.id, ratings, ratingThisCourse.id)
+        );
       } else {
         dispatch(createRating(+courseId, user.id, ratings));
       }
+      handleRating();
     }
   };
   return (
@@ -73,7 +77,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
                       className="cursor-pointer"
                       size={30}
                       color={
-                        currentRating <= (hover || rating)
+                        currentRating <= (hover || ratings)
                           ? "#ffc107"
                           : "e4e5e9"
                       }

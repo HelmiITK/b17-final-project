@@ -2,21 +2,46 @@ import ReactPlayer from "react-player";
 import InfoCourse from "./InfoCourse";
 import DescriptionCourse from "./DescriptionCourse";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CompletedButton from "./CompletedButton";
 import { updateMaterialStatus } from "../../redux/actions/courseActions";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Main = ({ materialId }) => {
-  const { detail } = useSelector((state) => state.course);
+const Main = ({ materialId, myCourse }) => {
+  const materialss = myCourse?.course?.materials;
+  // sorting berdasarkan id material agar material terurut
+  const sortAscByIdMaterials =
+    materialss && [...materialss].sort((a, b) => a.id - b.id);
 
-  const material = detail?.materials?.filter(
+  // get index selanjutnya untuk perpindahan halaman
+  const getNextIndex =
+    sortAscByIdMaterials?.findIndex((x) => x.id == materialId) + 1;
+  const lastIndex = sortAscByIdMaterials && sortAscByIdMaterials.length - 1;
+
+  // id material dari get index
+  // dikondisikan jika index selanjutnya sama dengan length, maka itu adalah index terakhir
+  const materialNextIndex =
+    sortAscByIdMaterials &&
+    sortAscByIdMaterials[
+      getNextIndex === sortAscByIdMaterials.length ? lastIndex : getNextIndex
+    ].id;
+
+  // ambil material berdasarkan id untuk
+  const material = sortAscByIdMaterials?.filter(
     (material) => material.id == materialId
   );
 
+  // keperluan untuk url next page
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const updateMaterial = () => {
-    dispatch(updateMaterialStatus(materialId));
+    dispatch(
+      updateMaterialStatus(materialId, navigate, courseId, materialNextIndex)
+    );
   };
+
   return (
     <>
       <div className="flex flex-col">
@@ -37,8 +62,13 @@ const Main = ({ materialId }) => {
                 className="react-player"
                 onEnded={updateMaterial}
               />
+              <div>aaa</div>
             </div>
-            <CompletedButton materialId={materialId} />
+            <CompletedButton
+              materialId={materialId}
+              progress={myCourse?.userProgress}
+              materialNextIndex={materialNextIndex}
+            />
           </div>
         </div>
         {/* Infocourse ketika mobile */}
@@ -54,6 +84,7 @@ const Main = ({ materialId }) => {
 
 Main.propTypes = {
   materialId: PropTypes.string,
+  myCourse: PropTypes.object,
 };
 
 export default Main;

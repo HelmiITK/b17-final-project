@@ -21,7 +21,6 @@ const MyCoursePage = () => {
   const data = ["All", "In Progress", "Done"];
   const [category, setCategory] = useState([]);
   const [level, setLevel] = useState([]);
-  const [filter, setFilter] = useState([]);
   const [progress, setProgress] = useState("");
   const [filteringCourse, setFiltertingCourse] = useState(mycourse && mycourse);
 
@@ -44,10 +43,6 @@ const MyCoursePage = () => {
 
   const handleLevel = (x) => {
     setLevel(x);
-  };
-
-  const handleFilter = (x) => {
-    setFilter(x);
   };
 
   // data id kategori yang diceklis, diubah menjadi string sesuai dengan ketentuan api
@@ -108,7 +103,6 @@ const MyCoursePage = () => {
                   handleCategory={handleCategory}
                   isLoading={isLoadingCat}
                   handleLevel={handleLevel}
-                  handleFilter={handleFilter}
                 />
               </div>
               <div className="col-span-3 md:col-span-2">
