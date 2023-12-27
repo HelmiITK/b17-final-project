@@ -70,7 +70,7 @@ const SideFilter = ({
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
             {isLoading && (
               <div className="h-32 w-full items-center flex justify-center sticky top-24 ">
-                <ClockLoader color="#6a00ff" size={24} speedMultiplier={2} />
+                <ClockLoader color="#003E9C" size={24} speedMultiplier={2} />
               </div>
             )}
             {category.map((item) => {

@@ -194,7 +194,7 @@ const HomePage = () => {
             {loading ? (
               <ClockLoader
                 className="absolute top-20 left-1/2 mb-20 lg:left-[485px]"
-                color="#6a00ff"
+                color="#003E9C"
                 size={50}
                 speedMultiplier={2}
               />

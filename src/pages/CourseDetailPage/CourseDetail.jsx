@@ -121,7 +121,7 @@ const CourseDetail = () => {
     return () => {
       dispatch(removeDetail());
     };
-  }, [courseId]); // lakukan setiap perubahan berdasarkan id
+  }, [courseId, rating]); // lakukan setiap perubahan berdasarkan id
 
   useEffect(() => {
     if (user) {
@@ -209,51 +209,62 @@ const CourseDetail = () => {
                     className="rounded-lg shadow-lg shadow-slate-700"
                   />
                   {/* grup love dan rating */}
-                  <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
-                    <button
-                      className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
-                      onClick={handleLoveClick}
-                    >
-                      {isLoved ? (
-                        <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
-                      ) : (
-                        <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
-                      )}
-                      {loveCount}
-                    </button>
-                    {/* rating button */}
-                    <div className="">
-                      {user &&
-                        !!rating.find(
-                          (rate) =>
-                            rate.course_id == courseId &&
-                            rate.user_id == user.id
-                        ) &&
-                        !!checkMycourse && (
-                          <div>
+                  <div className="flex justify-between">
+                    <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
+                      <button
+                        className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
+                        onClick={handleLoveClick}
+                      >
+                        {isLoved ? (
+                          <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
+                        ) : (
+                          <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
+                        )}
+                        {loveCount}
+                      </button>
+                      {/* rating button */}
+                      <div className="">
+                        {user &&
+                          !!rating.find(
+                            (rate) =>
+                              rate.course_id == courseId &&
+                              rate.user_id == user.id
+                          ) &&
+                          !!checkMycourse && (
+                            <div>
+                              <button
+                                onClick={() => setIsPopupRating(true)}
+                                className="bg-blue-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-color-primary duration-200 group"
+                              >
+                                <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                                Ubah Rating
+                              </button>
+                            </div>
+                          )}
+                        {user &&
+                          !rating.find(
+                            (rate) =>
+                              rate.course_id == courseId &&
+                              rate.user_id == user.id
+                          ) &&
+                          !!checkMycourse && (
                             <button
                               onClick={() => setIsPopupRating(true)}
-                              className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
+                              className="bg-blue-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-color-primary duration-200 group"
                             >
-                              Ubah Rating
+                              <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                              Beri Rating
                             </button>
-                          </div>
-                        )}
-                      {user &&
-                        !rating.find(
-                          (rate) =>
-                            rate.course_id == courseId &&
-                            rate.user_id == user.id
-                        ) &&
-                        !!checkMycourse && (
-                          <button
-                            onClick={() => setIsPopupRating(true)}
-                            className="bg-violet-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-indigo-600 duration-200 group"
-                          >
-                            <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
-                            Beri Rating
-                          </button>
-                        )}
+                          )}
+                      </div>
+                    </div>
+                    <div className="  mr-3 my-auto">
+                      <p className="flex text-base font-semibold items-center text-white">
+                        <span className="mr-2">
+                          <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                        </span>{" "}
+                        {detail?.averageRating?.toFixed(1)}
+                      </p>
                     </div>
                   </div>
 

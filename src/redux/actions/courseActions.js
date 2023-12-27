@@ -104,9 +104,7 @@ export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
 
     // reload halaman agar terupdate
     if (response.status == 201) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      dispatch(getMyCourse());
     }
   } catch (error) {
     alert(error.message);
@@ -163,7 +161,7 @@ export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
 
       // reload halaman agar terupdate
       if (response2.status == 201) {
-        window.location.reload();
+        dispatch(getMyCourse());
       }
     }
   } catch (error) {
@@ -185,14 +183,13 @@ export const updateMaterialStatus =
           },
         }
       );
-      alert("Video ini sudah selesai");
+
       if (id == materialNextIndex) {
-        window.location.reload();
+        dispatch(getMyCourse());
       } else {
         navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
           replace: true,
         });
-        window.location.reload();
       }
     } catch (error) {
       if (error.response.status === 400) {
@@ -236,7 +233,8 @@ export const createRating =
       );
       alert("kamu sudah memberikan rating pada course ini !");
       // console.log(window.location.pathname);
-      window.location.reload();
+      dispatch(allRating());
+      dispatch(getMyCourse());
       // navigate(window.location.pathname, { replace: true });
     } catch (error) {
       alert(error.message);
@@ -261,9 +259,7 @@ export const updateRating =
         }
       );
       alert("Terima kasih telah memberikan nilai pada course ini");
-      // console.log(window.location.pathname);
-      // navigate(window.location.pathname);
-      window.location.reload();
+      dispatch(allRating());
     } catch (error) {
       alert(error.message);
     }
