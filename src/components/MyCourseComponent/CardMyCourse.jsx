@@ -67,11 +67,11 @@ const Card = ({ course, rating }) => {
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider">
                   <span className="text-green-500 mr-[2.5px]">
                     <Shield size={18} />
-                  </span>{" "}
+                  </span>
+                  Level{" "}
                   {course &&
                     course?.level?.charAt(0).toUpperCase() +
                       course?.level?.slice(1)}{" "}
-                  Level
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">

@@ -40,7 +40,7 @@ const MainMyCourse = ({ data, course, isLoading, getFilterFromMain }) => {
       {/* loading ambil data dari api */}
       {isLoading && (
         <div className="h-96 w-full items-center flex justify-center sticky top-24 ">
-          <ClockLoader color="#6a00ff" size={30} speedMultiplier={2} />
+          <ClockLoader color="#003E9C" size={30} speedMultiplier={2} />
         </div>
       )}
       {/* kalau tidak ada datanya */}
