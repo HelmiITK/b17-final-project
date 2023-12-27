@@ -1,5 +1,3 @@
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useRef, useState } from "react";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from '../../components/AccountComponent/ButtonBack';
@@ -24,20 +22,11 @@ const UserPage = () => {
       country: '',
       city: '',
    });
+   // state mengecek apakah ada perubahan pada inputan
+   const [isProfileChanged, setIsProfleChanged] = useState(false);
 
    const { user } = useSelector((state) => state.auth);
    // console.log(user);
-
-   // ambil data user dari redux
-   // useEffect(() => {
-   //    // ambil data user di localStorage agar ketika browser di refresh data selalu ada
-   //    const storedProfile = JSON.parse(localStorage.getItem('userProfile'));
-   //    if (storedProfile) {
-   //       setProfile(storedProfile);
-   //    } else {
-   //       dispatch(getMe(null));
-   //    }
-   // }, [dispatch])
 
    // Perbarui nilai profil setelah pengguna dari Redux dimuat
    useEffect(() => {
@@ -70,6 +59,7 @@ const UserPage = () => {
    const handleChange = (e) => {
       const { name, value } = e.target;
       setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
+      setIsProfleChanged(true);
    };
 
    const handleSaveProfile = () => {
@@ -84,6 +74,7 @@ const UserPage = () => {
                avatar: profile.avatar,
             }));
             setPicture(profile.avatar || '');  // Tetapkan state picture ke URL avatar yang baru
+            setIsProfleChanged(false); // Reset isProfileChanged setelah menyimpan profil
          })
          .catch((error) => {
             alert(error?.message);
@@ -254,12 +245,12 @@ const UserPage = () => {
                                  <div className="mt-2">
                                     <button
                                        onClick={handleSaveProfile}
+                                       disabled={!isProfileChanged}
                                        className={`w-full bg-blue-600 text-sm font-medium text-white py-2 px-6 rounded-2xl hover:bg-primary focus:outline-none focus:shadow-outline-blue
-                                             ${Object.values(profile).some((value) => typeof value === 'string' && value.trim() !== '') ? '' : 'cursor-not-allowed opacity-50'}`}
+                                             ${isProfileChanged ? '' : 'cursor-not-allowed opacity-50'}`}
                                     >
                                        Simpan Profil Saya
                                     </button>
-                                    {/* <ToastContainer /> */}
                                  </div>
                               </div>
                            </>
@@ -271,7 +262,6 @@ const UserPage = () => {
                </div>
             </div>
          </div>
-
          <Footer />
       </>
    )

@@ -8,7 +8,7 @@ import MenuList from '../../components/AccountComponent/MenuList'
 import Navbar from '../../components/NavbarComponent/Navbar';
 import Footer from '../../components/FooterComponent/Footer';
 
-const UserPage = () => {
+const HistoryPayment = () => {
    const [openHamburger, setOpenHamburger] = useState(false);
 
    const handleHamburgerClick = () => {
@@ -99,4 +99,4 @@ const UserPage = () => {
    )
 }
 
-export default UserPage;
+export default HistoryPayment;
