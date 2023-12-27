@@ -53,7 +53,7 @@ const UserPage = () => {
                            <div className='flex flex-col mx-4 gap-4 pb-4 shadow-xl rounded-3xl lg:w-96 lg:h-auto'>
                               <div>
                                  <img
-                                    src="https://images.unsplash.com/photo-1703449691641-3f5afa7c049a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                    src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                     alt=""
                                     className='rounded-t-3xl' />
                               </div>
