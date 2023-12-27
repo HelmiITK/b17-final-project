@@ -129,9 +129,9 @@ const UserPage = () => {
                <ButtonBack />
 
                {/* card border */}
-               <div className="max-w-3xl mx-4 lg:mx-auto h-full mt-4 mb-6 bg-white border-2 border-indigo-600 rounded-2xl items-center">
+               <div className="max-w-3xl mx-4 lg:mx-auto h-full mt-4 mb-6 bg-white border-2 border-color-primary rounded-2xl items-center">
                   {/* heading akun */}
-                  <div className="bg-indigo-600 rounded-t-lg py-4 text-center">
+                  <div className="bg-primary rounded-t-lg py-4 text-center">
                      <h1 className="text-white font-bold text-lg">Akun</h1>
                   </div>
 
@@ -161,10 +161,10 @@ const UserPage = () => {
                                  />
                                  <div className='absolute bottom-8 right-0 flex justify-center items-center z-10 bg-white p-1 rounded-full group'>
                                     <div
-                                       className='bg-white rounded-full cursor-pointer p-[2px] group-hover:bg-indigo-600'
+                                       className='bg-white rounded-full cursor-pointer p-[2px] group-hover:bg-primary'
                                        onClick={() => img.current.click()}
                                     >
-                                       <MdOutlineCameraAlt title='upload avatarmu' className='text-indigo-600 w-5 h-5 group-hover:text-white duration-200' />
+                                       <MdOutlineCameraAlt title='upload avatarmu' className='text-color-primary w-5 h-5 group-hover:text-white duration-200' />
                                     </div>
                                     <input
                                        type="file"
@@ -254,7 +254,7 @@ const UserPage = () => {
                                  <div className="mt-2">
                                     <button
                                        onClick={handleSaveProfile}
-                                       className={`w-full bg-indigo-500 text-sm font-medium text-white py-2 px-6 rounded-2xl hover:bg-indigo-600 focus:outline-none focus:shadow-outline-blue
+                                       className={`w-full bg-blue-600 text-sm font-medium text-white py-2 px-6 rounded-2xl hover:bg-primary focus:outline-none focus:shadow-outline-blue
                                              ${Object.values(profile).some((value) => typeof value === 'string' && value.trim() !== '') ? '' : 'cursor-not-allowed opacity-50'}`}
                                     >
                                        Simpan Profil Saya

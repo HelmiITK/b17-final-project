@@ -25,9 +25,9 @@ const UserPage = () => {
                <ButtonBack />
 
                {/* card border */}
-               <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-indigo-600 mx-4 rounded-2xl items-center mb-6">
+               <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-color-primary mx-4 rounded-2xl items-center mb-6">
                   {/* heading akun */}
-                  <div className="bg-indigo-600 rounded-t-lg py-4 text-center">
+                  <div className="bg-primary rounded-t-lg py-4 text-center">
                      <h1 className="text-white font-bold text-lg">Akun</h1>
                   </div>
 
@@ -59,7 +59,7 @@ const UserPage = () => {
                               </div>
                               <div className='mx-4 flex justify-between'>
                                  <div>
-                                    <h1 className='font-semibold text-indigo-600'>UI/UX Desegin</h1>
+                                    <h1 className='font-semibold text-color-primary'>UI/UX Desegin</h1>
                                     <h2 className='font-semibold'>Belajar Web Designer dengan Figma</h2>
                                  </div>
                                  <div className='flex items-start gap-1'>

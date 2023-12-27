@@ -47,15 +47,16 @@ export default {
       },
       colors: {
         color: {
-          primary: "#050642",
-          test: "#172554",
+          primary: "#003E9C",
+          secondary: "#0065FF",
           test2: "#DBF227",
           layer: "#EBF3FC",
           layer2: "D6D58E",
         },
       },
       backgroundColor: {
-        primary: "#050642",
+        primary: "#003E9C",
+        secondary: "#0065FF",
         layer: "#EBF3FC",
         blur: "rgba(255, 255, 255, 0.5)",
       },
