@@ -124,7 +124,7 @@ const CoursePage = () => {
         <div className="w-10/12 mx-auto">
           <div className="flex flex-col items-start justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
             <Link to={"/"}>
-              <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
+              <h1 className="flex font-medium text-sm md:text-base items-center hover:text-color-primary">
                 <span className="mr-1 block md:mr-2">
                   <IoMdArrowRoundBack className="w-4 h-4" />
                 </span>{" "}

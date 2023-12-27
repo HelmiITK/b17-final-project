@@ -16,10 +16,9 @@ export default function ProgressBar({ percentage }) {
           style={{
             height: "100%",
             width: `${percentage}%`,
-            backgroundColor: "purple",
             transition: "width 0.5s",
           }}
-          className="animate-fade"
+          className="animate-fade bg-primary"
         ></div>
         <span className="font-semibold absolute top-[50%] left-3 -translate-y-[50%] text-white text-[10px] md:text-xs drop-shadow-lg progressPercent">
           {percentage}% Complete

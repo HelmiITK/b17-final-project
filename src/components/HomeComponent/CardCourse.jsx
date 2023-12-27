@@ -38,7 +38,6 @@ const CardCourse = ({ course }) => {
                 alt={categoryName}
                 className="overflow-hidden w-full h-28 object-cover"
               />
-
             </div>
             <div className="mx-2 md:mx-4 flex flex-col mt-1 md:mt-2">
               <div className="flex justify-between items-center">
@@ -61,7 +60,9 @@ const CardCourse = ({ course }) => {
                     <span className="text-green-500 mr-[2.5px]">
                       <Shield size={18} />
                     </span>{" "}
-                    {course.level}
+                    Level{" "}
+                    {course?.level?.charAt(0).toUpperCase() +
+                      course?.level?.slice(1)}{" "}
                   </p>
                   <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                     <span className="text-green-500 mr-[2.5px]">
@@ -92,7 +93,8 @@ const CardCourse = ({ course }) => {
                         <span className="mr-2">
                           <Gem size={16} />
                         </span>{" "}
-                        {course.type_course}
+                        {course?.type_course?.charAt(0).toUpperCase() +
+                          course?.type_course?.slice(1)}{" "}
                       </button>
                     </div>
                     {/* button ketika mau beli (ada harganya) */}
