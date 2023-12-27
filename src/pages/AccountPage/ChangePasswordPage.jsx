@@ -80,9 +80,9 @@ const UserPage = () => {
                <ButtonBack />
 
                {/* card border */}
-               <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-indigo-600 mx-4 rounded-2xl items-center">
+               <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-color-primary mx-4 rounded-2xl items-center">
                   {/* heading akun */}
-                  <div className="bg-indigo-600 rounded-t-lg py-4 text-center">
+                  <div className="bg-primary rounded-t-lg py-4 text-center">
                      <h1 className="text-white font-bold text-lg">Akun</h1>
                   </div>
 
@@ -174,7 +174,7 @@ const UserPage = () => {
                            {/* button simpan perubahan */}
                            <button
                               onClick={handleChangePassword}
-                              className='mt-2 border-none bg-indigo-500 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-indigo-700'>
+                              className='mt-2 border-none bg-blue-600 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-primary'>
                               Ubah Password
                            </button>
                         </div>

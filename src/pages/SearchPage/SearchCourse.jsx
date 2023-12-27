@@ -44,11 +44,11 @@ const SearchCourse = () => {
         <div className="mx-4">
           {/* header judul dan button kembali */}
           <div className="flex justify-between lg:mt-2">
-            <Link to={'/'} className="flex items-center gap-2 hover:text-indigo-600">
+            <Link to={'/'} className="flex items-center gap-2 hover:text-color-primary">
               <IoMdArrowRoundBack />
               <h2>Kembali Ke Beranda</h2>
             </Link>
-            <div className="flex items-center sm:gap-1 md:gap-2 text-indigo-600">
+            <div className="flex items-center sm:gap-1 md:gap-2 text-color-primary">
               <TbDatabaseSearch className="w-12 h-12" />
               <h2 className="font-bold text-2xl text-left">Pencarian Mu</h2>
             </div>
@@ -88,7 +88,7 @@ const SearchCourse = () => {
                         key={course?.id}
                         className="mx-4 mb-8 relative"
                       >
-                        <div className="lg:border-2 rounded-2xl p-4 group bg-indigo-600 drop-shadow-xl shadow-xl hover:scale-105 duration-300 lg:border-indigo-600 lg:bg-white lg:hover:bg-indigo-600">
+                        <div className="lg:border-2 rounded-2xl p-4 group bg-primary drop-shadow-xl shadow-xl hover:scale-105 duration-300 lg:border-color-secondary lg:bg-white lg:hover:bg-primary">
                           {/* konten judul dan gambar mobile */}
                           <Link
                             to={`/course-detail/${course?.id}`}
