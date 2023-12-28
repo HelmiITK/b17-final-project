@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { resetPassword } from "../../redux/actions/authActions";
+import { ToastContainer } from "react-toastify";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
@@ -56,8 +57,8 @@ const ResetPassword = () => {
 
     try {
       await dispatch(resetPassword(resetPasswordToken, newPassword, confirmNewPassword, navigate));
-      alert("Password Berhasil Diganti 🥳");
-      navigate("/");
+      // alert("Password Berhasil Diganti 🥳");
+      // navigate("/");
     } catch (error) {
       alert(error.message);
     } finally {
@@ -75,7 +76,7 @@ const ResetPassword = () => {
     // Mendapatkan nilai dari parameter 'resetPasswordToken'
     setResetPasswordToken(url.searchParams.get("resetPasswordToken"));
     // Menampilkan nilai pada konsol
-    console.log(resetPasswordToken);
+    // console.log(resetPasswordToken);
 
     // Do something with resetPasswordToken, like calling your resetPassword action
     // Lakukan sesuatu dengan resetPasswordToken, seperti memanggil aksi resetPassword
@@ -159,6 +160,18 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };

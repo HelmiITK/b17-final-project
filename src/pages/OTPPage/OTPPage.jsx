@@ -5,7 +5,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { resendOtp, verify } from "../../redux/actions/authActions";
-// import PropTypes from "prop-types"
+import { ToastContainer } from "react-toastify";
 
 const OTPPage = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const OTPPage = () => {
           if (prevTimer === 0) {
             clearInterval(interval);
             setIsTimerActive(false);
-            return 60; // Setel ulang timer ke 60 detik setelah mencapai 0
+            return 60; // Set ulang timer ke 60 detik setelah mencapai 0
           }
           return prevTimer - 1;
         });
@@ -47,7 +47,7 @@ const OTPPage = () => {
 
   return (
     <>
-      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-32 rounded-3xl">
+      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#F3F7FB] py-32 rounded-3xl">
         <form onSubmit={handleverify} className="otp-form">
           <div className="pt-24 lg:pt-32 absolute top-0 translate-x-[-50%] left-[50%]  w-full lg:w-9/12  pb-10">
             <Link to={"/register"}>
@@ -63,16 +63,12 @@ const OTPPage = () => {
           <div className="relativ bg-white px-6 pt-10 pb-9 shadow-2xl mx-auto w-full max-w-lg rounded-2xl">
             <div className="mx-auto flex w-full max-w-md flex-col space-y-7">
               <div className="flex flex-col items-center justify-center text-center">
-                <MdVerifiedUser className="justify-center items-center w-24 h-24 text-blue-700" />
-                <div className="font-semibold text-2xl ">OTP VERIV</div>
-                <p className="font-poppins text-md">
-                  Enter the OTP sent to you verify your identity
-                </p>
+                <MdVerifiedUser className="justify-center items-center w-24 h-24 text-[#003E9C]" />
+                <div className="font-semibold text-xl ">Masukkan OTP</div>
+                {/* <p className="font-poppins font-">Enter the OTP sent to you verify your identity</p> */}
               </div>
-
-              {/* <form onSubmit={handleverify} className="otp-form"> */}
               <div className="flex flex-col space-y-6">
-                <label className="text-[12px] text-sm lg:text-base mb-[4px] text-center font-Poppins">
+                <label className="text-[12px] text-sm lg:text-sm mb-[4px] text-center font-Poppins">
                   Ketik 6 digit kode yang dikirimkan ke <span className="font-bold">{email}</span>
                 </label>
                 <div className="flex flex-row items-center justify-center mx-auto w-full max-w-sm">
@@ -87,23 +83,29 @@ const OTPPage = () => {
                         {...props}
                         key={i}
                         type="" // Mengatur tipe input menjadi "tel" untuk hanya menerima angka
-                        className="w-24 h-14 text-5xl mx-2 text-center border rounded-md"
+                        className=" mx-2 text-center"
                       />
                     )}
                     containerStyle="justify-center"
-                    inputStyle="flex"
+                    inputStyle={{
+                      border: "1px solid black",
+                      width: "55px",
+                      height: "60px",
+                      fontSize: "30px",
+                      borderRadius: "10px",
+                    }}
                   />
                 </div>
 
                 <div className="flex items-center flex-col space-y-5">
                   <button
                     type="submit"
-                    className="flex px-6 py-3 text-center border rounded-xl outline-none  bg-blue-700 hover:bg-black border-none text-white text-sm"
+                    className="flex px-6 py-3 text-center border rounded-xl outline-none bg-[#003E9C] hover:bg-black border-none text-white text-sm"
                   >
                     Verify OTP
                   </button>
 
-                  <p className="mt-2 text-gray-600 text-sm text-center font-poppins">
+                  <div className="mt-2 text-gray-600 text-sm text-center font-poppins">
                     {isTimerActive ? (
                       <p>Resend OTP in {timer} seconds</p>
                     ) : (
@@ -117,20 +119,27 @@ const OTPPage = () => {
                         </button>
                       </p>
                     )}
-                  </p>
+                  </div>
                 </div>
               </div>
-              {/* </form> */}
             </div>
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };
 
 export default OTPPage;
-
-// OTPPage.propTypes = {
-//   email: PropTypes.string,
-// };
