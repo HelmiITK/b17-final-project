@@ -47,7 +47,7 @@ const OTPPage = () => {
 
   return (
     <>
-      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#F3F7FB] py-32 rounded-3xl">
+      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-layer py-32 rounded-3xl">
         <form onSubmit={handleverify} className="otp-form">
           <div className="pt-24 lg:pt-32 absolute top-0 translate-x-[-50%] left-[50%]  w-full lg:w-9/12  pb-10">
             <Link to={"/register"}>
@@ -63,7 +63,7 @@ const OTPPage = () => {
           <div className="relativ bg-white px-6 pt-10 pb-9 shadow-2xl mx-auto w-full max-w-lg rounded-2xl">
             <div className="mx-auto flex w-full max-w-md flex-col space-y-7">
               <div className="flex flex-col items-center justify-center text-center">
-                <MdVerifiedUser className="justify-center items-center w-24 h-24 text-[#003E9C]" />
+                <MdVerifiedUser className="justify-center items-center w-24 h-24 text-color-primary" />
                 <div className="font-semibold text-xl ">Masukkan OTP</div>
                 {/* <p className="font-poppins font-">Enter the OTP sent to you verify your identity</p> */}
               </div>
@@ -100,7 +100,7 @@ const OTPPage = () => {
                 <div className="flex items-center flex-col space-y-5">
                   <button
                     type="submit"
-                    className="flex px-6 py-3 text-center border rounded-xl outline-none bg-[#003E9C] hover:bg-black border-none text-white text-sm"
+                    className="flex px-6 py-3 text-center border rounded-xl outline-none bg-color-primary hover:bg-black border-none text-white text-sm"
                   >
                     Verify OTP
                   </button>
