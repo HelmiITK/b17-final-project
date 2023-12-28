@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { createRating, updateRating } from "../../redux/actions/courseActions";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PopupRating = ({ isPopupRating, handleRating }) => {
   const [ratings, setRatings] = useState(null);
@@ -14,16 +15,25 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
   const { rating } = useSelector((state) => state.course);
   const { courseId } = useParams();
   const dispatch = useDispatch();
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const ratingThisCourse = rating.find(
       (rate) => rate.course_id == courseId && rate.user_id === user.id
     );
 
-    const validate = confirm(
-      `Apakah anda yakin akan memberikan nilai  ${ratings} pada course ini ?`
-    );
-    // cek apakah sudah pernah memberi nilai atau belum
-    if (validate) {
+    const validate = await Swal.fire({
+      title: "Beri Rating",
+      text: `Apakah anda yakin akan memberikan nilai  ${ratings} pada course ini ?`,
+      showCancelButton: true,
+      confirmButtonText: "Submit",
+      cancelButtonText: "Cancel",
+      customClass: {
+        // Tambahkan kelas CSS khusus
+        confirmButton: "custom-save-button",
+      },
+    });
+
+    if (validate.isConfirmed) {
+      // cek apakah sudah pernah memberi nilai atau belum
       if (
         ratingThisCourse &&
         rating.find(
@@ -94,7 +104,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
             <div className="flex justify-center mt-3">
               <button
                 onClick={handleSubmit}
-                className="bg-violet-200 py-1 px-3 font-medium rounded-lg duration-300 transition-all hover:bg-black hover:text-violet-200 hover:-translate-y-2"
+                className="bg-blue-200 py-1 px-3 font-medium rounded-lg duration-300 transition-all hover:bg-black hover:text-blue-200 hover:-translate-y-2"
               >
                 Submit
               </button>

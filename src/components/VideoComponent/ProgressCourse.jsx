@@ -24,17 +24,25 @@ const ProgressCourse = ({ isOpen }) => {
     const materialsAtChapter = sortCourseMaterial?.filter(
       (material) => material.chapter_id === chapter.id
     );
-    const x = { title: chapter.title, materials: materialsAtChapter };
+    const totalTime = materialsAtChapter.reduce((total, material) => {
+      return total + material.duration_in_minutes;
+    }, 0);
+    const x = {
+      title: chapter.title,
+      materials: materialsAtChapter,
+      totalDuration: totalTime,
+    };
     return x;
   });
+
+  // ambil semua data yang sudah beres ditonton oleh user
   const [allDoneMaterials, setAllDoneMaterials] = useState([]);
   useEffect(() => {
     setAllDoneMaterials(
       getCourseVideo?.userProgress.filter((course) => course.is_completed)
     );
   }, [materialId, getCourseVideo]);
-  // ambil semua data yang sudah beres ditonton oleh user
-  // console.log(allDoneMaterials);
+
   // untuk menampilkan angka pada setiap chapter material
   let number = 0;
 
@@ -63,7 +71,9 @@ const ProgressCourse = ({ isOpen }) => {
           <div key={i} className="mx-2 my-1">
             <div className="mt-3 flex justify-between  text-xs lg:text-sm font-semibold">
               <h1 className="text-color-primary font-bold">{item.title}</h1>
-              <p className="text-blue-400 mr-2 text-xs">60 Menit</p>
+              <p className="text-blue-400 mr-2 text-xs">
+                {item.totalDuration.toFixed()} Menit
+              </p>
             </div>
             {/* loop untuk mengambil list data dari setiap chapter */}
             {item.materials.map((material, x) => {

@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import { cn } from "../../libs/utils";
+import { scrollTop } from "../../libs/scrollTop";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
@@ -37,12 +38,6 @@ const CoursePage = () => {
   const [category, setCategory] = useState(state ? [state.categoryId] : []);
   const [level, setLevel] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
-  const scrollTop = () => {
-    scrollTo({
-      behavior: "smooth",
-      top: 0,
-    });
-  };
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
