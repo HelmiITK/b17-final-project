@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BiSearchAlt } from "react-icons/bi";
 import { LuLogIn } from "react-icons/lu";
 import { TfiMenuAlt } from "react-icons/tfi";
-import { IoNotifications } from "react-icons/io5";
+// import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
@@ -92,12 +92,12 @@ const Navbar = () => {
       link: "/mycourse",
       dis: "translate-x-[83px]",
     },
-    {
-      name: "Notifikasi",
-      icon: <IoNotifications className="w-8 h-6" />,
-      link: "/notif",
-      dis: "translate-x-[175px]",
-    },
+    // {
+    //   name: "Notifikasi",
+    //   icon: <IoNotifications className="w-8 h-6" />,
+    //   link: "/notif",
+    //   dis: "translate-x-[175px]",
+    // },
     {
       name: "Akun",
       icon: <FaUser className="w-8 h-6" />,
@@ -247,7 +247,7 @@ const Navbar = () => {
                               )}
                             </li>
                           </NavLink>
-                          <NavLink as={Link} to={"/notif"}>
+                          {/* <NavLink as={Link} to={"/notif"}>
                             <li
                               onClick={() => handleIconClick("Notifikasi")}
                               className="flex flex-row-reverse"
@@ -261,7 +261,7 @@ const Navbar = () => {
                                 <IoNotifications className="w-8 h-6 text-color-primary" />
                               )}
                             </li>
-                          </NavLink>
+                          </NavLink> */}
                           <NavLink as={Link} to={"/user"}>
                             <li
                               onClick={() => handleIconClick("Akun")}
