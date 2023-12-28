@@ -29,7 +29,7 @@ const LoginPage = () => {
       return;
     }
 
-    // Jika Remember Me dicentang, simpan email dan password di localStorage
+    // Jika Remember Me dicentang, simpan email dan password di localStorage!!
     if (rememberMe) {
       localStorage.setItem("rememberedEmail", email);
       localStorage.setItem("rememberedPassword", password);
@@ -151,7 +151,7 @@ const LoginPage = () => {
               </Link>
             </p>
           </div>
-          <div className="relative mr-12 pt-20 drop-shadow-lg">
+          <div className="relative mr-12 pt-20 drop-shadow-lg hidden md:block">
             <svg width="347" height="334" viewBox="0 0 347 334" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="173.033" cy="166.521" rx="173.033" ry="166.521" fill="#F3F7FB" />
               <path d="M179.535 214.718H129.628C128.119 214.78 126.641 215.157 125.298 215.824C123.954 216.49 122.776 217.43 121.844 218.579L67.9165 270.563C66.2178 272.203 64.7556 275.068 61.8743 274.072C58.993 273.075 59.9821 269.919 59.9821 267.657C59.9821 252.107 59.9821 236.516 59.8531 220.966C59.7428 218.736 60.1334 216.509 60.9981 214.437C61.8629 212.366 63.1814 210.5 64.8631 208.967C88.7021 186.213 112.391 163.37 135.928 140.437C140.508 136.015 141.476 136.139 145.217 141.413C151.109 149.717 157.108 157.834 162.763 166.325C165.537 170.477 167.537 170.477 171.171 166.969C191.254 147.184 211.595 127.69 231.786 108.154C239.763 100.452 247.784 92.8124 255.718 85.0688C258.707 82.1831 261.287 81.8924 264.319 85.1933C279.65 102.155 287.133 121.607 284.897 144.277C282.102 172.927 266.942 193.604 241.032 207.161C232.325 211.989 222.474 214.564 212.434 214.634C201.511 214.51 190.588 214.634 179.643 214.634L179.535 214.718Z" fill="#003E9C" />
