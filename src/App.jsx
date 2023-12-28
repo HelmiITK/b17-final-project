@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import NotificationPage from "./pages/AccountPage/NotificationPage";
+// import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import NotFound from "./pages/NotfoundPage/NotFound";
 import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
@@ -38,14 +38,14 @@ function App() {
               </Protected>
             }
           />
-          <Route
+          {/* <Route
             path="/notif"
             element={
               <Protected>
                 <NotificationPage />
               </Protected>
             }
-          />
+          /> */}
           <Route
             path="/user"
             element={
