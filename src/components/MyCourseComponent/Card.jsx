@@ -36,6 +36,13 @@ const Card = ({ course }) => {
     }
   }, [mycourse, course]);
 
+  // cari total durasi tiap course
+  const totalTime =
+    course &&
+    course?.materials?.reduce((total, material) => {
+      return total + material.duration_in_minutes;
+    }, 0);
+
   return (
     <Link to={`/course-detail/${course.id}`}>
       <div className="w-full bg-white rounded-lg overflow-hidden pb-3">
@@ -83,7 +90,7 @@ const Card = ({ course }) => {
                   <span className="text-green-500 mr-[2.5px]">
                     <Clock size={18} />
                   </span>{" "}
-                  90 Menit
+                  {totalTime?.toFixed()} Menit
                 </p>
               </div>
               {/* ini button ketika sudah beli */}

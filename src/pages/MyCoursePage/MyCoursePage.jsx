@@ -10,6 +10,7 @@ import {
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import MainMyCourse from "../../components/MyCourseComponent/MainMyCourse";
+import { scrollTop } from "../../libs/scrollTop";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
@@ -32,8 +33,7 @@ const MyCoursePage = () => {
 
   useEffect(() => {
     if (user) {
-      setIsLoadingCat(true);
-      dispatch(getMyCourse()).then(() => setIsLoadingCat(false));
+      dispatch(getMyCourse());
     }
   }, [dispatch, user]);
 
@@ -57,6 +57,7 @@ const MyCoursePage = () => {
     dispatch(getMyCourseWithFilter(stringCategory, stringLevel)).then(() =>
       setIsLoading(false)
     );
+    scrollTop();
   }, [dispatch, stringCategory, stringLevel]);
 
   // untuk filtering in progress / done / all

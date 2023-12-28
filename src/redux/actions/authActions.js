@@ -1,6 +1,8 @@
-import 'sweetalert2/dist/sweetalert2.css';
-import Swal from 'sweetalert2';
+import "sweetalert2/dist/sweetalert2.css";
+import Swal from "sweetalert2";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { setToken, setUser } from "../reducers/authReducers";
 
 
@@ -16,23 +18,25 @@ export const login = (email, password, navigate) => async (dispatch) => {
     const { token } = data;
 
     dispatch(setToken(token));
-    navigate("/");
+    toast.success("Login successful");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
   } catch (error) {
-    alert("Password Kamu Salah");
+    toast.error();
   }
 };
 
 export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) =>
-    async (dispatch, getState) => {
-      try {
-        let { token } = getState().auth;
-        const response = await axios.get(`${api_url}/profiles/my-profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = response.data;
+  (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
+      const response = await axios.get(`${api_url}/profiles/my-profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data;
 
         dispatch(setUser(data));
         if (navigatePathSuccess) navigate(navigatePathSuccess);
@@ -71,27 +75,27 @@ export const updateProfile =
       formData.append("country", country);
 
       const result = await Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: "Do you want to save the changes?",
         showDenyButton: true,
-        confirmButtonText: 'Save',
+        confirmButtonText: "Save",
         denyButtonText: `Don't save`,
         customClass: {
           // Tambahkan kelas CSS khusus
-          confirmButton: 'custom-save-button', 
-          denyButton: 'custom-deny-button',
-        }
+          confirmButton: "custom-save-button",
+          denyButton: "custom-deny-button",
+        },
       });
 
       if (result.isConfirmed) {
         // Menampilkan loading saat sedang menunggu respon dari API
         const loadingAlert = Swal.fire({
-          title: 'Please wait...',
-          html: 'Updating profile',
+          title: "Please wait...",
+          html: "Updating profile",
           allowOutsideClick: false,
           showConfirmButton: false,
           didOpen: () => {
             Swal.showLoading();
-          }
+          },
         });
 
         const response = await axios.put(
@@ -114,24 +118,23 @@ export const updateProfile =
         loadingAlert.close();
 
         Swal.fire({
-          title: 'Saved!',
-          icon: 'success',
+          title: "Saved!",
+          icon: "success",
           showConfirmButton: true,
           customClass: {
-            confirmButton: 'custom-ok-button' // Tambahkan kelas CSS khusus untuk tombol "Ok"
-          }
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
         }).then(() => {
           window.location.reload();
         });
-
       } else if (result.isDenied) {
         Swal.fire({
-          title: 'Changes are not saved',
-          icon: 'info',
+          title: "Changes are not saved",
+          icon: "info",
           showConfirmButton: true,
           customClass: {
-            confirmButton: 'custom-ok-button' // Tambahkan kelas CSS khusus untuk tombol "Ok"
-          }
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
         }).then(() => {
           window.location.reload(); // Ini opsional
         });
@@ -144,28 +147,27 @@ export const updateProfile =
     }
   };
 
-export const updatePassword =
-  (currentPassword, newPassword) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
+export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
 
-      const passwordData = {
-        currentPassword,
-        newPassword,
-      };
+    const passwordData = {
+      currentPassword,
+      newPassword,
+    };
 
       // Tampilkan konfirmasi SweetAlert2 setelah berhasil mengubah password
       const result = await Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: "Do you want to save the changes?",
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: 'Save',
+        confirmButtonText: "Save",
         denyButtonText: `Don't save`,
         customClass: {
           // Tambahkan kelas CSS khusus
-          confirmButton: 'custom-save-button',
-          denyButton: 'custom-deny-button',
-        }
+          confirmButton: "custom-save-button",
+          denyButton: "custom-deny-button",
+        },
       });
 
       // melakukan pengecekan dengan bantuan sweetalert2, apakah user change to save password atau tidak
@@ -178,98 +180,93 @@ export const updatePassword =
         });
 
         Swal.fire({
-          title: 'Saved!',
-          icon: 'success',
+          title: "Saved!",
+          icon: "success",
           timer: 2000, // jeda dulu bro 2 detik
           showConfirmButton: false,
           customClass: {
-            confirmButton: 'custom-ok-button'
-          }
+            confirmButton: "custom-ok-button",
+          },
         }).then(() => {
           window.location.reload();
         });
       } else if (result.isDenied) {
         Swal.fire({
-          title: 'Changes are not saved',
-          icon: 'info',
+          title: "Changes are not saved",
+          icon: "info",
           timer: 2000,
           showConfirmButton: false,
           customClass: {
-            confirmButton: 'custom-ok-button' // Tambahkan kelas CSS khusus untuk tombol "Ok"
-          }
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
         }).then(() => {
           // window.location.reload(); // Ini opsional
         });
       }
-
     } catch (error) {
       if (error.response.status === 400) {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Password Lama Kamu Salah!!!',
+          icon: "error",
+          title: "Oops...",
+          text: "Password Lama Kamu Salah!!!",
           customClass: {
-            confirmButton: 'custom-ok-button' // Tambahkan kelas CSS khusus untuk tombol "Ok"
-          }
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
         });
         return;
       } else {
         alert(error?.message);
       }
     }
-  };
+  }
+
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) =>
-    async () => {
-      try {
-        const response = await axios.post(`${api_url}/auth/register`, {
-          username: name,
-          email,
-          password,
-          role: "user",
-          profile: {
-            name: "",
-            no_telp: "",
-            avatar: "",
-            city: "",
-            country: "",
-          },
-        });
+  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
+    try {
+      const response = await axios.post(`${api_url}/auth/register`, {
+        username: name,
+        email,
+        password,
+        role: "user",
+        profile: {
+          name: "",
+          no_telp: "",
+          avatar: "",
+          city: "",
+          country: "",
+        },
+      });
 
-        if (response.status == 201) {
-          const { email } = response.data.user;
-          // const { message } = response.data;
-          // console.log(response.data);
-          // toast.success(message);
-          localStorage.setItem("email", email);
-
-          setTimeout(() => {
-            navigate("/otp");
-          }, 1000);
-        }
-      } catch (error) {
-        alert(error.message);
+      if (response.status == 201) {
+        const { email } = response.data.user;
+        localStorage.setItem("email", email);
       }
-    };
+      setTimeout(() => {
+        navigate("/otp");
+      }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
 export const verify = (otp, navigate) => async () => {
   try {
     const email = localStorage.getItem("email");
 
-    await axios.post(`${api_url}/auth/verify-email`, {
+    const response = await axios.post(`${api_url}/auth/verify-email`, {
       email,
       otp,
     });
 
-    // if (response.status === 200) {
-    // alert(response.data.message);
-    // localStorage.setItem("token", token)
-
     localStorage.removeItem("email");
-    navigate("/login");
 
-    // }
+    if (response.status === 200) {
+      toast.success("Email verification successful");
+    }
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
   } catch (error) {
     alert(error.message);
   }
@@ -283,10 +280,8 @@ export const resendOtp = () => async () => {
       email,
     });
 
-    // console.log(email);
-
     if (response.status === 200) {
-      alert("done ga bang done");
+      toast.success("New OTP sent successfully");
     }
   } catch (error) {
     alert(error.message);
@@ -299,20 +294,17 @@ export const sendPassword = (email) => async () => {
       email,
     });
 
-    console.log(email);
     if (response.status === 200) {
-      alert("Berhasil Mengirimkan Verify Email 🥳");
+      toast.success("Password reset link was sent to your email!");
     }
   } catch (error) {
-    alert(error.message);
+    toast.warning("Masukkan Email");
   }
 };
 
 export const resetPassword =
   (resetToken, newPassword, confirmNewPassword, navigate) => async () => {
     try {
-      // const { token } = getState().auth;
-
       const passwordNew = {
         newPassword: newPassword,
         confirmPassword: confirmNewPassword,
@@ -323,13 +315,13 @@ export const resetPassword =
         passwordNew
       );
 
-      // alert("Password Berhasil Diganti 🥳");
       if (response.status === 200) {
-        alert("Berhasil Mengirimkan Verify Email 🥳");
+        toast.success("Password reset was successful!");
       }
-      navigate("/");
 
-      console.log(response);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
     } catch (error) {
       alert(error.message);
     }

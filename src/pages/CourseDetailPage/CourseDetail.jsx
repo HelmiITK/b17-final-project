@@ -20,6 +20,7 @@ import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 import Footer from "../../components/FooterComponent/Footer";
 import PopupBuy from "../../components/DetailCourseComponent/PopupBuy";
 import PopupRating from "../../components/DetailCourseComponent/PopupRating";
+import { scrollTop } from "../../libs/scrollTop";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -116,7 +117,7 @@ const CourseDetail = () => {
         console.error("Error fetching course data:", error);
         setLoading(false);
       });
-
+    scrollTop();
     // Cleanup function untuk menghapus detail saat keluar dari halaman
     return () => {
       dispatch(removeDetail());
@@ -263,7 +264,9 @@ const CourseDetail = () => {
                         <span className="mr-2">
                           <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
                         </span>{" "}
-                        {detail?.averageRating?.toFixed(1)}
+                        {detail.averageRating
+                          ? detail?.averageRating?.toFixed(1)
+                          : 0}
                       </p>
                     </div>
                   </div>

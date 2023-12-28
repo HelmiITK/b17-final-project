@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendPassword } from "../../redux/actions/authActions";
+import { ToastContainer } from "react-toastify";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
@@ -53,82 +54,22 @@ const VerifyEmail = () => {
               </div>
             </form>
           </div>
-
-          {/* Right Side */}
-          {/* <div className="relative">
-            <img
-              src="https://plus.unsplash.com/premium_photo-1683135219860-44ad80fc9bb7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y291cnNlfGVufDB8fDB8fHww"
-              alt=""
-              className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
-            /> */}
-          {/* <div className="absolute hidden bottom-10 right-6 p-6 bg-blue-950 bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
-              <span className="text-black text-xl">ayo beli course ini</span>
-            </div> */}
-          {/* </div> */}
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };
 
 export default VerifyEmail;
-
-// // import { FcGoogle } from "react-icons/fc";
-// // import { FiEye, FiEyeOff } from "react-icons/fi";
-// // import { Link, useNavigate } from "react-router-dom";
-// // import { useDispatch } from "react-redux";
-// // import { useState } from "react";
-// // import { register } from "../../redux/actions/authActions";
-
-// // const RegisterPage = () => {
-// //   const navigate = useNavigate();
-// //   const dispatch = useDispatch();
-
-// //   const [name, setName] = useState("");
-// //   const [email, setEmail] = useState("");
-// //   const [password, setPassword] = useState("");
-// //   const [confirmPassword, setConfirmPassword] = useState("");
-// //   const [phoneNumber, setPhoneNumber] = useState("");
-// //   const [showPassword, setShowPassword] = useState(false);
-// //   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-// //   const [passworderror, setPasswordError] = useState("");
-
-// //   const [errors, setErrors] = useState("");
-
-// //   const passwordValidation = (password, confirm) => {
-// //     if (password !== confirm) {
-// //       setPasswordError("Password Not Match!");
-// //     } else {
-// //       setPasswordError("");
-// //     }
-// //   };
-
-// //   const handlePasswordMatch = (event) => {
-// //     setPassword(event.target.value);
-// //     passwordValidation(event.target.value, confirmPassword);
-// //   };
-
-// //   const handleConfirmPasswordMatch = (event) => {
-// //     setConfirmPassword(event.target.value);
-// //     passwordValidation(password, event.target.value);
-// //   };
-
-// //   const togglePassword = () => {
-// //     setShowPassword(!showPassword);
-// //   };
-
-// //   const toggleConfirmPassword = () => {
-// //     setShowConfirmPassword(!showConfirmPassword);
-// //   };
-
-// //   const registAcc = async (event) => {
-// //     event.preventDefault();
-
-// //     if (passworderror) {
-// //       alert("Password and Confirm Password not match");
-// //     }
-
-// //     dispatch(
-// //       register(name, email, password, confirmPassword, phoneNumber, navigate, setErrors, errors)
-// //     );
-// //   };
