@@ -126,7 +126,7 @@ const Navbar = () => {
           <div>
             <Link to={"/"}>
               <img
-                src="../../src/assets/no bg putih.png"
+                src="../../src/assets/p23.png"
                 alt="logo"
                 className="w-10 h-10"
               />

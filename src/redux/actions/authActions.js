@@ -1,7 +1,6 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-// import { toast } from "react-toastify";
-// import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { setToken, setUser } from "../reducers/authReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
@@ -16,15 +15,17 @@ export const login = (email, password, navigate) => async (dispatch) => {
     const { token } = data;
 
     dispatch(setToken(token));
-    navigate("/");
+    toast.success("Login successful");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
   } catch (error) {
-    alert("Password Kamu Salah");
+    toast.error();
   }
 };
 
 export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) =>
-  async (dispatch, getState) => {
+  (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
     try {
       let { token } = getState().auth;
       const response = await axios.get(`${api_url}/profiles/my-profile`, {
@@ -70,16 +71,12 @@ export const updateProfile =
       formData.append("city", city);
       formData.append("country", country);
 
-      const response = await axios.put(
-        `${api_url}/profiles/update-profile`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.put(`${api_url}/profiles/update-profile`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       const updatedProfile = response.data;
 
@@ -93,37 +90,35 @@ export const updateProfile =
     }
   };
 
-export const updatePassword =
-  (currentPassword, newPassword) => async (dispatch, getState) => {
-    try {
-      let { token } = getState().auth;
+export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    let { token } = getState().auth;
 
-      const passwordData = {
-        currentPassword,
-        newPassword,
-      };
+    const passwordData = {
+      currentPassword,
+      newPassword,
+    };
 
-      await axios.put(`${api_url}/profiles/update-password`, passwordData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    await axios.put(`${api_url}/profiles/update-password`, passwordData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      alert("Password Berhasil Diperbarui 🥳");
-      // Reload halaman setelah pembaruan berhasil
-      window.location.reload();
-    } catch (error) {
-      if (error.response.status === 400) {
-        alert("password lama kamu salah");
-      } else {
-        alert(error?.message);
-      }
+    alert("Password Berhasil Diperbarui 🥳");
+    // Reload halaman setelah pembaruan berhasil
+    window.location.reload();
+  } catch (error) {
+    if (error.response.status === 400) {
+      toast.error("password lama kamu salah");
+    } else {
+      alert(error?.message);
     }
-  };
+  }
+};
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) =>
-  async () => {
+  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
         username: name,
@@ -141,15 +136,11 @@ export const register =
 
       if (response.status == 201) {
         const { email } = response.data.user;
-        // const { message } = response.data;
-        // console.log(response.data);
-        // toast.success(message);
         localStorage.setItem("email", email);
-
-        setTimeout(() => {
-          navigate("/otp");
-        }, 1000);
       }
+      setTimeout(() => {
+        navigate("/otp");
+      }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
     } catch (error) {
       alert(error.message);
     }
@@ -159,19 +150,19 @@ export const verify = (otp, navigate) => async () => {
   try {
     const email = localStorage.getItem("email");
 
-    await axios.post(`${api_url}/auth/verify-email`, {
+    const response = await axios.post(`${api_url}/auth/verify-email`, {
       email,
       otp,
     });
 
-    // if (response.status === 200) {
-    // alert(response.data.message);
-    // localStorage.setItem("token", token)
-
     localStorage.removeItem("email");
-    navigate("/login");
 
-    // }
+    if (response.status === 200) {
+      toast.success("Email verification successful");
+    }
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
   } catch (error) {
     alert(error.message);
   }
@@ -185,10 +176,8 @@ export const resendOtp = () => async () => {
       email,
     });
 
-    // console.log(email);
-
     if (response.status === 200) {
-      alert("done ga bang done");
+      toast.success("New OTP sent successfully");
     }
   } catch (error) {
     alert(error.message);
@@ -201,20 +190,17 @@ export const sendPassword = (email) => async () => {
       email,
     });
 
-    console.log(email);
     if (response.status === 200) {
-      alert("Berhasil Mengirimkan Verify Email 🥳");
+      toast.success("Password reset link was sent to your email!");
     }
   } catch (error) {
-    alert(error.message);
+    toast.warning("Masukkan Email");
   }
 };
 
 export const resetPassword =
   (resetToken, newPassword, confirmNewPassword, navigate) => async () => {
     try {
-      // const { token } = getState().auth;
-
       const passwordNew = {
         newPassword: newPassword,
         confirmPassword: confirmNewPassword,
@@ -225,13 +211,13 @@ export const resetPassword =
         passwordNew
       );
 
-      // alert("Password Berhasil Diganti 🥳");
       if (response.status === 200) {
-        alert("Berhasil Mengirimkan Verify Email 🥳");
+        toast.success("Password reset was successful!");
       }
-      navigate("/");
 
-      console.log(response);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
     } catch (error) {
       alert(error.message);
     }
