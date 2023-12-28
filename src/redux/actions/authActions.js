@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { setToken, setUser } from "../reducers/authReducers";
 
+
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
 export const login = (email, password, navigate) => async (dispatch) => {
@@ -37,22 +38,22 @@ export const getMe =
       });
       const data = response.data;
 
-      dispatch(setUser(data));
-      if (navigatePathSuccess) navigate(navigatePathSuccess);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        //if token is not valid
-        if (error.response.status === 401) {
-          dispatch(logout());
+        dispatch(setUser(data));
+        if (navigatePathSuccess) navigate(navigatePathSuccess);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          //if token is not valid
+          if (error.response.status === 401) {
+            dispatch(logout());
+          }
+          // arahin ke halaman yang diizinkan
+          if (navigatePathError) navigate(navigatePathError);
+          return;
         }
-        // arahin ke halaman yang diizinkan
-        if (navigatePathError) navigate(navigatePathError);
-        return;
-      }
 
-      alert(error?.message);
-    }
-  };
+        alert(error?.message);
+      }
+    };
 
 export const logout = () => (dispatch) => {
   dispatch(setToken(null));
@@ -74,10 +75,12 @@ export const updateProfile =
       formData.append("country", country);
 
       const result = await Swal.fire({
-        title: "Do you want to save the changes?",
+        title: "Konfirmasi Perubahan",
+        text: "Apakah anda yakin ingin menyimpan perubahan?",
+        icon: "question",
         showDenyButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`,
+        confirmButtonText: "Ya, Simpan",
+        denyButtonText: `Batal`,
         customClass: {
           // Tambahkan kelas CSS khusus
           confirmButton: "custom-save-button",
@@ -88,8 +91,8 @@ export const updateProfile =
       if (result.isConfirmed) {
         // Menampilkan loading saat sedang menunggu respon dari API
         const loadingAlert = Swal.fire({
-          title: "Please wait...",
-          html: "Updating profile",
+          title: "Harap Tunggu...",
+          html: "Data barumu sedang diproses",
           allowOutsideClick: false,
           showConfirmButton: false,
           didOpen: () => {
@@ -128,7 +131,7 @@ export const updateProfile =
         });
       } else if (result.isDenied) {
         Swal.fire({
-          title: "Changes are not saved",
+          title: "Batal Menyimpan Perubahan",
           icon: "info",
           showConfirmButton: true,
           customClass: {
@@ -157,11 +160,13 @@ export const updatePassword = (currentPassword, newPassword) => async (dispatch,
 
       // Tampilkan konfirmasi SweetAlert2 setelah berhasil mengubah password
       const result = await Swal.fire({
-        title: "Do you want to save the changes?",
+        title: "Konfirmasi Perubahan Password?",
+        icon: "question",
+        text: "Apakah anda yakin ingin melakukan perubahan?",
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`,
+        confirmButtonText: "Ya, Simpan",
+        denyButtonText: `Jangan Simpan`,
         customClass: {
           // Tambahkan kelas CSS khusus
           confirmButton: "custom-save-button",
@@ -181,6 +186,7 @@ export const updatePassword = (currentPassword, newPassword) => async (dispatch,
         Swal.fire({
           title: "Saved!",
           icon: "success",
+          text: "Password Mu berhasil diperbarui",
           timer: 2000, // jeda dulu bro 2 detik
           showConfirmButton: false,
           customClass: {
@@ -191,7 +197,7 @@ export const updatePassword = (currentPassword, newPassword) => async (dispatch,
         });
       } else if (result.isDenied) {
         Swal.fire({
-          title: "Changes are not saved",
+          title: "Perubahan dibatalkan",
           icon: "info",
           timer: 2000,
           showConfirmButton: false,

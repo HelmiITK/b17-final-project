@@ -66,7 +66,7 @@ const SearchCourse = () => {
           ? (
             <ClockLoader
               className="absolute top-10 inset-1/2 mb-20 lg:left-[700px]"
-              color="#6a00ff"
+              color="#003E9C"
               size={50}
               speedMultiplier={2}
             />
