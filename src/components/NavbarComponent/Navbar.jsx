@@ -23,6 +23,7 @@ const Navbar = () => {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [navbar, setNavbar] = useState(false);
 
+  console.log(search);
   // ambil get me di redux
   const { user, token } = useSelector((state) => state.auth);
 
@@ -35,7 +36,7 @@ const Navbar = () => {
     const searchUrl = `/search?search=${search}&page=1`;
     navigate(searchUrl);
     setSearch("");
-  };
+  }
 
   // get me with redux
   useEffect(() => {
@@ -105,21 +106,13 @@ const Navbar = () => {
     },
   ];
 
-  // state navmenu web
-  // const [active, setActive] = useState(0);
-
-  // useEffect(() => {
-
-  // }, [active])
-
   return (
     <>
       <nav
-        className={`w-full fixed z-20 bg-primary ${
-          navbar
-            ? "bg-primary bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
-            : ""
-        }`}
+        className={`w-full fixed z-20 bg-primary ${navbar
+          ? "bg-primary bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
+          : ""
+          }`}
       >
         <div className="flex justify-between px-2 py-4 lg:pt-6 lg:px-10 items-center">
           {/* logo */}
@@ -159,168 +152,163 @@ const Navbar = () => {
           <div className="md:flex md:flex-row-reverse md:gap-8 md:items-center">
             {/* search mobile */}
             {/* {user && ( */}
-            <div className="relative flex gap-4 lg:hidden">
-              <div className="md:hidden">
-                <BiSearchAlt
-                  className="cursor-pointer w-10 h-10 border rounded-xl py-1
+              <div className="relative flex gap-4 lg:hidden">
+                <div className="md:hidden">
+                  <BiSearchAlt
+                    className="cursor-pointer w-10 h-10 border rounded-xl py-1
                                     bg-primary text-white 
                                     hover:bg-white hover:text-color-primary hover:duration-100 "
-                  onClick={handleSearchClick}
-                />
+                    onClick={handleSearchClick}
+                  />
+                  <form
+                    action="search"
+                    onSubmit={handleSearch}
+                    className={`${isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
+                      }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
+                  >
+                    <input
+                      name="search"
+                      type="text"
+                      className="border-none w-44 h-10 pl-4 transform font-poppins rounded-s-2xl text-sm"
+                      placeholder="Cari Kursus Terbaik..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <button type="submit" className="bg-white py-1 rounded-e-2xl border-none">
+                      <BiSearchAlt className="w-8 h-8 py-1 mr-2 rounded-2xl text-color-primary hover:bg-primary hover:text-white cursor-pointer" />
+                    </button>
+                  </form>
+                </div>
+
+                {/* Navmenu mobile */}
+                <div className="relative">
+                  <button
+                    className=" lg:hidden text-white focus:outline-none"
+                    onClick={handleHamburgerClick}
+                  >
+                    {openHamburger ? (
+                      <RxCross2 className="w-10 h-9" />
+                    ) : (
+                      <FiMenu className="w-10 h-9" />
+                    )}
+                  </button>
+                  <div
+                    className={`${openHamburger ? "translate-y-0" : "-translate-y-[290px]"
+                      } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
+                  >
+                    <ul className="flex flex-col gap-4">
+                      {!user ? (
+                        // if not login
+                        <NavLink as={Link} to={"/login"}>
+                          <li
+                            onClick={() => handleIconClick("Masuk")}
+                            className="flex flex-row-reverse"
+                          >
+                            {selectedIcon === "Masuk" ? (
+                              <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
+                                <LuLogIn className="w-8 h-6" />
+                                <span className="ml-2">Masuk</span>
+                              </div>
+                            ) : (
+                              <LuLogIn className="w-8 h-6 text-color-primary" />
+                            )}
+                          </li>
+                        </NavLink>
+                      ) : (
+                        // if login
+                        <>
+                          <NavLink as={Link} to={"/"}>
+                            <li
+                              onClick={() => handleIconClick("home")}
+                              className="flex flex-row-reverse"
+                            >
+                              {selectedIcon === "home" ? (
+                                <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
+                                  <IoMdHome className="w-8 h-6" />
+                                  <span>Kelas</span>
+                                </div>
+                              ) : (
+                                <IoMdHome className="w-8 h-6 text-color-primary" />
+                              )}
+                            </li>
+                          </NavLink>
+                          <NavLink as={Link} to={"/mycourse"}>
+                            <li
+                              onClick={() => handleIconClick("Kelas")}
+                              className="flex flex-row-reverse"
+                            >
+                              {selectedIcon === "Kelas" ? (
+                                <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
+                                  <TfiMenuAlt className="w-8 h-6" />
+                                  <span>Kelas</span>
+                                </div>
+                              ) : (
+                                <TfiMenuAlt className="w-8 h-6 text-color-primary" />
+                              )}
+                            </li>
+                          </NavLink>
+                          <NavLink as={Link} to={"/notif"}>
+                            <li
+                              onClick={() => handleIconClick("Notifikasi")}
+                              className="flex flex-row-reverse"
+                            >
+                              {selectedIcon === "Notifikasi" ? (
+                                <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
+                                  <IoNotifications className="w-8 h-6" />
+                                  <span>Notifkasi</span>
+                                </div>
+                              ) : (
+                                <IoNotifications className="w-8 h-6 text-color-primary" />
+                              )}
+                            </li>
+                          </NavLink>
+                          <NavLink as={Link} to={"/user"}>
+                            <li
+                              onClick={() => handleIconClick("Akun")}
+                              className="flex flex-row-reverse"
+                            >
+                              {selectedIcon === "Akun" ? (
+                                <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
+                                  <FaUser className="w-8 h-6 " />
+                                  <span>Akun</span>
+                                </div>
+                              ) : (
+                                <FaUser className="w-8 h-6 text-color-primary" />
+                              )}
+                            </li>
+                          </NavLink>
+                        </>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {/* )} */}
+
+            {/* search web*/}
+            {/* {user && ( */}
+              <div className="hidden md:block lg:block">
                 <form
                   action="search"
+                  className="font-poppins flex"
                   onSubmit={handleSearch}
-                  className={`${
-                    isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
-                  }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
                 >
                   <input
                     name="search"
                     type="text"
-                    className="border-none w-44 h-10 pl-4 transform font-poppins rounded-s-2xl text-sm"
-                    placeholder="Cari Kursus Terbaik..."
+                    className="border-none py-3 px-4 rounded-s-2xl bg-white text-sm lg:text-base lg:w-[500px]"
+                    placeholder="Cari kursus terbaik..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
                   <button
                     type="submit"
-                    className="bg-white py-1 rounded-e-2xl border-none"
+                    className=" bg-white rounded-e-2xl flex items-center px-2"
                   >
-                    <BiSearchAlt className="w-8 h-8 py-1 mr-2 rounded-2xl text-color-primary hover:bg-primary hover:text-white cursor-pointer" />
+                    <BiSearchAlt className="border bg-primary text-white w-10 h-10 rounded-xl py-1 cursor-pointer hover:shadow-md hover:bg-blue-700 " />
                   </button>
                 </form>
               </div>
-
-              {/* Navmenu mobile */}
-              <div className="relative">
-                <button
-                  className=" lg:hidden text-white focus:outline-none"
-                  onClick={handleHamburgerClick}
-                >
-                  {openHamburger ? (
-                    <RxCross2 className="w-10 h-9" />
-                  ) : (
-                    <FiMenu className="w-10 h-9" />
-                  )}
-                </button>
-                <div
-                  className={`${
-                    openHamburger ? "translate-y-0" : "-translate-y-[290px]"
-                  } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
-                >
-                  <ul className="flex flex-col gap-4">
-                    {!user ? (
-                      // if not login
-                      <NavLink as={Link} to={"/login"}>
-                        <li
-                          onClick={() => handleIconClick("Masuk")}
-                          className="flex flex-row-reverse"
-                        >
-                          {selectedIcon === "Masuk" ? (
-                            <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                              <LuLogIn className="w-8 h-6" />
-                              <span className="ml-2">Masuk</span>
-                            </div>
-                          ) : (
-                            <LuLogIn className="w-8 h-6 text-color-primary" />
-                          )}
-                        </li>
-                      </NavLink>
-                    ) : (
-                      // if login
-                      <>
-                        <NavLink as={Link} to={"/"}>
-                          <li
-                            onClick={() => handleIconClick("home")}
-                            className="flex flex-row-reverse"
-                          >
-                            {selectedIcon === "home" ? (
-                              <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                                <IoMdHome className="w-8 h-6" />
-                                <span>Kelas</span>
-                              </div>
-                            ) : (
-                              <IoMdHome className="w-8 h-6 text-color-primary" />
-                            )}
-                          </li>
-                        </NavLink>
-                        <NavLink as={Link} to={"/mycourse"}>
-                          <li
-                            onClick={() => handleIconClick("Kelas")}
-                            className="flex flex-row-reverse"
-                          >
-                            {selectedIcon === "Kelas" ? (
-                              <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                                <TfiMenuAlt className="w-8 h-6" />
-                                <span>Kelas</span>
-                              </div>
-                            ) : (
-                              <TfiMenuAlt className="w-8 h-6 text-color-primary" />
-                            )}
-                          </li>
-                        </NavLink>
-                        <NavLink as={Link} to={"/notif"}>
-                          <li
-                            onClick={() => handleIconClick("Notifikasi")}
-                            className="flex flex-row-reverse"
-                          >
-                            {selectedIcon === "Notifikasi" ? (
-                              <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                                <IoNotifications className="w-8 h-6" />
-                                <span>Notifkasi</span>
-                              </div>
-                            ) : (
-                              <IoNotifications className="w-8 h-6 text-color-primary" />
-                            )}
-                          </li>
-                        </NavLink>
-                        <NavLink as={Link} to={"/user"}>
-                          <li
-                            onClick={() => handleIconClick("Akun")}
-                            className="flex flex-row-reverse"
-                          >
-                            {selectedIcon === "Akun" ? (
-                              <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                                <FaUser className="w-8 h-6 " />
-                                <span>Akun</span>
-                              </div>
-                            ) : (
-                              <FaUser className="w-8 h-6 text-color-primary" />
-                            )}
-                          </li>
-                        </NavLink>
-                      </>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            {/* )} */}
-
-            {/* search web*/}
-            {/* {user && ( */}
-            <div className="hidden md:block lg:block">
-              <form
-                action="search"
-                className="font-poppins flex"
-                onSubmit={handleSearch}
-              >
-                <input
-                  name="search"
-                  type="text"
-                  className="border-none py-3 px-4 rounded-s-2xl bg-white text-sm lg:text-base lg:w-[500px]"
-                  placeholder="Cari kursus terbaik..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  className=" bg-white rounded-e-2xl flex items-center px-2"
-                >
-                  <BiSearchAlt className="border bg-primary text-white w-10 h-10 rounded-xl py-1 cursor-pointer hover:shadow-md hover:bg-blue-700 " />
-                </button>
-              </form>
-            </div>
             {/* )} */}
           </div>
 
@@ -344,10 +332,7 @@ const Navbar = () => {
               <>
                 <ul className="flex flex-row gap-8">
                   {Menus.map((item, index) => (
-                    <li
-                      className="flex items-center text-white cursor-pointer "
-                      key={index}
-                    >
+                    <li className="flex items-center text-white cursor-pointer " key={index}>
                       <NavLink
                         to={item.link}
                         className={({ isActive }) =>

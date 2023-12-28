@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { login } from "../../redux/actions/authActions";
 import { ToastContainer } from "react-toastify";
+import Pedjuang from "../../assets/Pedjuang.svg"
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -134,7 +135,7 @@ const LoginPage = () => {
                   Forgot Password?
                 </Link>
               </div>
-              <button className="w-full bg-[#003E9C] text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300">
+              <button className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300">
                 Sign in
               </button>
             </form>
@@ -153,13 +154,10 @@ const LoginPage = () => {
           </div>
           <div className="relative">
             <img
-              src="../../src/assets/tampilan.jpg"
-              alt=""
+              src={Pedjuang}
+              alt="svg"
               className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
             />
-            {/* <div className="absolute hidden bottom-10 right-6 p-6 bg-blue-950 bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
-              <span className="text-black text-xl">ayo beli course ini</span>
-            </div> */}
           </div>
         </div>
       </div>

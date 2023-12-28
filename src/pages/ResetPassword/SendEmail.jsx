@@ -23,16 +23,17 @@ const VerifyEmail = () => {
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
             <Link to={"/login"}>
-              <p className="flex font-semibold text-sm text-green-500 items-center hover:underline transition-all duration-300 hover:scale-100">
+              <p className="flex font-semibold text-md text-green-500 items-center hover:underline transition-all duration-300 hover:scale-100">
                 Back to Login
               </p>
             </Link>
             <span className="mb-3 text-4xl font-bold text-">Forgot Password ?</span>
             <span className="font-light text-gray-400 mb-8">
-              please enter your email address to request a password reset
-              {/* <hr /> */}
+              silakan masukkan alamat email Anda
+              <br />
+              untuk meminta pengaturan ulang kata sandi
             </span>
-            <form action="" onSubmit={handleverify}>
+            <form onSubmit={handleverify}>
               <div className="py-1">
                 <span className="mb-2 text-sm font-poppins">Email Address</span>
                 <input
@@ -46,13 +47,20 @@ const VerifyEmail = () => {
               </div>
               <div className="flex justify-between w-full py-4">
                 <button
-                  className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:scale-105"
+                  className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
                   type="sumbit"
                 >
                   {isLoading ? "Loading..." : "Send Reset Link"}
                 </button>
               </div>
             </form>
+          </div>
+          <div className="relative">
+            <img
+              src="https://media.istockphoto.com/id/1445614465/id/foto/konsep-komunikasi-online-minimal-3d-jejaring-sosial-koneksi-online-ikon-email-dengan-ikon.jpg?s=612x612&w=0&k=20&c=j144XU7UzmqKnmSpJgaIM74se5pqv4OvqfB9Hfya_y4="
+              alt=""
+              className="w-[500px] h-full hidden rounded-r-2xl md:block object-cover"
+            />
           </div>
         </div>
       </div>

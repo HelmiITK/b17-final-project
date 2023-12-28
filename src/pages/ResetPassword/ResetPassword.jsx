@@ -88,9 +88,9 @@ const ResetPassword = () => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl font-bold text-">Change Password</span>
+            <span className="mb-3 text-4xl font-bold text-">Reset Password</span>
             <span className="font-light text-gray-400 mb-8">
-              Please Enter a new password below.
+              Silakan Masukkan kata sandi baru di bawah.
             </span>
             <form onSubmit={handleResetPassword}>
               <div className="py-1 relative">
@@ -142,7 +142,7 @@ const ResetPassword = () => {
 
               <div className="flex justify-between w-full py-4">
                 <button
-                  className="w-full bg-black text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:scale-105"
+                  className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -153,7 +153,7 @@ const ResetPassword = () => {
           </div>
           <div className="relative">
             <img
-              src="https://plus.unsplash.com/premium_photo-1683135219860-44ad80fc9bb7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y291cnNlfGVufDB8fDB8fHww"
+              src="https://media.istockphoto.com/id/1440951658/id/foto/sistem-keamanan-sidik-jari-minimal-3d-verifikasi-identitas-akses-aman-identitas-digital-gembok.jpg?s=612x612&w=0&k=20&c=7YgkhQ3dvladKUtm5gEn27qO1Iv-x5vvVTtcRBHXSfc="
               alt=""
               className="w-[500px] h-full hidden rounded-r-2xl md:block object-cover"
             />

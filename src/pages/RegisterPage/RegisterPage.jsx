@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { register } from "../../redux/actions/authActions";
+import Pedjuang from "../../assets/Pedjuang.svg"
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -199,7 +200,7 @@ const RegisterPage = () => {
                 </label>
               </div>
               <button
-                className="w-full bg-[#003E9C] text-white p-2 rounded-lg mb-2 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+                className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
                 type="sumbit"
               >
                 Create an account
@@ -220,9 +221,9 @@ const RegisterPage = () => {
           </div>
           <div className="relative">
             <img
-              src="../../src/assets/tampilan.jpg"
-              alt=""
-              className="bg-red-600 w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
+              src={Pedjuang}
+              alt="svg"
+              className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
             />
           </div>
         </div>
