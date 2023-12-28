@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMe, logout } from "../../redux/actions/authActions";
 import { useEffect } from "react";
 import { removeMyCourse } from "../../redux/actions/courseActions";
+import "sweetalert2/dist/sweetalert2.css";
+import Swal from "sweetalert2";
 
 const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
   const dispatch = useDispatch();
@@ -18,9 +20,24 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
   const { user, token } = useSelector((state) => state.auth);
 
   const onLogout = () => {
-    dispatch(logout());
-    dispatch(removeMyCourse());
-    navigate("/login");
+    Swal.fire({
+      title: 'Konfirmasi Logout',
+      text: 'Apakah Anda yakin ingin keluar?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Keluar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout());
+        dispatch(removeMyCourse());
+        navigate("/");
+        window.location.reload();
+      } else {
+        navigate("/user")     
+      }
+    })
   };
 
   // memeriksa apakah user ada jika tidak maka akan navigate ke home
@@ -41,11 +58,10 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
         )}
       </button>
       <div
-        className={`${
-          openHamburger
-            ? "-translate-x-24 md:-translate-x-[230px]"
-            : "-translate-x-[685px] md:-translate-x-[877px]"
-        }
+        className={`${openHamburger
+          ? "-translate-x-24 md:-translate-x-[230px]"
+          : "-translate-x-[685px] md:-translate-x-[877px]"
+          }
                         transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-11  bg-gradient-to-br via-blue-300 from-color-primary bg-blue-200 border-2 border-blue-300 px-5 py-6 rounded-xl shadow-xl `}
       >
         <ul className="flex flex-col gap-3 text-left items-left">

@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getMe, logout } from "../../redux/actions/authActions";
 import { removeMyCourse } from "../../redux/actions/courseActions";
+import "sweetalert2/dist/sweetalert2.css";
+import Swal from "sweetalert2";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -15,10 +17,24 @@ const Menu = () => {
   const { user, token } = useSelector((state) => state.auth);
 
   const onLogout = () => {
-    dispatch(logout());
-    dispatch(removeMyCourse());
-    navigate("/");
-    window.location.reload();
+    Swal.fire({
+      title: 'Konfirmasi Logout',
+      text: 'Apakah Anda yakin ingin keluar?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Keluar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout());
+        dispatch(removeMyCourse());
+        navigate("/");
+        window.location.reload();
+      } else {
+        navigate("/user")
+      }
+    })
   };
 
   useEffect(() => {
