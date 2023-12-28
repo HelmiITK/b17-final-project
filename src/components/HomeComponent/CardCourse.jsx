@@ -27,6 +27,11 @@ const CardCourse = ({ course }) => {
     }
   }, [mycourse, course]);
 
+  // cari total durasi tiap course
+  const totalTime = course?.materials.reduce((total, material) => {
+    return total + material.duration_in_minutes;
+  }, 0);
+
   return (
     <div className="">
       <div className="w-full mt-6 my-2 bg-white shadow-xl rounded-xl overflow-hidden pb-3 hover:scale-105 duration-300">
@@ -38,7 +43,6 @@ const CardCourse = ({ course }) => {
                 alt={categoryName}
                 className="overflow-hidden w-full h-28 object-cover"
               />
-
             </div>
             <div className="mx-2 md:mx-4 flex flex-col mt-1 md:mt-2">
               <div className="flex justify-between items-center">
@@ -61,7 +65,9 @@ const CardCourse = ({ course }) => {
                     <span className="text-green-500 mr-[2.5px]">
                       <Shield size={18} />
                     </span>{" "}
-                    {course.level}
+                    Level{" "}
+                    {course?.level?.charAt(0).toUpperCase() +
+                      course?.level?.slice(1)}{" "}
                   </p>
                   <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                     <span className="text-green-500 mr-[2.5px]">
@@ -73,7 +79,7 @@ const CardCourse = ({ course }) => {
                     <span className="text-green-500 mr-[2.5px]">
                       <Clock size={18} />
                     </span>{" "}
-                    90 Menit
+                    {totalTime.toFixed()} Menit
                   </p>
                 </div>
                 {/* ini button ketika sudah beli */}
@@ -92,7 +98,8 @@ const CardCourse = ({ course }) => {
                         <span className="mr-2">
                           <Gem size={16} />
                         </span>{" "}
-                        {course.type_course}
+                        {course?.type_course?.charAt(0).toUpperCase() +
+                          course?.type_course?.slice(1)}{" "}
                       </button>
                     </div>
                     {/* button ketika mau beli (ada harganya) */}

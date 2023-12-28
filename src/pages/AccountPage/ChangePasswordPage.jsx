@@ -1,4 +1,4 @@
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from "../../components/AccountComponent/ButtonBack";
@@ -8,9 +8,10 @@ import Navbar from "../../components/NavbarComponent/Navbar";
 import { useDispatch } from "react-redux";
 import { updatePassword } from "../../redux/actions/authActions";
 import Footer from "../../components/FooterComponent/Footer";
-import { ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
 
-const UserPage = () => {
+const ChangePasswordPage = () => {
   const dispatch = useDispatch();
   const [openHamburger, setOpenHamburger] = useState(false);
   const [showPasswords, setShowPasswords] = useState({
@@ -52,21 +53,40 @@ const UserPage = () => {
     try {
       // validasi bahwa semua data harus terisi
       if (!passwords.lama || !passwords.baru || !passwords.ulangi) {
-        alert("Silahkan lengkapi semua data terlebih dahulu.");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Silahkan lengkapi semua data terlebih dahulu.",
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        });
         return;
       }
 
       // validasi bahwa password baru dan konfirmasi password sesuai
       if (passwords.baru !== passwords.ulangi) {
-        alert("Password baru dan konfirmasi password tidak sesuai");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Password baru dan konfirmasi password tidak sesuai.",
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        });
         return;
       }
 
-      // panggil aksi updatePassword
+      // panggil aksi updatePassword jika fix ingin merubah password
       await dispatch(updatePassword(passwords.lama, passwords.baru));
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
-      alert("Terjadi Kesalahan Saat Mengubah Password!");
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Terjadi Kesalahan Saat Mengubah Password!",
+      });
+      return;
     }
   };
 
@@ -80,9 +100,9 @@ const UserPage = () => {
           <ButtonBack />
 
           {/* card border */}
-          <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-indigo-600 mx-4 rounded-2xl items-center">
+          <div className="h-full max-w-3xl lg:mx-auto  mt-4 bg-white border-2 border-color-primary mx-4 rounded-2xl items-center">
             {/* heading akun */}
-            <div className="bg-indigo-600 rounded-t-lg py-4 text-center">
+            <div className="bg-primary rounded-t-lg py-4 text-center">
               <h1 className="text-white font-bold text-lg">Akun</h1>
             </div>
 
@@ -172,7 +192,7 @@ const UserPage = () => {
                   {/* button simpan perubahan */}
                   <button
                     onClick={handleChangePassword}
-                    className="mt-2 border-none bg-indigo-500 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-indigo-700"
+                    className="mt-2 border-none bg-blue-600 rounded-2xl py-3 px-6 font-semibold text-sm text-white hover:bg-primary"
                   >
                     Ubah Password
                   </button>
@@ -182,21 +202,10 @@ const UserPage = () => {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      {/* <ToastContainer /> */}
       <Footer />
     </>
   );
 };
 
-export default UserPage;
+export default ChangePasswordPage;

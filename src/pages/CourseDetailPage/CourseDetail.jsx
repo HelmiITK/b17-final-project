@@ -20,6 +20,7 @@ import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 import Footer from "../../components/FooterComponent/Footer";
 import PopupBuy from "../../components/DetailCourseComponent/PopupBuy";
 import PopupRating from "../../components/DetailCourseComponent/PopupRating";
+import { scrollTop } from "../../libs/scrollTop";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -116,12 +117,12 @@ const CourseDetail = () => {
         console.error("Error fetching course data:", error);
         setLoading(false);
       });
-
+    scrollTop();
     // Cleanup function untuk menghapus detail saat keluar dari halaman
     return () => {
       dispatch(removeDetail());
     };
-  }, [courseId]); // lakukan setiap perubahan berdasarkan id
+  }, [courseId, rating]); // lakukan setiap perubahan berdasarkan id
 
   useEffect(() => {
     if (user) {
@@ -178,14 +179,14 @@ const CourseDetail = () => {
       <div className="container mx-auto pt-24">
         <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
           <div className="flex flex-row items-center gap-2 lg:mt-2">
-            <BiMessageSquareDetail className="text-indigo-700 w-10 h-10 lg:w-12 lg:h-12" />
-            <h1 className="text-2xl font-bold text-indigo-800 lg:text-3xl">
+            <BiMessageSquareDetail className="text-blue-700 w-10 h-10 lg:w-12 lg:h-12" />
+            <h1 className="text-2xl font-bold text-blue-800 lg:text-3xl">
               Detail Kelas
             </h1>
           </div>
           <Link
             to={"/"}
-            className="flex items-center gap-2 mx-2 hover:text-indigo-600 lg:text-lg"
+            className="flex items-center gap-2 mx-2 hover:text-color-primary lg:text-lg"
           >
             <IoMdArrowRoundBack />
             <p>Kembali Ke Beranda</p>
@@ -202,58 +203,71 @@ const CourseDetail = () => {
           ) : (
             <>
               <div className="mx-4 mt-4 lg:flex lg:flex-row lg:gap-4">
-                <div className="border-none p-3 bg-indigo-500 h-full rounded-lg shadow-lg shadow-slate-600 flex flex-col gap-3 lg:w-1/2">
+                <div className="border-none p-3 bg-blue-600 h-full rounded-lg shadow-lg shadow-slate-600 flex flex-col gap-3 lg:w-1/2">
                   <img
                     src={detail.thumbnail}
                     alt={detail.title}
                     className="rounded-lg shadow-lg shadow-slate-700"
                   />
                   {/* grup love dan rating */}
-                  <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
-                    <button
-                      className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
-                      onClick={handleLoveClick}
-                    >
-                      {isLoved ? (
-                        <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
-                      ) : (
-                        <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
-                      )}
-                      {loveCount}
-                    </button>
-                    {/* rating button */}
-                    <div className="">
-                      {user &&
-                        !!rating.find(
-                          (rate) =>
-                            rate.course_id == courseId &&
-                            rate.user_id == user.id
-                        ) &&
-                        !!checkMycourse && (
-                          <div>
+                  <div className="flex justify-between">
+                    <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
+                      <button
+                        className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
+                        onClick={handleLoveClick}
+                      >
+                        {isLoved ? (
+                          <AiFillHeart className="mr-1 ml-4 w-8 h-8 text-red-600 lg:w-10 lg:h-10" />
+                        ) : (
+                          <AiOutlineHeart className="mr-1 ml-4 text-white w-8 h-8 lg:w-10 lg:h-10" />
+                        )}
+                        {loveCount}
+                      </button>
+                      {/* rating button */}
+                      <div className="">
+                        {user &&
+                          !!rating.find(
+                            (rate) =>
+                              rate.course_id == courseId &&
+                              rate.user_id == user.id
+                          ) &&
+                          !!checkMycourse && (
+                            <div>
+                              <button
+                                onClick={() => setIsPopupRating(true)}
+                                className="bg-blue-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-color-primary duration-200 group"
+                              >
+                                <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                                Ubah Rating
+                              </button>
+                            </div>
+                          )}
+                        {user &&
+                          !rating.find(
+                            (rate) =>
+                              rate.course_id == courseId &&
+                              rate.user_id == user.id
+                          ) &&
+                          !!checkMycourse && (
                             <button
                               onClick={() => setIsPopupRating(true)}
-                              className="bg-red-300 w-fit p-2 rounded-lg font-semibold"
+                              className="bg-blue-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-color-primary duration-200 group"
                             >
-                              Ubah Rating
+                              <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                              Beri Rating
                             </button>
-                          </div>
-                        )}
-                      {user &&
-                        !rating.find(
-                          (rate) =>
-                            rate.course_id == courseId &&
-                            rate.user_id == user.id
-                        ) &&
-                        !!checkMycourse && (
-                          <button
-                            onClick={() => setIsPopupRating(true)}
-                            className="bg-violet-100 w-fit p-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-white hover:text-indigo-600 duration-200 group"
-                          >
-                            <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
-                            Beri Rating
-                          </button>
-                        )}
+                          )}
+                      </div>
+                    </div>
+                    <div className="  mr-3 my-auto">
+                      <p className="flex text-base font-semibold items-center text-white">
+                        <span className="mr-2">
+                          <FaStar className="text-yellow-500 w-6 h-6 group-hover:text-yellow-400 duration-200" />
+                        </span>{" "}
+                        {detail.averageRating
+                          ? detail?.averageRating?.toFixed(1)
+                          : 0}
+                      </p>
                     </div>
                   </div>
 
@@ -271,7 +285,7 @@ const CourseDetail = () => {
                       >
                         {isButtonVisible ? (
                           <button
-                            className=" w-full transform border mt-4 bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium hover:text-indigo-600 hover:bg-yellow-400 duration-200"
+                            className=" w-full transform border mt-4 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:text-blue-600 hover:bg-yellow-400 duration-200"
                             onClick={handleFollowClick}
                           >
                             Ikuti Kelas
@@ -329,7 +343,7 @@ const CourseDetail = () => {
                     </div>
                   </div>
                   {/* target pada siapa kelas ini dituju */}
-                  <div className="mx-4 flex flex-col gap-3 border-none p-4 rounded-lg mb-4 shadow-md bg-indigo-700 bg-opacity-40">
+                  <div className="mx-4 flex flex-col gap-3 border-none p-4 rounded-lg mb-4 shadow-md bg-primary bg-opacity-40">
                     <div className="text-white">
                       <h2 className="font-semibold text-base">
                         Persiapan Sebelum Kelas :
@@ -374,7 +388,7 @@ const CourseDetail = () => {
 
                   {/* ada di mode laptop */}
                   <div className="hidden lg:flex lg:flex-col mt-4">
-                    <div className="relative border-none border-indigo-600 rounded-xl shadow-md shadow-slate-200 p-4 max-w-2xl h-auto">
+                    <div className="relative border-none border-blue-600 rounded-xl shadow-md shadow-slate-200 p-4 max-w-2xl h-auto">
                       <div className="flex flex-col gap-3 mb-4">
                         <h2>Kategori Kelas</h2>
                         <div className="flex flex-row items-center gap-2 border p-2 rounded-lg bg-cyan-500 w-1/2 shadow-md">
@@ -438,9 +452,9 @@ const CourseDetail = () => {
                           <button
                             disabled={!checkMycourse}
                             className={cn(
-                              "absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-indigo-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-indigo-600",
+                              "absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-blue-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-blue-600",
                               checkMycourse &&
-                                "hover:bg-indigo-600 hover:text-white duration-200",
+                                "hover:bg-blue-600 hover:text-white duration-200",
                               !checkMycourse &&
                                 "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
                             )}
@@ -450,7 +464,7 @@ const CourseDetail = () => {
                           </button>
                         ) : (
                           <AiFillPlayCircle
-                            className="text-indigo-600 -top-48 absolute lg:right-5 xl:-top-56 xl:right-20 w-40 h-40 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full"
+                            className="text-blue-600 -top-48 absolute lg:right-5 xl:-top-56 xl:right-20 w-40 h-40 hover:text-yellow-400 cursor-pointer animate-pulse shadow-md rounded-full"
                             onClick={handleIconClick}
                           />
                         )}

@@ -146,7 +146,7 @@ const HomePage = () => {
           alt="picture"
           className="w-full h-full object-cover absolute mix-blend-overlay"
         />
-        <div className="flex flex-col lg:flex lg:flex-row lg:items-start lg:pt-24 lg:justify-between pt-16 pl-10 bg-gradient-to-r from-indigo-600 h-80 lg:px-40 lg:bg-gradient-to-l">
+        <div className="flex flex-col lg:flex lg:flex-row lg:items-start lg:pt-24 lg:justify-between pt-16 pl-10 bg-gradient-to-r from-color-primary h-80 lg:px-40 lg:bg-gradient-to-l">
           <div className="flex flex-col">
             <div>
               <h1 className="font-semibold text-white text-xl">
@@ -157,7 +157,7 @@ const HomePage = () => {
               </p>
             </div>
             <NavLink as={Link} to={"/course"} className="mt-4 z-10">
-              <button className=" text-indigo-600 bg-white text-base font-semibold px-2 py-1 rounded-lg w-40 h-9 hover:scale-110 hover:bg-indigo-600 hover:text-white duration-300 lg:hover:border-white lg:hover:border">
+              <button className=" text-color-primary bg-white text-base font-semibold px-2 py-1 rounded-lg w-40 h-9 hover:scale-110 hover:bg-primary hover:text-white duration-300 lg:hover:border-white lg:hover:border">
                 IKUTI KELAS
               </button>
             </NavLink>
@@ -194,7 +194,7 @@ const HomePage = () => {
             {loading ? (
               <ClockLoader
                 className="absolute top-20 left-1/2 mb-20 lg:left-[485px]"
-                color="#6a00ff"
+                color="#003E9C"
                 size={50}
                 speedMultiplier={2}
               />
@@ -224,7 +224,7 @@ const HomePage = () => {
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
           <Link to={"/course"}>
-            <h2 className="text-sm hover:text-indigo-600 lg:font-medium">
+            <h2 className="text-sm hover:text-color-primary lg:font-medium">
               Lihat Semua
             </h2>
           </Link>
@@ -243,7 +243,7 @@ const HomePage = () => {
         <button
           onClick={() => handleFilterClick("")}
           className="w-full mt-2 lg:mt-4 text-xs font-medium border-none text-white bg-slate-600 cursor-pointer py-2 px-2 rounded-2xl 
-                      hover:scale-105 duration-300 hover:bg-indigo-600 hover:text-white lg:font-semibold"
+                      hover:scale-105 duration-300 hover:bg-primary hover:text-white lg:font-semibold"
         >
           All
         </button>

@@ -34,11 +34,11 @@ const Menu = () => {
           to={"/user"}
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-600 text-sm flex gap-2 items-center font-semibold"
-              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-indigo-600 hover:scale-105 duration-300"
+              ? "text-color-secondary text-sm flex gap-2 items-center font-semibold"
+              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-color-secondary hover:scale-105 duration-300"
           }
         >
-          <FiEdit3 className="text-indigo-600 w-10 h-6" />
+          <FiEdit3 className="text-color-secondary w-10 h-6" />
           <p>Profil Saya</p>
         </NavLink>
         <hr className="w-full my-3" />
@@ -46,11 +46,11 @@ const Menu = () => {
           to={"/changepassword"}
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-600 text-sm flex gap-2 items-center font-semibold"
-              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-indigo-600 hover:scale-105 duration-300"
+              ? "text-color-secondary text-sm flex gap-2 items-center font-semibold"
+              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-color-secondary hover:scale-105 duration-300"
           }
         >
-          <IoSettingsSharp className="text-indigo-600 w-10 h-6" />
+          <IoSettingsSharp className="text-color-secondary w-10 h-6" />
           <p>Ubah Password</p>
         </NavLink>
         <hr className="w-full my-3" />
@@ -58,19 +58,19 @@ const Menu = () => {
           to={"/historypayment"}
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-600 text-sm flex gap-2 items-center font-semibold"
-              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-indigo-600 hover:scale-105 duration-300"
+              ? "text-color-secondary text-sm flex gap-2 items-center font-semibold"
+              : "text-black text-sm flex items-center gap-2 font-semibold hover:text-color-secondary hover:scale-105 duration-300"
           }
         >
-          <SlBasket className="text-indigo-600 w-10 h-6" />
+          <SlBasket className="text-color-secondary w-10 h-6" />
           <p>Riwayat Pembayaran</p>
         </NavLink>
         <hr className="w-full my-3" />
         {/* ini baru muncul ketika sudah login */}
         {user && (
           <button onClick={onLogout}>
-            <div className="flex items-center gap-2 font-semibold text-sm hover:text-indigo-600 hover:scale-105 duration-300">
-              <HiOutlineLogout className="text-indigo-600 w-10 h-6" />
+            <div className="flex items-center gap-2 font-semibold text-sm hover:text-color-secondary hover:scale-105 duration-300">
+              <HiOutlineLogout className="text-color-secondary w-10 h-6" />
               <p>Keluar</p>
             </div>
           </button>

@@ -1,6 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import PropTypes from "prop-types";
 import { cn } from "../../libs/utils";
+import successGif from "../../assets/success.gif";
 
 const PopupFinishCourse = ({ isPopupFinish, handlePopupFinish }) => {
   return (
@@ -20,13 +21,18 @@ const PopupFinishCourse = ({ isPopupFinish, handlePopupFinish }) => {
           </div>
           {/* content */}
           <div className="p-3 ">
-            <h1 className="text-center font-semibold mb-3">Ciee dah beres</h1>
+            <h1 className="text-center text-xl font-semibold mb-3">
+              Ciee dah beres
+            </h1>
+            <div className="flex justify-center">
+              <img src={successGif} alt="success" width={300} />
+            </div>
             <div className="flex items-center justify-center">
               Selamat karena anda telah menyelesaikan course ini
             </div>
-            <div className="flex justify-center mt-3">
+            <div className="flex justify-center mt-7">
               <button
-                className="bg-violet-200 py-1 px-3 font-medium rounded-lg duration-300 transition-all hover:bg-black hover:text-violet-200 hover:-translate-y-2"
+                className="w-full bg-blue-200 py-1 px-3 font-medium rounded-lg duration-300 transition-all hover:bg-black hover:text-blue-200 hover:-translate-y-2"
                 onClick={handlePopupFinish}
               >
                 OK

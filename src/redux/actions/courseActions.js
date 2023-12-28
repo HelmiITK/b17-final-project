@@ -5,6 +5,18 @@ import {
   setRating,
   setPageCourse,
 } from "../reducers/courseReducers";
+import Swal from "sweetalert2";
+
+// fungsi swal untuk dipanggil terus
+const swal = (icon, title, text) =>
+  Swal.fire({
+    icon: icon,
+    title: title,
+    text: text,
+    customClass: {
+      confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+    },
+  });
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
 
@@ -16,7 +28,7 @@ export const getCourse = (page) => async (dispatch) => {
 
     dispatch(setCourse(courses));
   } catch (error) {
-    alert(error.message);
+    swal("error", "ERROR", error.message);
   }
 };
 
@@ -28,7 +40,7 @@ export const getPagesCourse = (page) => async (dispatch) => {
 
     dispatch(setPageCourse(pagination));
   } catch (error) {
-    alert(error.message);
+    swal("error", "ERROR", error.message);
   }
 };
 
@@ -41,7 +53,7 @@ export const getCourseWithFilter =
       const { courses } = response.data;
       dispatch(setCourse(courses));
     } catch (error) {
-      alert(error.message);
+      swal("error", "ERROR", error.message);
     }
   };
 
@@ -58,7 +70,7 @@ export const getMyCourse = () => async (dispatch, getState) => {
 
     dispatch(setMyCourse(enrolledCourses));
   } catch (error) {
-    console.log(error.message);
+    swal("error", "ERROR", error.message);
   }
 };
 
@@ -79,7 +91,7 @@ export const getMyCourseWithFilter =
 
       dispatch(setMyCourse(enrolledCourses));
     } catch (error) {
-      alert(error.message);
+      swal("error", "ERROR", error.message);
     }
   };
 
@@ -100,16 +112,14 @@ export const enrollFreeCourse = (courseId) => async (dispatch, getState) => {
       }
     );
 
-    alert("Pembelian berhasil");
+    swal("success", "Sukses", "Pembelianmu sudah berhasil");
 
     // reload halaman agar terupdate
     if (response.status == 201) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      dispatch(getMyCourse());
     }
   } catch (error) {
-    alert(error.message);
+    swal("error", "ERROR", error.message);
   }
 };
 
@@ -159,15 +169,20 @@ export const enrollPremiumCourse = (courseId) => async (dispatch, getState) => {
           },
         }
       );
-      alert("Pembelian berhasil");
+      swal("success", "Sukses", "Pembelianmu sudah berhasil");
 
       // reload halaman agar terupdate
       if (response2.status == 201) {
-        window.location.reload();
+        dispatch(getMyCourse());
       }
     }
   } catch (error) {
     alert(`ERROR ${error.response.status} : ${error.response.data.error}`);
+    swal(
+      "error",
+      `ERROR ${error.response.status}`,
+      `${error.response.data.error}`
+    );
   }
 };
 
@@ -185,22 +200,31 @@ export const updateMaterialStatus =
           },
         }
       );
-      alert("Video ini sudah selesai");
+
       if (id == materialNextIndex) {
-        window.location.reload();
+        dispatch(getMyCourse());
       } else {
         navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
           replace: true,
         });
-        window.location.reload();
       }
     } catch (error) {
       if (error.response.status === 400) {
-        alert("Video ini sudah anda selesaikan");
+        swal("info", "Done", "Kamu sudah menyelesaikan video ini sebelumnya");
+        navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
+          replace: true,
+        });
       } else if (error.response.status === 404) {
-        alert("Video tidak ditemukan");
+        swal(
+          "error",
+          "Video tidak tersedia",
+          "Video tidak dimukan dalam database"
+        );
+        navigate(`/course-detail/${courseId}/video/${materialNextIndex}`, {
+          replace: true,
+        });
       } else {
-        alert(error.message);
+        swal("error", "ERROR", error.message);
       }
     }
   };
@@ -213,7 +237,7 @@ export const allRating = () => async (dispatch) => {
 
     dispatch(setRating(data));
   } catch (error) {
-    alert(error.message);
+    swal("error", "ERROR", error.message);
   }
 };
 
@@ -234,12 +258,17 @@ export const createRating =
           },
         }
       );
-      alert("kamu sudah memberikan rating pada course ini !");
+      swal(
+        "success",
+        "Terima kasih",
+        "kamu sudah memberikan rating pada course ini !"
+      );
       // console.log(window.location.pathname);
-      window.location.reload();
+      dispatch(allRating());
+      dispatch(getMyCourse());
       // navigate(window.location.pathname, { replace: true });
     } catch (error) {
-      alert(error.message);
+      swal("error", "ERROR", error.message);
     }
   };
 
@@ -260,12 +289,14 @@ export const updateRating =
           },
         }
       );
-      alert("Terima kasih telah memberikan nilai pada course ini");
-      // console.log(window.location.pathname);
-      // navigate(window.location.pathname);
-      window.location.reload();
+      swal(
+        "success",
+        "Terima kasih",
+        "kamu sudah memperbaharui rating untuk course ini"
+      );
+      dispatch(allRating());
     } catch (error) {
-      alert(error.message);
+      swal("error", "ERROR", error.message);
     }
   };
 

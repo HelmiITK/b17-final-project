@@ -22,13 +22,15 @@ const ChapterItem = ({ chapter, isActive, numb, isDone }) => {
           <div
             className={cn(
               "aspect-square w-6 md:w-8 rounded-full flex items-center justify-center bg-slate-200",
-              isDone && "bg-green-300 rounded-none rotate-45"
+              isDone && "bg-primary",
+              isActive && " bg-green-400"
             )}
           >
             <p
               className={cn(
-                " text-[10px] text-xs font-bold ",
-                isDone && "-rotate-45"
+                " text-[10px] text-xs font-bold",
+                isDone && "text-white",
+                isActive && "text-white"
               )}
             >
               {numb}
@@ -38,8 +40,8 @@ const ChapterItem = ({ chapter, isActive, numb, isDone }) => {
             <p
               className={cn(
                 "text-xs md:text-sm font-semibold",
-                isDone && !isActive && "text-green-400",
-                isActive && "underline"
+                isDone && !isActive && "text-color-primary line-through",
+                isActive && "underline text-green-400"
               )}
             >
               {chapter.title}

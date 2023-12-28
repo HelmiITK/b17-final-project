@@ -1,5 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 import { cn } from "../../libs/utils";
+import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import Card from "../MyCourseComponent/Card";
 import { useEffect, useState } from "react";
@@ -27,17 +28,34 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
   const handleBuy = async () => {
     // pembelian untuk yang berbayar
     if (detail.price === 0 && detail.type_course === "free") {
-      const decision = confirm(
-        "Course ini merupakan course gratis, Jika anda menekan YES maka anda akan meng-enroll course ini"
-      );
-      if (decision) {
+      const decision = await Swal.fire({
+        title: "Pembelian Course",
+        text: "Course ini merupakan course gratis, Jika anda menekan YES maka anda akan meng-enroll course ini",
+        showCancelButton: true,
+        confirmButtonText: "Beli",
+        cancelButtonText: "Batal",
+        customClass: {
+          // Tambahkan kelas CSS khusus
+          confirmButton: "custom-save-button",
+        },
+      });
+      if (decision.isConfirmed) {
         dispatch(enrollFreeCourse(courseId));
       }
     } else {
-      const decision = confirm(
-        "Course ini merupakan course berbayar, apakah anda yakin ingin membelinya ?"
-      );
-      if (decision) {
+      const decision = await Swal.fire({
+        title: "Pembelian Course",
+        text: "Course ini merupakan course berbayar, apakah anda yakin ingin membelinya ?",
+        showCancelButton: true,
+        confirmButtonText: "Beli",
+        cancelButtonText: "Batal",
+        customClass: {
+          // Tambahkan kelas CSS khusus
+          confirmButton: "custom-save-button",
+        },
+      });
+
+      if (decision.isConfirmed) {
         dispatch(enrollPremiumCourse(courseId));
       }
     }

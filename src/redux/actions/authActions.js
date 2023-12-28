@@ -1,3 +1,5 @@
+import "sweetalert2/dist/sweetalert2.css";
+import Swal from "sweetalert2";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -71,21 +73,75 @@ export const updateProfile =
       formData.append("city", city);
       formData.append("country", country);
 
-      const response = await axios.put(`${api_url}/profiles/update-profile`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
+      const result = await Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+        customClass: {
+          // Tambahkan kelas CSS khusus
+          confirmButton: "custom-save-button",
+          denyButton: "custom-deny-button",
         },
       });
 
-      const updatedProfile = response.data;
+      if (result.isConfirmed) {
+        // Menampilkan loading saat sedang menunggu respon dari API
+        const loadingAlert = Swal.fire({
+          title: "Please wait...",
+          html: "Updating profile",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
 
-      // perbarui user profile di redux state
-      dispatch(setUser(updatedProfile));
-      alert("Profil berhasil diperbarui 🥳");
+        const response = await axios.put(
+          `${api_url}/profiles/update-profile`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-      window.location.reload();
+        const updatedProfile = response.data;
+
+        // perbarui user profile di redux state
+        dispatch(setUser(updatedProfile));
+
+        // Tutup loading alert setelah mendapatkan respon dari API
+        loadingAlert.close();
+
+        Swal.fire({
+          title: "Saved!",
+          icon: "success",
+          showConfirmButton: true,
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        }).then(() => {
+          window.location.reload();
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: "Changes are not saved",
+          icon: "info",
+          showConfirmButton: true,
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        }).then(() => {
+          window.location.reload(); // Ini opsional
+        });
+      }
     } catch (error) {
+      // Tutup loading alert jika terjadi kesalahan
+      Swal.close();
+
       alert(error?.message);
     }
   };
@@ -99,23 +155,70 @@ export const updatePassword = (currentPassword, newPassword) => async (dispatch,
       newPassword,
     };
 
-    await axios.put(`${api_url}/profiles/update-password`, passwordData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      // Tampilkan konfirmasi SweetAlert2 setelah berhasil mengubah password
+      const result = await Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+        customClass: {
+          // Tambahkan kelas CSS khusus
+          confirmButton: "custom-save-button",
+          denyButton: "custom-deny-button",
+        },
+      });
 
-    alert("Password Berhasil Diperbarui 🥳");
-    // Reload halaman setelah pembaruan berhasil
-    window.location.reload();
-  } catch (error) {
-    if (error.response.status === 400) {
-      toast.error("password lama kamu salah");
-    } else {
-      alert(error?.message);
+      // melakukan pengecekan dengan bantuan sweetalert2, apakah user change to save password atau tidak
+      if (result.isConfirmed) {
+        // Panggilan API hanya jika pengguna memilih untuk menyimpan perubahan
+        await axios.put(`${api_url}/profiles/update-password`, passwordData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        Swal.fire({
+          title: "Saved!",
+          icon: "success",
+          timer: 2000, // jeda dulu bro 2 detik
+          showConfirmButton: false,
+          customClass: {
+            confirmButton: "custom-ok-button",
+          },
+        }).then(() => {
+          window.location.reload();
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: "Changes are not saved",
+          icon: "info",
+          timer: 2000,
+          showConfirmButton: false,
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        }).then(() => {
+          // window.location.reload(); // Ini opsional
+        });
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Password Lama Kamu Salah!!!",
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        });
+        return;
+      } else {
+        alert(error?.message);
+      }
     }
   }
-};
+
 
 export const register =
   (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {

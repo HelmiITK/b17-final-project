@@ -37,7 +37,7 @@ const VideoPage = () => {
     dispatch(getMyCourse()).catch((error) => {
       console.error("Error fetching course data:", error);
     });
-  }, [dispatch]);
+  }, [dispatch, materialId]);
 
   const courseDetailVideo = mycourse.find(
     (course) => course.course.id == courseId
@@ -78,7 +78,7 @@ const VideoPage = () => {
           <div className=" mt-20 md:mt-24">
             {/* Tombol kembali ke halaman kelas */}
             <Link to={`/course-detail/${courseId}`}>
-              <h1 className="flex font-semibold text-sm md:text-base items-center hover:underline transition-all duration-300 hover:scale-105">
+              <h1 className="flex font-medium text-sm md:text-base items-center hover:text-color-primary">
                 <span className="mr-1 block md:mr-2">
                   <ArrowLeft className="w-4 h-4" />
                 </span>{" "}
