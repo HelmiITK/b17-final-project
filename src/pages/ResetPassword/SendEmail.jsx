@@ -9,9 +9,15 @@ const VerifyEmail = () => {
 
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleverify = async (event) => {
     event.preventDefault();
+
+    if (!email) {
+      setErrorMessage("Silahkan isi email anda");
+      return;
+    }
 
     dispatch(sendPassword(email, setIsLoading));
   };
@@ -45,6 +51,7 @@ const VerifyEmail = () => {
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
+              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
               <div className="flex justify-between w-full py-4">
                 <button
                   className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
@@ -75,6 +82,7 @@ const VerifyEmail = () => {
         draggable
         pauseOnHover
         theme="dark"
+        style={{ fontSize: "13px" }} // Atur ukuran teks di sini
       />
     </>
   );

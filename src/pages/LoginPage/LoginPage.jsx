@@ -173,6 +173,7 @@ const LoginPage = () => {
         draggable
         pauseOnHover
         theme="dark"
+        style={{ fontSize: "13px" }} // Atur ukuran teks di sini
       />
     </>
   );

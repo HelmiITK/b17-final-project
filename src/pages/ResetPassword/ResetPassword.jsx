@@ -18,6 +18,7 @@ const ResetPassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handlePasswordMatch = (event) => {
     setNewPassword(event.target.value);
@@ -48,8 +49,18 @@ const ResetPassword = () => {
   const handleResetPassword = async (event) => {
     event.preventDefault();
 
+    if (!newPassword) {
+      setErrorMessage("Silahkan isi password terbaru");
+      return;
+    }
+
+    if (!confirmNewPassword) {
+      setErrorMessage("Silahkan isi konfirmasi password");
+      return;
+    }
+
     if (passwordError) {
-      alert("Password and Confirm Password not match");
+      setErrorMessage("Password and Confirm Password not match");
       return;
     }
 
@@ -139,7 +150,7 @@ const ResetPassword = () => {
                   )}
                 </button>
               </div>
-
+              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
               <div className="flex justify-between w-full py-4">
                 <button
                   className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
@@ -171,6 +182,7 @@ const ResetPassword = () => {
         draggable
         pauseOnHover
         theme="dark"
+        style={{ fontSize: "13px" }} // Atur ukuran teks di sini
       />
     </>
   );

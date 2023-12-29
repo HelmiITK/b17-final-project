@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { register } from "../../redux/actions/authActions";
 import Pedjuang from "../../assets/PedjuangIlmuuu.svg";
+import { ToastContainer } from "react-toastify";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -229,6 +230,19 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        style={{ fontSize: "13px" }} // Atur ukuran teks di sini
+      />
     </>
   );
 };
