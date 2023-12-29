@@ -30,7 +30,6 @@ const CardHistory = ({ course }) => {
     return total + material.duration_in_minutes;
   }, 0);
 
-  console.log(course);
   return (
     <div className="w-full bg-white rounded-lg overflow-hidden pb-3 border border-color-primary">
       <div className="flex flex-col">
