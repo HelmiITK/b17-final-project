@@ -1,7 +1,7 @@
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import { NavLink, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import CardCategory from "../../components/HomeComponent/CardCategory";
 import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
@@ -26,6 +26,18 @@ const HomePage = () => {
 
   // state untuk menyimpan kategori yang dipilih
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   // render data
   useEffect(() => {
@@ -140,7 +152,7 @@ const HomePage = () => {
     <>
       <Navbar />
       {/* main section */}
-      <div className="w-full h-80 pt-[74px] relative">
+      <div className="w-full h-80 pt-[74px] relative" ref={linkRef}>
         <img
           src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="picture"
@@ -252,7 +264,7 @@ const HomePage = () => {
           {loading ? (
             <ClockLoader
               className="absolute top-10 left-1/2 mb-20 lg:left-[485px]"
-              color="#6a00ff"
+              color="#003E9C"
               size={50}
               speedMultiplier={2}
             />
@@ -267,7 +279,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto}/>
     </>
   );
 };

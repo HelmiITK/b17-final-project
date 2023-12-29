@@ -1,7 +1,7 @@
 // import { Search } from "lucide-react";
 import Main from "../../components/MyCourseComponent/Main";
 import SideFilter from "../../components/MyCourseComponent/SideFilter";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
 import {
@@ -38,6 +38,18 @@ const CoursePage = () => {
   const [category, setCategory] = useState(state ? [state.categoryId] : []);
   const [level, setLevel] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
+
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
@@ -115,7 +127,7 @@ const CoursePage = () => {
     <>
       <Navbar />
       {/* tampilan utama */}
-      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
+      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20" ref={linkRef}>
         <div className="w-10/12 mx-auto">
           <div className="flex flex-col items-start justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
             <Link to={"/"}>
@@ -187,7 +199,7 @@ const CoursePage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

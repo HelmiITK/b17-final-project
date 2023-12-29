@@ -91,6 +91,18 @@ const CourseDetail = () => {
     setIsPopupRating(false);
   };
 
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     // Munculkan ikon nonton paling pertama
     setIsButtonVisible(false);
@@ -176,7 +188,7 @@ const CourseDetail = () => {
 
       <PopupRating isPopupRating={isPopupRating} handleRating={handleRating} />
       <Navbar />
-      <div className="container mx-auto pt-24">
+      <div className="container mx-auto pt-24" ref={linkRef}>
         <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
           <div className="flex flex-row items-center gap-2 lg:mt-2">
             <BiMessageSquareDetail className="text-blue-700 w-10 h-10 lg:w-12 lg:h-12" />
@@ -521,7 +533,7 @@ const CourseDetail = () => {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };
