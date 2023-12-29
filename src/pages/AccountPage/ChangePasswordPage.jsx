@@ -1,5 +1,5 @@
 // import { ToastContainer, toast } from 'react-toastify';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from "../../components/AccountComponent/ButtonBack";
 import MenuList from "../../components/AccountComponent/MenuList";
@@ -90,10 +90,22 @@ const ChangePasswordPage = () => {
     }
   };
 
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Navbar />
-      <div className="w-full relative">
+      <div className="w-full relative" ref={linkRef}>
         <div className="bg-layer w-full h-64 pt-24"></div>
         <div className="container mx-auto -mt-40 lg:-mt-32">
           {/* button kembali ke beranda/home */}
@@ -202,7 +214,7 @@ const ChangePasswordPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

@@ -4,7 +4,7 @@ import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
 import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
@@ -47,6 +47,18 @@ const VideoPage = () => {
     setIsPopupFinish(false);
   };
 
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -60,7 +72,7 @@ const VideoPage = () => {
         </>
       )}
       {/* tombol untuk menampilkan/menghilangkan progressCourse */}
-      <div className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all">
+      <div className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all" ref={linkRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="bg-primary text-sm font-semibold text-white rounded-md px-4 py-2 flex items-center"
@@ -101,7 +113,7 @@ const VideoPage = () => {
         {/* background yang beda warna */}
         <div className="bg-layer h-[280px] hidden md:block" />
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto}/>
     </>
   );
 };

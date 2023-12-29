@@ -1,5 +1,6 @@
 import Navbar from "../../components/NavbarComponent/Navbar";
-import { useEffect, useState } from "react";
+import Footer from "../../components/FooterComponent/Footer";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom"
 import { getSearchCourses } from "../../redux/actions/searchActions";
@@ -17,6 +18,18 @@ const SearchCourse = () => {
   const search = searchParams.get("search");
   const page = searchParams.get("page");
   const [loading, setLoading] = useState(false);
+
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
 
   const { searching } = useSelector((state) => state.search);
   console.log(searching);
@@ -40,7 +53,7 @@ const SearchCourse = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-24 container mx-auto">
+      <div className="pt-24 container mx-auto" ref={linkRef}>
         <div className="mx-4">
           {/* header judul dan button kembali */}
           <div className="flex justify-between lg:mt-2">
@@ -131,6 +144,7 @@ const SearchCourse = () => {
           )
         }
       </div >
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   )
 }
