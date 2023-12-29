@@ -30,14 +30,13 @@ const CardHistory = ({ course }) => {
     return total + material.duration_in_minutes;
   }, 0);
 
+  console.log(course);
   return (
     <div className="w-full bg-white rounded-lg overflow-hidden pb-3 border border-color-primary">
       <div className="flex flex-col">
         <div>
           <img
-            src={
-              "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            }
+            src={course?.course?.thumbnail}
             alt="thumbnail"
             className="overflow-hidden w-full h-24 object-cover"
           />
