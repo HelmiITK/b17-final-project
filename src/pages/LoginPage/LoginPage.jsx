@@ -1,4 +1,4 @@
-import { FcGoogle } from "react-icons/fc";
+import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -68,7 +68,9 @@ const LoginPage = () => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl font-bold font-poppins text-center">Login</span>
+            <span className="mb-3 text-4xl font-bold font-poppins text-center">
+              Login
+            </span>
             <span className="font-poppins text-gray-400 mb-8 text-center">
               Welcome back! please enter your details
             </span>
@@ -118,7 +120,9 @@ const LoginPage = () => {
                   )}
                 </button>
               </div>
-              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-color-warn text-xs mb-2">{errorMessage}</p>
+              )}
               <div className="flex justify-between w-full py-4">
                 <label className="flex items-center text-xs font-poppins">
                   <input
@@ -135,14 +139,19 @@ const LoginPage = () => {
                   Forgot Password?
                 </Link>
               </div>
-              <button className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300">
+              <button className="w-full bg-primary text-white p-2 rounded-lg mb-2 transition-all hover:bg-black hover:text-white hover:border hover:border-gray-300">
                 Sign in
               </button>
             </form>
 
-            <p className="text-gray-400 mb-2 text-center text-sm underline">or use another login</p>
-            <button className="w-full border border-gray-300 text-md p-1 mb-2 rounded-lg ">
-              <FcGoogle className="w-6 h-6 inline mr-2" />
+            <p className="text-gray-400 mb-2 text-center text-sm underline">
+              or use another login
+            </p>
+            <button
+              className="w-full border border-gray-300 text-md p-1 mb-2 rounded-lg bg-slate-300 text-slate-400"
+              disabled
+            >
+              <FaGoogle className="w-6 h-6 inline mr-2" color="gray" />
               Sign in with Google
             </button>
             <p className="mt-2 text-gray-400 text-sm text-center">
