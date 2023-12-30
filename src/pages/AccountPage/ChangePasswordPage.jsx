@@ -1,4 +1,3 @@
-// import { ToastContainer, toast } from 'react-toastify';
 import { useState, useRef } from "react";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from "../../components/AccountComponent/ButtonBack";

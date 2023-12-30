@@ -36,25 +36,6 @@ export const login = (email, password, navigate) => async (dispatch) => {
   }
 };
 
-// export const login = (email, password, navigate) => async (dispatch) => {
-//   try {
-//     const response = await axios.post(`${api_url}/auth/login`, {
-//       email,
-//       password,
-//     });
-//     const { data } = response.data;
-//     const { token } = data;
-
-//     dispatch(setToken(token));
-//     toast.success("Login successful");
-//     setTimeout(() => {
-//       navigate("/");
-//     }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
-//   } catch (error) {
-//     toast.error();
-//   }
-// };
-
 export const getMe =
   (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
     try {
