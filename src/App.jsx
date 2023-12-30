@@ -24,7 +24,6 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
@@ -38,14 +37,6 @@ function App() {
               </Protected>
             }
           />
-          {/* <Route
-            path="/notif"
-            element={
-              <Protected>
-                <NotificationPage />
-              </Protected>
-            }
-          /> */}
           <Route
             path="/user"
             element={
@@ -105,24 +96,19 @@ function App() {
           <Route
             path="/verify-email"
             element={
-              // <Protected>
               <SendEmail />
-              //</Protected>
             }
           />
           <Route
             path="/reset-password"
             element={
-              // <Protected>
               <ResetPassword />
-              //</Protected>
             }
           />
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {/* <Footer /> */}
       </Router>
     </>
   );

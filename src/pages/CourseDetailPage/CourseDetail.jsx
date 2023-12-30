@@ -225,7 +225,7 @@ const CourseDetail = () => {
                   <div className="flex justify-between">
                     <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
                       <button
-                        className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
+                        className="flex items-center gap-2 text-white md:w-24 lg:mb-6"
                         onClick={handleLoveClick}
                       >
                         {isLoved ? (
