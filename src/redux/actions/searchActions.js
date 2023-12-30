@@ -23,8 +23,6 @@ export const getSearchCourses =
           setErrors({ ...errors, isError: false });
         }
 
-        // dispatch(setSearching(courses));
-        // setErrors({ ...errors, isError: false });
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setErrors({
