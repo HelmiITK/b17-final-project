@@ -1,5 +1,4 @@
 import { BadgeCheck } from "lucide-react";
-// import { useState } from "react";
 import PropTypes from "prop-types";
 
 // persentase progress

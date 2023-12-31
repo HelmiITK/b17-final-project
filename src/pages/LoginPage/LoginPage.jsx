@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { login } from "../../redux/actions/authActions";
 import { ToastContainer } from "react-toastify";
+
+import { login } from "../../redux/actions/authActions";
 import Pedjuang from "../../assets/PedjuangIlmuuu.svg";
 
 const LoginPage = () => {

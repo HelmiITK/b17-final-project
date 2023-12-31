@@ -1,11 +1,12 @@
 import axios from "axios";
+import Swal from "sweetalert2";
+
 import {
   setCourse,
   setMyCourse,
   setRating,
   setPageCourse,
 } from "../reducers/courseReducers";
-import Swal from "sweetalert2";
 
 // fungsi swal untuk dipanggil terus
 const swal = (icon, title, text) =>

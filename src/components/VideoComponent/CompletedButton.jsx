@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { updateMaterialStatus } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
-import { useNavigate, useParams } from "react-router-dom";
 
 const CompletedButton = ({ materialId, progress, materialNextIndex }) => {
   const dispatch = useDispatch();

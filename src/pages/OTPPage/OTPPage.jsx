@@ -4,8 +4,9 @@ import OtpInput from "react-otp-input";
 import { MdVerifiedUser } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { resendOtp, verify } from "../../redux/actions/authActions";
 import { ToastContainer } from "react-toastify";
+
+import { resendOtp, verify } from "../../redux/actions/authActions";
 
 const OTPPage = () => {
   const navigate = useNavigate();
@@ -69,7 +70,8 @@ const OTPPage = () => {
               </div>
               <div className="flex flex-col space-y-6">
                 <label className="text-[12px] text-sm lg:text-sm mb-[4px] text-center font-Poppins">
-                  Ketik 6 digit kode yang dikirimkan ke <span className="font-bold">{email}</span>
+                  Ketik 6 digit kode yang dikirimkan ke{" "}
+                  <span className="font-bold">{email}</span>
                 </label>
                 <div className="flex flex-row items-center justify-center mx-auto w-full max-w-sm">
                   <OtpInput

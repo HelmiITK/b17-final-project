@@ -1,13 +1,14 @@
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getMyCourse } from "../../redux/actions/courseActions";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from "../../components/AccountComponent/ButtonBack";
 import MenuList from "../../components/AccountComponent/MenuList";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import CardHistory from "../../components/HistoryPaymentComponent/CardHistory";
-import { useDispatch, useSelector } from "react-redux";
-import { getMyCourse } from "../../redux/actions/courseActions";
 
 const HistoryPayment = () => {
   const [openHamburger, setOpenHamburger] = useState(false);
@@ -99,7 +100,7 @@ const HistoryPayment = () => {
           </div>
         </div>
       </div>
-      <Footer linkRef={linkRef} goto={goto}/>
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };
