@@ -64,3 +64,18 @@ input[type="text"]:focus ~ .input-text {
   @apply bg-primary rounded-full;
 }
 /* End editing scrollbar */
+
+.custom-save-button {
+  background-color: green !important; /* !important digunakan agar mengesampingkan styling bawaan SweetAlert */
+  color: white !important;
+}
+
+.custom-ok-button {
+  background-color: green !important; /* Warna untuk tombol "Ok" */
+  color: white !important;
+}
+
+.custom-deny-button {
+  background-color: red !important; /* Warna untuk tombol "Cancel" (Deny) */
+  color: white !important;
+}

@@ -2,7 +2,7 @@ import { IoNotificationsCircleSharp } from "react-icons/io5";
 
 const Main = () => {
   return (
-    <div className="w-full rounded-xl overflow-hidden bg-white border border-color-primary pb-10">
+    <div className="w-full mb-10 rounded-xl overflow-hidden bg-white border border-color-primary pb-10">
       <div className="w-full bg-primary">
         <h1 className="text-center text-white font-semibold py-3 lg:py-4 lg:text-lg tracking-wider">
           Notifikasi

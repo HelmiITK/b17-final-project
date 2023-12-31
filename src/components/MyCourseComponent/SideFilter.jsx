@@ -1,24 +1,36 @@
-import { useState } from "react";
-import { cn } from "../../libs/utils";
+import { useEffect, useState } from "react";
 import { XCircle } from "lucide-react";
 import { FaFilter } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-const SideFilter = () => {
-  const filter = ["Paling Baru", "Paling Populer", "Promo"];
-  const kategori = [
-    "UI/UX Design",
-    "Web Developer",
-    "Android Developer",
-    "Data Science",
-    "Business Software",
-  ];
-  const levelKesulitan = [
-    "Semua Level",
-    "Beginner Level",
-    "Intermediate Level",
-    "Advanced Level",
-  ];
+import { cn } from "../../libs/utils";
+
+const SideFilter = ({ handleCategory, handleLevel, categoryFromHome }) => {
+  const { category } = useSelector((state) => state.category);
+  const levelKesulitan = ["pemula", "menengah", "lanjutan"];
   const [open, setOpen] = useState(false);
+  const [checkedCategories, setCheckedCategories] = useState(
+    categoryFromHome ? [categoryFromHome] : []
+  );
+  const [checkedLevels, setCheckedLevels] = useState([]);
+  const [checkedFilter, setCheckedFilter] = useState([]);
+  useEffect(() => {
+    handleCategory(checkedCategories);
+    handleLevel(checkedLevels);
+  }, [
+    checkedCategories,
+    handleCategory,
+    handleLevel,
+    checkedLevels,
+    checkedFilter,
+  ]);
+
+  const deleteFilter = () => {
+    setCheckedCategories([]);
+    setCheckedLevels([]);
+    setCheckedFilter([]);
+  };
 
   return (
     <>
@@ -36,7 +48,7 @@ const SideFilter = () => {
       </div>
       <div
         className={cn(
-          "opacity-0 fixed w-full left-0 bottom-[-71vh] z-50 md:z-0 h-[70vh] rounded-t-xl md:opacity-100 md:h-[80vh] overflow-auto  md:flex md:sticky md:top-24 transition-all duration-300 bg-white rounded-lg",
+          "opacity-0 fixed w-full left-0 bottom-[-71vh] z-50 md:z-0 max-h-[70vh] h-auto rounded-t-xl md:opacity-100 overflow-auto  md:flex md:sticky md:top-24 transition-all duration-300 bg-white rounded-lg",
           open && "overflow-auto bottom-0 opacity-100"
         )}
       >
@@ -48,56 +60,78 @@ const SideFilter = () => {
           >
             <XCircle />
           </div>
-          {/* filter  */}
-          <div className="mx-5 my-2 mt-6">
-            <h1 className="tracking-wider font-bold text-lg">Filter</h1>
-            {filter.map((item, index) => (
-              <div className="flex items-center my-2 ml-1" key={index}>
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  <span className="checkbox-custom rectangular"></span>
-                </label>
-                <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
           {/* kategori */}
-          <div className="mx-5 my-2">
+          <div className="mx-5 my-2 mt-6">
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
-            {kategori.map((item, index) => (
-              <div className="flex items-center my-2 ml-1" key={index}>
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  <span className="checkbox-custom rectangular"></span>
-                </label>
-                <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                  {item}
-                </p>
-              </div>
-            ))}
+            {category.map((item) => {
+              const checked = checkedCategories.includes(item.id);
+              return (
+                <div className="flex items-center my-2 ml-1" key={item.id}>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => {
+                        if (checked) {
+                          // remove dari array jika sudah diceklis
+                          setCheckedCategories(
+                            checkedCategories.filter((i) => i !== item.id)
+                          );
+                        } else {
+                          // tambahkan ke array jika belum diceklis
+                          setCheckedCategories([...checkedCategories, item.id]);
+                        }
+                      }}
+                    />
+                    <span className="checkbox-custom" />
+                  </label>
+                  <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
+                    {item.title}
+                  </p>
+                </div>
+              );
+            })}
           </div>
           {/* level kesulitah */}
           <div className="mx-5 my-2">
             <h1 className="tracking-wider font-bold text-lg">
               Level Kesulitan
             </h1>
-            {levelKesulitan.map((item, index) => (
-              <div className="flex items-center my-2 ml-1" key={index}>
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  <span className="checkbox-custom rectangular"></span>
-                </label>
-                <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
-                  {item}
-                </p>
-              </div>
-            ))}
+            {levelKesulitan.map((item, i) => {
+              const checked = checkedLevels?.includes(item);
+              return (
+                <div className="flex items-center my-2 ml-1" key={i}>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => {
+                        if (checked) {
+                          // remove dari array jika sudah diceklis
+                          setCheckedLevels(
+                            checkedLevels.filter((i) => i !== item)
+                          );
+                        } else {
+                          // tambahkan ke array jika belum diceklis
+                          setCheckedLevels([...checkedLevels, item]);
+                        }
+                      }}
+                    />
+                    <span className="checkbox-custom" />
+                  </label>
+                  <p className="ml-4 font-semibold text-slate-600 -tracking-wide text-sm">
+                    Level {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </p>
+                </div>
+              );
+            })}
           </div>
           {/* tombol untuk hapus filter */}
           <div className="my-3 mx-5">
-            <button className="p-1 -tracking-wider w-full bg-inherit font-semibold rounded-md md:bg-transparent bg-white text-red-500 hover:bg-red-500 hover:text-white hover:scale-105 transition duration-300 mb-4">
+            <button
+              onClick={deleteFilter}
+              className="p-1 -tracking-wider w-full bg-inherit font-semibold rounded-md md:bg-transparent bg-white text-red-500 hover:bg-red-500 hover:text-white hover:scale-105 transition duration-300 mb-4"
+            >
               Hapus Filter
             </button>
           </div>
@@ -105,6 +139,12 @@ const SideFilter = () => {
       </div>
     </>
   );
+};
+
+SideFilter.propTypes = {
+  handleCategory: PropTypes.func,
+  handleLevel: PropTypes.func,
+  categoryFromHome: PropTypes.number,
 };
 
 export default SideFilter;

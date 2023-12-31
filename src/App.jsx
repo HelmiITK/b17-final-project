@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/NavbarComponent/Navbar";
+
 import HomePage from "./pages/HomePage/HomePage";
-import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import NotFound from "./pages/NotfoundPage/NotFound";
 import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
@@ -14,26 +13,89 @@ import ChangePasswordPage from "./pages/AccountPage/ChangePasswordPage";
 import UserPage from "./pages/AccountPage/UserPage";
 import HistoryPayment from "./pages/AccountPage/HistoryPayment";
 import BuyPage from "./pages/BuyPage/BuyPage";
+import CourseDetail from "./pages/CourseDetailPage/CourseDetail";
+import NoAccessToken from "./security/NoAccessToken";
+import Protected from "./security/Protected";
+import SendEmail from "./pages/ResetPassword/SendEmail";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import SearchCourse from "./pages/SearchPage/SearchCourse";
 
 function App() {
   return (
     <>
       <Router>
-        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/course" element={<CoursePage />} />
-          <Route path="/mycourse" element={<MyCoursePage />} />
-          <Route path="/notif" element={<NotificationPage />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/changepassword" element={<ChangePasswordPage />} />
-          <Route path="/historypayment" element={<HistoryPayment />} />
-          <Route path="/video" element={<VideoPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/otp" element={<OTPPage />} />
+          <Route path="/search" element={<SearchCourse />} />
+          <Route
+            path="/mycourse"
+            element={
+              <Protected>
+                <MyCoursePage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              <Protected>
+                <UserPage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/changepassword"
+            element={
+              <Protected>
+                <ChangePasswordPage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/historypayment"
+            element={
+              <Protected>
+                <HistoryPayment />
+              </Protected>
+            }
+          />
+          <Route
+            path="/course-detail/:courseId/video/:materialId"
+            element={
+              <Protected>
+                <VideoPage />
+              </Protected>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <NoAccessToken>
+                <LoginPage />
+              </NoAccessToken>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <NoAccessToken>
+                <RegisterPage />
+              </NoAccessToken>
+            }
+          />
+          <Route
+            path="/otp"
+            element={
+              <NoAccessToken>
+                <OTPPage />
+              </NoAccessToken>
+            }
+          />
+          <Route path="/verify-email" element={<SendEmail />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/success" element={<SuccessBuyPage />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
