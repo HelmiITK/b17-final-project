@@ -109,8 +109,8 @@ const Navbar = () => {
     <>
       <nav
         className={`w-full fixed z-20 bg-primary ${navbar
-            ? "bg-primary bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
-            : ""
+          ? "bg-primary bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
+          : ""
           }`}
       >
         <div className="flex justify-between px-2 py-4 lg:pt-6 lg:px-10 items-center">
