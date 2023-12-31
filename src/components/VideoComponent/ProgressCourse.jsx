@@ -85,7 +85,7 @@ const ProgressCourse = ({ isOpen }) => {
                   key={x}
                   className={cn("duration-300 cursor-pointer")}
                   // untuk menandakan bahwa material chaapter sedang aktif
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   {/* item chapter */}
                   <ChapterItem

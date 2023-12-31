@@ -80,7 +80,7 @@ const Card = ({ course }) => {
                   Level{" "}
                   {course &&
                     course?.level?.charAt(0).toUpperCase() +
-                      course?.level?.slice(1)}{" "}
+                    course?.level?.slice(1)}{" "}
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -113,7 +113,7 @@ const Card = ({ course }) => {
                       </span>{" "}
                       {course &&
                         course?.type_course?.charAt(0).toUpperCase() +
-                          course?.type_course?.slice(1)}
+                        course?.type_course?.slice(1)}
                     </button>
                   </div>
                   {/* button ketika mau beli (ada harganya) */}

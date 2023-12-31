@@ -188,7 +188,7 @@ const CoursePage = () => {
                       " font-medium text-white bg-primary text-xs rounded-md py-1 px-2 ml-4",
                       (pages === pageCourse.totalPages ||
                         course?.length < 10) &&
-                        "bg-slate-300 text-slate-500"
+                      "bg-slate-300 text-slate-500"
                     )}
                   >
                     next &gt;
