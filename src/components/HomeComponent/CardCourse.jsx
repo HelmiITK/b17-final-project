@@ -1,10 +1,11 @@
 import { Book, Clock, Gem, Shield } from "lucide-react";
-import Progressbar from "../MyCourseComponent/ProgressBar";
 import { FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import Progressbar from "../MyCourseComponent/ProgressBar";
 import { formatPrice } from "../../libs/formatToIDR";
 
 const CardCourse = ({ course }) => {

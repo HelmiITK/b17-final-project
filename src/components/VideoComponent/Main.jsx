@@ -1,17 +1,23 @@
 import ReactPlayer from "react-player";
-import InfoCourse from "./InfoCourse";
-import DescriptionCourse from "./DescriptionCourse";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import CompletedButton from "./CompletedButton";
-import { updateMaterialStatus } from "../../redux/actions/courseActions";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { updateMaterialStatus } from "../../redux/actions/courseActions";
+import CompletedButton from "./CompletedButton";
+import InfoCourse from "./InfoCourse";
+import DescriptionCourse from "./DescriptionCourse";
 
 const Main = ({ materialId, myCourse }) => {
   const materialss = myCourse?.course?.materials;
   // sorting berdasarkan id material agar material terurut
   const sortAscByIdMaterials =
     materialss && [...materialss].sort((a, b) => a.id - b.id);
+
+  // hitung durasi video
+  const totalTime = sortAscByIdMaterials.reduce((total, material) => {
+    return total + material.duration_in_minutes;
+  }, 0);
 
   // get index selanjutnya untuk perpindahan halaman
   const getNextIndex =
@@ -48,7 +54,7 @@ const Main = ({ materialId, myCourse }) => {
         {/* isinya kyk judul, rating dll */}
         {/* InfoCourse ketika tampilan web */}
         <div className="hidden md:block">
-          <InfoCourse />
+          <InfoCourse totalTime={totalTime} />
         </div>
         {/* tampilan video */}
         <div className="flex justify-center">
@@ -62,7 +68,6 @@ const Main = ({ materialId, myCourse }) => {
                 className="react-player"
                 onEnded={updateMaterial}
               />
-              <div>aaa</div>
             </div>
             <CompletedButton
               materialId={materialId}
@@ -73,7 +78,7 @@ const Main = ({ materialId, myCourse }) => {
         </div>
         {/* Infocourse ketika mobile */}
         <div className="block py-4 bg-layer w-full md:hidden">
-          <InfoCourse />
+          <InfoCourse totalTime={totalTime} />
         </div>
         {/* deskripsi course isinya kyk tentang kelas */}
         <DescriptionCourse />

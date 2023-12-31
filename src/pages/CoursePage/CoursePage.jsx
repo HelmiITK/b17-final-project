@@ -1,31 +1,31 @@
 // import { Search } from "lucide-react";
-import Main from "../../components/MyCourseComponent/Main";
-import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+
+import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
+import { cn } from "../../libs/utils";
+import { scrollTop } from "../../libs/scrollTop";
+import Main from "../../components/MyCourseComponent/Main";
+import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import {
   getCourseWithFilter,
   getMyCourse,
   getPagesCourse,
 } from "../../redux/actions/courseActions";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import Navbar from "../../components/NavbarComponent/Navbar";
-import Footer from "../../components/FooterComponent/Footer";
-import { cn } from "../../libs/utils";
-import { scrollTop } from "../../libs/scrollTop";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
   const { pageCourse } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
 
   // loading
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingCat, setIsLoadingCat] = useState(false);
-  // const [isLoadingInfinite, setIsLoadingInfinite] = useState(true);
 
   // keperluan infinite loop
   const [pages, setPages] = useState(1);
@@ -53,8 +53,7 @@ const CoursePage = () => {
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
-    setIsLoadingCat(true);
-    dispatch(getCategory()).then(() => setIsLoadingCat(false));
+    dispatch(getCategory());
   }, [dispatch]);
 
   useEffect(() => {
@@ -104,8 +103,10 @@ const CoursePage = () => {
 
   // mycourse di dispatch agar card bisa membedakan mana yang sudah dibeli user dan belum
   useEffect(() => {
-    dispatch(getMyCourse());
-  }, [dispatch]);
+    if (user) {
+      dispatch(getMyCourse());
+    }
+  }, [dispatch, user]);
   // untuk mengarahkan ke page berikutnya
   const handleLoadMoreNext = () => {
     if (pages < pageCourse.totalPages) {
@@ -148,7 +149,6 @@ const CoursePage = () => {
               <div className="col-span-3 md:col-span-1">
                 <SideFilter
                   handleCategory={handleCategory}
-                  isLoading={isLoadingCat}
                   handleLevel={handleLevel}
                   categoryFromHome={state?.categoryId}
                 />

@@ -1,10 +1,11 @@
-import ProgressBar from "../MyCourseComponent/ProgressBar";
-import ChapterItem from "./ChapterItem";
-import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
+import ProgressBar from "../MyCourseComponent/ProgressBar";
+import ChapterItem from "./ChapterItem";
+import { cn } from "../../libs/utils";
 
 const ProgressCourse = ({ isOpen }) => {
   const { courseId, materialId } = useParams();

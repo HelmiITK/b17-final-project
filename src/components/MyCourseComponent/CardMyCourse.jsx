@@ -1,10 +1,11 @@
-import { Book, Clock, Gem, Shield } from "lucide-react";
-import Progressbar from "./ProgressBar";
+import { Book, Clock, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import Progressbar from "./ProgressBar";
 import { getCategory } from "../../redux/actions/categoryActions";
 // card course
 const Card = ({ course, rating }) => {

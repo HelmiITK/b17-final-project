@@ -1,17 +1,19 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
-import { getMe } from "../redux/actions/authActions"
+import { useNavigate } from "react-router-dom";
+
+import { getMe } from "../redux/actions/authActions";
 
 const Protected = ({ children }) => {
-   const navigate = useNavigate();
-   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-   useEffect(() => {
-      dispatch(getMe(navigate, null, "/login"));
-   }, [dispatch, navigate]);
+  // paksa user ke halaman login jika memaksa masuk ke beberapa halaman tertentu
+  useEffect(() => {
+    dispatch(getMe(navigate, null, "/login"));
+  }, [dispatch, navigate]);
 
-   return children;
-}
+  return children;
+};
 
 export default Protected;

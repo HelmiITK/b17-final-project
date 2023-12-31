@@ -3,14 +3,14 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BiSearchAlt } from "react-icons/bi";
 import { LuLogIn } from "react-icons/lu";
 import { TfiMenuAlt } from "react-icons/tfi";
-// import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { getMe } from "../../redux/actions/authActions";
 import { IoMdHome } from "react-icons/io";
+
+import { getMe } from "../../redux/actions/authActions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
