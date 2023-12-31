@@ -2,9 +2,10 @@ import { IoMdClose } from "react-icons/io";
 import { cn } from "../../libs/utils";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
-import Card from "../MyCourseComponent/Card";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import Card from "../MyCourseComponent/Card";
 import { getDetailCourse } from "../../redux/actions/detailActions";
 import {
   enrollFreeCourse,
@@ -17,13 +18,12 @@ const PopupBuy = ({ isPopupBuy, handlePopup, courseId }) => {
     isError: false,
     message: null,
   });
+  const { detail } = useSelector((state) => state.course);
 
   useEffect(() => {
     // get data dari redux
     dispatch(getDetailCourse(courseId, setErrors, errors));
   }, [courseId]);
-
-  const { detail } = useSelector((state) => state.course);
 
   const handleBuy = async () => {
     // pembelian untuk yang berbayar

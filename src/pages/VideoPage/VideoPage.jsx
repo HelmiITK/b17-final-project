@@ -1,12 +1,13 @@
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
-import Main from "../../components/VideoComponent/Main";
 import { CiBoxList } from "react-icons/ci";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getDetailCourse } from "../../redux/actions/detailActions";
+import ProgressCourse from "../../components/VideoComponent/ProgressCourse";
+import Main from "../../components/VideoComponent/Main";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import { getMyCourse } from "../../redux/actions/courseActions";
@@ -72,7 +73,10 @@ const VideoPage = () => {
         </>
       )}
       {/* tombol untuk menampilkan/menghilangkan progressCourse */}
-      <div className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all" ref={linkRef}>
+      <div
+        className="lg:hidden fixed bottom-2 sm:bottom-4 md:bottom-6 left-[50%] -translate-x-[50%] z-30  duration-300 transition-all"
+        ref={linkRef}
+      >
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="bg-primary text-sm font-semibold text-white rounded-md px-4 py-2 flex items-center"
@@ -113,7 +117,7 @@ const VideoPage = () => {
         {/* background yang beda warna */}
         <div className="bg-layer h-[280px] hidden md:block" />
       </div>
-      <Footer linkRef={linkRef} goto={goto}/>
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

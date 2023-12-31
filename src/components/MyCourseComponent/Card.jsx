@@ -1,23 +1,25 @@
 import { Book, Clock, Gem, Shield } from "lucide-react";
-import Progressbar from "./ProgressBar";
-import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { formatPrice } from "../../libs/formatToIDR";
 import { useEffect, useState } from "react";
+
+import { formatPrice } from "../../libs/formatToIDR";
+import Progressbar from "./ProgressBar";
 import { getCategory } from "../../redux/actions/categoryActions";
+
 // card course
 const Card = ({ course }) => {
   const [checkMycourse, setCheckMycourse] = useState(false);
   const { mycourse } = useSelector((state) => state.course);
   const dispatch = useDispatch();
+  const { category } = useSelector((state) => state.category);
+  let categoryName = "";
+
   useEffect(() => {
     dispatch(getCategory());
   }, [dispatch]);
-
-  const { category } = useSelector((state) => state.category);
-  let categoryName = "";
 
   if (category.length > 0) {
     const foundCategory = category.find(

@@ -1,18 +1,19 @@
-import Navbar from "../../components/NavbarComponent/Navbar";
-import Footer from "../../components/FooterComponent/Footer";
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
-import CardCategory from "../../components/HomeComponent/CardCategory";
-import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
-import CardCourse from "../../components/HomeComponent/CardCourse";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategory } from "../../redux/actions/categoryActions";
-import { getCourse, getMyCourse } from "../../redux/actions/courseActions";
 import ClockLoader from "react-spinners/ClockLoader";
 import { TypeAnimation } from "react-type-animation";
 import { BsChatLeftQuoteFill } from "react-icons/bs";
+
+import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
+import CardCategory from "../../components/HomeComponent/CardCategory";
+import ButtonCourse from "../../components/HomeComponent/ButtonCourse";
+import CardCourse from "../../components/HomeComponent/CardCourse";
+import { getCategory } from "../../redux/actions/categoryActions";
+import { getCourse, getMyCourse } from "../../redux/actions/courseActions";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -279,7 +280,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      <Footer linkRef={linkRef} goto={goto}/>
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

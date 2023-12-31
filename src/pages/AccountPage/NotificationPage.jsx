@@ -1,5 +1,6 @@
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+
 import Main from "../../components/NotificationComponent/Main";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";

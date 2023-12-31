@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { cn } from "../../libs/utils";
 import CardMyCourse from "./CardMyCourse";
 import PropTypes from "prop-types";
 import ClockLoader from "react-spinners/ClockLoader";
+
+import { cn } from "../../libs/utils";
 
 const MainMyCourse = ({ data, course, isLoading, getFilterFromMain }) => {
   const [flag, setFlag] = useState(0);

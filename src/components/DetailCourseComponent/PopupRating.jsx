@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
-import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { createRating, updateRating } from "../../redux/actions/courseActions";
-import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { createRating, updateRating } from "../../redux/actions/courseActions";
+import { cn } from "../../libs/utils";
 
 const PopupRating = ({ isPopupRating, handleRating }) => {
   const [ratings, setRatings] = useState(null);
@@ -15,6 +16,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
   const { rating } = useSelector((state) => state.course);
   const { courseId } = useParams();
   const dispatch = useDispatch();
+
   const handleSubmit = async () => {
     const ratingThisCourse = rating.find(
       (rate) => rate.course_id == courseId && rate.user_id === user.id
@@ -49,6 +51,7 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
       handleRating();
     }
   };
+
   return (
     <div
       className={cn(

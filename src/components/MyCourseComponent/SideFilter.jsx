@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-import { cn } from "../../libs/utils";
 import { XCircle } from "lucide-react";
 import { FaFilter } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { ClockLoader } from "react-spinners";
 
-const SideFilter = ({
-  handleCategory,
-  isLoading,
-  handleLevel,
-  categoryFromHome,
-}) => {
+import { cn } from "../../libs/utils";
+
+const SideFilter = ({ handleCategory, handleLevel, categoryFromHome }) => {
   const { category } = useSelector((state) => state.category);
   const levelKesulitan = ["pemula", "menengah", "lanjutan"];
   const [open, setOpen] = useState(false);
@@ -68,11 +63,6 @@ const SideFilter = ({
           {/* kategori */}
           <div className="mx-5 my-2 mt-6">
             <h1 className="tracking-wider font-bold text-lg">Kategori</h1>
-            {isLoading && (
-              <div className="h-32 w-full items-center flex justify-center sticky top-24 ">
-                <ClockLoader color="#003E9C" size={24} speedMultiplier={2} />
-              </div>
-            )}
             {category.map((item) => {
               const checked = checkedCategories.includes(item.id);
               return (
@@ -153,7 +143,6 @@ const SideFilter = ({
 
 SideFilter.propTypes = {
   handleCategory: PropTypes.func,
-  isLoading: PropTypes.bool,
   handleLevel: PropTypes.func,
   categoryFromHome: PropTypes.number,
 };

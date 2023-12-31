@@ -1,5 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 import PropTypes from "prop-types";
+
 import { cn } from "../../libs/utils";
 import successGif from "../../assets/success.gif";
 
@@ -47,6 +48,5 @@ const PopupFinishCourse = ({ isPopupFinish, handlePopupFinish }) => {
 PopupFinishCourse.propTypes = {
   isPopupFinish: PropTypes.bool,
   handlePopupFinish: PropTypes.func,
-  courseId: PropTypes.string,
 };
 export default PopupFinishCourse;

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import HomePage from "./pages/HomePage/HomePage";
-// import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import NotFound from "./pages/NotfoundPage/NotFound";
 import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
@@ -93,18 +93,8 @@ function App() {
               </NoAccessToken>
             }
           />
-          <Route
-            path="/verify-email"
-            element={
-              <SendEmail />
-            }
-          />
-          <Route
-            path="/reset-password"
-            element={
-              <ResetPassword />
-            }
-          />
+          <Route path="/verify-email" element={<SendEmail />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />

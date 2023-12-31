@@ -1,16 +1,16 @@
-// import { Search } from "lucide-react";
-import SideFilter from "../../components/MyCourseComponent/SideFilter";
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import {
-  getMyCourse,
-  getMyCourseWithFilter,
-} from "../../redux/actions/courseActions";
+
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import MainMyCourse from "../../components/MyCourseComponent/MainMyCourse";
 import { scrollTop } from "../../libs/scrollTop";
+import SideFilter from "../../components/MyCourseComponent/SideFilter";
+import {
+  getMyCourse,
+  getMyCourseWithFilter,
+} from "../../redux/actions/courseActions";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
