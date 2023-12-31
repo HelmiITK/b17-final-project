@@ -88,7 +88,7 @@ const SearchCourse = () => {
           />
         ) : // Cek apakah data ada
         errors?.isError ? (
-          <div className="flex flex-col gap-4 mt-16 items-center">
+          <div className="flex flex-col gap-4 my-16 items-center">
             <BsEmojiFrownFill className="w-24 h-24 drop-shadow-lg rounded-full shadow-lg animate-pulse" />
             <h2 className="font-semibold text-lg">Data Tidak Tersedia</h2>
           </div>
