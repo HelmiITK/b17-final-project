@@ -59,11 +59,10 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
         )}
       </button>
       <div
-        className={`${
-          openHamburger
+        className={`${openHamburger
             ? "-translate-x-24 md:-translate-x-[230px]"
             : "-translate-x-[685px] md:-translate-x-[877px]"
-        }
+          }
                         transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-11  bg-gradient-to-br via-blue-300 from-color-primary bg-blue-200 border-2 border-blue-300 px-5 py-6 rounded-xl shadow-xl `}
       >
         <ul className="flex flex-col gap-3 text-left items-left">

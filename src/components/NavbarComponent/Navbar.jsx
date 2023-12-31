@@ -108,11 +108,10 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`w-full fixed z-20 bg-primary ${
-          navbar
+        className={`w-full fixed z-20 bg-primary ${navbar
             ? "bg-primary bg-opacity-60 backdrop-blur-sm shadow-black shadow-sm duration-500"
             : ""
-        }`}
+          }`}
       >
         <div className="flex justify-between px-2 py-4 lg:pt-6 lg:px-10 items-center">
           {/* logo */}
@@ -163,9 +162,8 @@ const Navbar = () => {
                 <form
                   action="search"
                   onSubmit={handleSearch}
-                  className={`${
-                    isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
-                  }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
+                  className={`${isSearchOpen ? "-translate-x-28" : "-translate-x-[750px]"
+                    }  transition-transform duration-500 ease-in-out absolute top-0 right-0 flex`}
                 >
                   <input
                     name="search"
@@ -197,9 +195,8 @@ const Navbar = () => {
                   )}
                 </button>
                 <div
-                  className={`${
-                    openHamburger ? "translate-y-0" : "-translate-y-[290px]"
-                  } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
+                  className={`${openHamburger ? "translate-y-0" : "-translate-y-[290px]"
+                    } transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-16  bg-gradient-to-l from-indigo-200 border border-indigo-300 px-5 py-6 rounded-md shadow-lg `}
                 >
                   <ul className="flex flex-col gap-4">
                     {!user ? (

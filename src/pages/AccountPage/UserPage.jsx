@@ -303,11 +303,10 @@ const UserPage = () => {
                           onClick={handleSaveProfile}
                           disabled={!isProfileChanged}
                           className={`w-full bg-blue-600 text-sm font-medium text-white py-2 px-6 rounded-2xl hover:bg-primary focus:outline-none focus:shadow-outline-blue
-                                             ${
-                                               isProfileChanged
-                                                 ? ""
-                                                 : "cursor-not-allowed opacity-50"
-                                             }`}
+                                      ${isProfileChanged
+                              ? ""
+                              : "cursor-not-allowed opacity-50"
+                            }`}
                         >
                           Simpan Profil Saya
                         </button>
