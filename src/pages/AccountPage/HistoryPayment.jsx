@@ -84,6 +84,12 @@ const HistoryPayment = () => {
                   Riwayat Pembayaran
                 </div>
                 {/* card history */}
+                {mycourse?.length === 0 && (
+                  <div className="text-center text-slate-500 text-sm">
+                    <p>Anda belum pernah mengenroll course apapun</p>
+                    <p>Silahkan enroll kelas terlebih dahulu</p>
+                  </div>
+                )}
                 <div className="flex flex-col items-center gap-4 h-96 overflow-y-scroll">
                   {sortEnroll &&
                     sortEnroll.map((course) => (
