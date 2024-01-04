@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 const ButtonBack = () => {
@@ -12,4 +12,4 @@ const ButtonBack = () => {
   )
 }
 
-export default ButtonBack
+export default ButtonBack;

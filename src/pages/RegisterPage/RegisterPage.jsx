@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import { register } from "../../redux/actions/authActions";
 import Pedjuang from "../../assets/PedjuangIlmuuu.svg";
@@ -105,12 +106,17 @@ const RegisterPage = () => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl font-bold text-black">
-              Sign Up Account
-            </span>
-            <span className="font-light text-gray-400 mb-8">
+            <Link to={"/login"}>
+              <p className="flex font-semibold text-md text-color-primary items-center hover:underline transition-all duration-300 hover:scale-100">
+                <IoMdArrowRoundBack />
+                Back to Login
+              </p>
+            </Link>
+            <span className="mb-3 text-4xl font-bold text-black">Sign Up Account</span>
+            <span className="font-light text-gray-400 mb-4">
               {/* Welcome back! please enter your details */}
-              Welcome To Pedjuang Ilmu
+              Selamat Datang kembali!
+              <br /> silakan masukkan detail Anda
             </span>
             <form onSubmit={registAcc}>
               <div className="py-1">
@@ -224,17 +230,14 @@ const RegisterPage = () => {
                 className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"
                 type="sumbit"
               >
-                Create an account
+                Daftar
               </button>
             </form>
 
             <p className="mt-2 text-gray-400 text-sm text-center">
-              Already have account ? &nbsp;
-              <Link
-                to={"/login"}
-                className="font-semibold underline text-color-warn"
-              >
-                Sign in
+              Sudah punya akun? &nbsp;
+              <Link to={"/login"} className="font-semibold underline text-color-warn">
+                Masuk di sini
               </Link>
             </p>
           </div>
