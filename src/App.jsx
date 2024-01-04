@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import HomePage from "./pages/HomePage/HomePage";
-// import NotificationPage from "./pages/AccountPage/NotificationPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 import NotFound from "./pages/NotfoundPage/NotFound";
 import MyCoursePage from "./pages/MyCoursePage/MyCoursePage";
@@ -24,7 +24,6 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
@@ -38,14 +37,6 @@ function App() {
               </Protected>
             }
           />
-          {/* <Route
-            path="/notif"
-            element={
-              <Protected>
-                <NotificationPage />
-              </Protected>
-            }
-          /> */}
           <Route
             path="/user"
             element={
@@ -102,22 +93,8 @@ function App() {
               </NoAccessToken>
             }
           />
-          <Route
-            path="/verify-email"
-            element={
-              // <Protected>
-              <SendEmail />
-              //</Protected>
-            }
-          />
-          <Route
-            path="/reset-password"
-            element={
-              // <Protected>
-              <ResetPassword />
-              //</Protected>
-            }
-          />
+          <Route path="/verify-email" element={<SendEmail />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/success" element={<SuccessBuyPage />} />
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />

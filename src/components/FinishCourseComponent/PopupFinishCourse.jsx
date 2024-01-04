@@ -47,6 +47,5 @@ const PopupFinishCourse = ({ isPopupFinish, handlePopupFinish }) => {
 PopupFinishCourse.propTypes = {
   isPopupFinish: PropTypes.bool,
   handlePopupFinish: PropTypes.func,
-  courseId: PropTypes.string,
 };
 export default PopupFinishCourse;

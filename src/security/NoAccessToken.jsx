@@ -7,6 +7,7 @@ const NoAccessToken = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // paksa user ke halaman home jika memaksa masuk ke beberapa halaman tertentu
   useEffect(() => {
     dispatch(getMe(navigate, "/", null));
   }, [dispatch, navigate]);

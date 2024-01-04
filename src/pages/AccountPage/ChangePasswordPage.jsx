@@ -1,15 +1,15 @@
-// import { ToastContainer, toast } from 'react-toastify';
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
+import { updatePassword } from "../../redux/actions/authActions";
+import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
 import HamburgerMenuAccount from "../../components/AccountComponent/HamburgerMenuAccount";
 import ButtonBack from "../../components/AccountComponent/ButtonBack";
 import MenuList from "../../components/AccountComponent/MenuList";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import Navbar from "../../components/NavbarComponent/Navbar";
-import { useDispatch } from "react-redux";
-import { updatePassword } from "../../redux/actions/authActions";
-import Footer from "../../components/FooterComponent/Footer";
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.css";
 
 const ChangePasswordPage = () => {
   const dispatch = useDispatch();
@@ -90,10 +90,22 @@ const ChangePasswordPage = () => {
     }
   };
 
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Navbar />
-      <div className="w-full relative">
+      <div className="w-full relative" ref={linkRef}>
         <div className="bg-layer w-full h-64 pt-24"></div>
         <div className="container mx-auto -mt-40 lg:-mt-32">
           {/* button kembali ke beranda/home */}
@@ -120,12 +132,17 @@ const ChangePasswordPage = () => {
               {/* card ubah password */}
               <div className="-mt-4 lg:mt-3">
                 {/* heading ubah password */}
-                <div className="text-center font-semibold text-xl mb-5">Ubah Password</div>
+                <div className="text-center font-semibold text-xl mb-5">
+                  Ubah Password
+                </div>
                 {/* input update password */}
                 <div className="flex flex-col items-center gap-4">
                   {/* masukkan password lama */}
                   <div className="flex flex-col">
-                    <label htmlFor="lama" className="text-sm font-medium mb-2 text-gray-800">
+                    <label
+                      htmlFor="lama"
+                      className="text-sm font-medium mb-2 text-gray-800"
+                    >
                       Masukkan Password Lama
                     </label>
                     <div className="relative w-64">
@@ -147,7 +164,10 @@ const ChangePasswordPage = () => {
                   </div>
                   {/* masukkan password baru */}
                   <div className="flex flex-col">
-                    <label htmlFor="baru" className="text-sm font-medium mb-2 text-gray-800">
+                    <label
+                      htmlFor="baru"
+                      className="text-sm font-medium mb-2 text-gray-800"
+                    >
                       Masukkan Password Baru
                     </label>
                     <div className="relative w-64">
@@ -169,7 +189,10 @@ const ChangePasswordPage = () => {
                   </div>
                   {/* ulangin password baru */}
                   <div className="flex flex-col">
-                    <label htmlFor="ulang" className="text-sm font-medium mb-2 text-gray-800">
+                    <label
+                      htmlFor="ulang"
+                      className="text-sm font-medium mb-2 text-gray-800"
+                    >
                       Ulangi Password Baru
                     </label>
                     <div className="relative w-64">
@@ -202,7 +225,7 @@ const ChangePasswordPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

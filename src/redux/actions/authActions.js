@@ -36,27 +36,9 @@ export const login = (email, password, navigate) => async (dispatch) => {
   }
 };
 
-// export const login = (email, password, navigate) => async (dispatch) => {
-//   try {
-//     const response = await axios.post(`${api_url}/auth/login`, {
-//       email,
-//       password,
-//     });
-//     const { data } = response.data;
-//     const { token } = data;
-
-//     dispatch(setToken(token));
-//     toast.success("Login successful");
-//     setTimeout(() => {
-//       navigate("/");
-//     }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
-//   } catch (error) {
-//     toast.error();
-//   }
-// };
-
 export const getMe =
-  (navigate, navigatePathSuccess, navigatePathError) => async (dispatch, getState) => {
+  (navigate, navigatePathSuccess, navigatePathError) =>
+  async (dispatch, getState) => {
     try {
       let { token } = getState().auth;
       const response = await axios.get(`${api_url}/profiles/my-profile`, {
@@ -128,12 +110,16 @@ export const updateProfile =
           },
         });
 
-        const response = await axios.put(`${api_url}/profiles/update-profile`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.put(
+          `${api_url}/profiles/update-profile`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         const updatedProfile = response.data;
 
@@ -173,84 +159,86 @@ export const updateProfile =
     }
   };
 
-export const updatePassword = (currentPassword, newPassword) => async (dispatch, getState) => {
-  try {
-    let { token } = getState().auth;
+export const updatePassword =
+  (currentPassword, newPassword) => async (dispatch, getState) => {
+    try {
+      let { token } = getState().auth;
 
-    const passwordData = {
-      currentPassword,
-      newPassword,
-    };
+      const passwordData = {
+        currentPassword,
+        newPassword,
+      };
 
-    // Tampilkan konfirmasi SweetAlert2 setelah berhasil mengubah password
-    const result = await Swal.fire({
-      title: "Konfirmasi Perubahan Password?",
-      icon: "question",
-      text: "Apakah anda yakin ingin melakukan perubahan?",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Ya, Simpan",
-      denyButtonText: `Jangan Simpan`,
-      customClass: {
-        // Tambahkan kelas CSS khusus
-        confirmButton: "custom-save-button",
-        denyButton: "custom-deny-button",
-      },
-    });
-
-    // melakukan pengecekan dengan bantuan sweetalert2, apakah user change to save password atau tidak
-    if (result.isConfirmed) {
-      // Panggilan API hanya jika pengguna memilih untuk menyimpan perubahan
-      await axios.put(`${api_url}/profiles/update-password`, passwordData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      Swal.fire({
-        title: "Saved!",
-        icon: "success",
-        text: "Password Mu berhasil diperbarui",
-        timer: 2000, // jeda dulu bro 2 detik
-        showConfirmButton: false,
+      // Tampilkan konfirmasi SweetAlert2 setelah berhasil mengubah password
+      const result = await Swal.fire({
+        title: "Konfirmasi Perubahan Password?",
+        icon: "question",
+        text: "Apakah anda yakin ingin melakukan perubahan?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Ya, Simpan",
+        denyButtonText: `Jangan Simpan`,
         customClass: {
-          confirmButton: "custom-ok-button",
+          // Tambahkan kelas CSS khusus
+          confirmButton: "custom-save-button",
+          denyButton: "custom-deny-button",
         },
-      }).then(() => {
-        window.location.reload();
       });
-    } else if (result.isDenied) {
-      Swal.fire({
-        title: "Perubahan dibatalkan",
-        icon: "info",
-        timer: 2000,
-        showConfirmButton: false,
-        customClass: {
-          confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
-        },
-      }).then(() => {
-        // window.location.reload(); // Ini opsional
-      });
+
+      // melakukan pengecekan dengan bantuan sweetalert2, apakah user change to save password atau tidak
+      if (result.isConfirmed) {
+        // Panggilan API hanya jika pengguna memilih untuk menyimpan perubahan
+        await axios.put(`${api_url}/profiles/update-password`, passwordData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        Swal.fire({
+          title: "Saved!",
+          icon: "success",
+          text: "Password Mu berhasil diperbarui",
+          timer: 2000, // jeda dulu bro 2 detik
+          showConfirmButton: false,
+          customClass: {
+            confirmButton: "custom-ok-button",
+          },
+        }).then(() => {
+          window.location.reload();
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: "Perubahan dibatalkan",
+          icon: "info",
+          timer: 2000,
+          showConfirmButton: false,
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        }).then(() => {
+          // window.location.reload(); // Ini opsional
+        });
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Password Lama Kamu Salah!!!",
+          customClass: {
+            confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+          },
+        });
+        return;
+      } else {
+        alert(error?.message);
+      }
     }
-  } catch (error) {
-    if (error.response.status === 400) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Password Lama Kamu Salah!!!",
-        customClass: {
-          confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
-        },
-      });
-      return;
-    } else {
-      alert(error?.message);
-    }
-  }
-};
+  };
 
 export const register =
-  (name, email, phoneNumber, password, confirmPassword, navigate) => async () => {
+  (name, email, phoneNumber, password, confirmPassword, navigate) =>
+  async () => {
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
         username: name,
@@ -278,7 +266,9 @@ export const register =
       if (error.response) {
         if (error.response.status === 500) {
           // Status kode 500 menunjukkan kesalahan server
-          toast.error("Terjadi kesalahan pada server. Email mungkin sudah terdaftar.");
+          toast.error(
+            "Terjadi kesalahan pada server. Email mungkin sudah terdaftar."
+          );
         } else {
           toast.error("Gagal mendaftarkan pengguna. Silakan coba lagi nanti.");
         }
@@ -309,7 +299,9 @@ export const verify = (otp, navigate) => async () => {
     if (error.response) {
       if (error.response.status === 500) {
         // Status kode 500 menunjukkan kesalahan server
-        toast.error("Terjadi kesalahan pada server. Email mungkin sudah terdaftar.");
+        toast.error(
+          "Terjadi kesalahan pada server. Email mungkin sudah terdaftar."
+        );
       } else {
         toast.error("Gagal mendaftarkan pengguna. Silakan coba lagi nanti.");
       }
@@ -334,7 +326,9 @@ export const resendOtp = () => async () => {
     if (error.response) {
       if (error.response.status === 500) {
         // Status kode 500 menunjukkan kesalahan server
-        toast.error("Terjadi kesalahan pada server. Email mungkin sudah terdaftar.");
+        toast.error(
+          "Terjadi kesalahan pada server. Email mungkin sudah terdaftar."
+        );
       } else {
         toast.error("Gagal mendaftarkan pengguna. Silakan coba lagi nanti.");
       }
@@ -351,7 +345,9 @@ export const sendPassword = (email) => async () => {
     });
 
     if (response.status === 200) {
-      toast.success("Tautan pengaturan ulang kata sandi telah dikirim ke email Anda!");
+      toast.success(
+        "Tautan pengaturan ulang kata sandi telah dikirim ke email Anda!"
+      );
     }
   } catch (error) {
     if (error.response) {

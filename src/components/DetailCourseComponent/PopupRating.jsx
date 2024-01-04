@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
-import { cn } from "../../libs/utils";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { createRating, updateRating } from "../../redux/actions/courseActions";
-import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { createRating, updateRating } from "../../redux/actions/courseActions";
+import { cn } from "../../libs/utils";
 
 const PopupRating = ({ isPopupRating, handleRating }) => {
   const [ratings, setRatings] = useState(null);

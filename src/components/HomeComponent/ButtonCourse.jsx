@@ -18,7 +18,7 @@ const ButtonCourse = ({ filterItems, val, isActive }) => {
   )
 }
 
-export default ButtonCourse
+export default ButtonCourse;
 
 ButtonCourse.propTypes = {
   filterItems: PropTypes.func,

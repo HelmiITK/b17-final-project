@@ -3,18 +3,20 @@ import { FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getCategory } from "../../redux/actions/categoryActions";
 import { Link } from "react-router-dom";
+
+import { getCategory } from "../../redux/actions/categoryActions";
 import { formatDate } from "../../libs/formatDate";
 
 const CardHistory = ({ course }) => {
   const dispatch = useDispatch();
+  const { category } = useSelector((state) => state.category);
+  let categoryName = "";
+  const { materials } = course && course.course;
+
   useEffect(() => {
     dispatch(getCategory());
   }, [dispatch]);
-
-  const { category } = useSelector((state) => state.category);
-  let categoryName = "";
 
   if (category.length > 0) {
     const foundCategory = category.find(
@@ -25,7 +27,6 @@ const CardHistory = ({ course }) => {
     }
   }
 
-  const { materials } = course && course.course;
   const totalTime = materials.reduce((total, material) => {
     return total + material.duration_in_minutes;
   }, 0);

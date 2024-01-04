@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendPassword } from "../../redux/actions/authActions";
 import { ToastContainer } from "react-toastify";
+
+import { sendPassword } from "../../redux/actions/authActions";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const VerifyEmail = () => {
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
             <Link to={"/login"}>
-              <p className="flex font-semibold text-md text-green-500 items-center hover:underline transition-all duration-300 hover:scale-100">
+              <p className="flex font-semibold text-md text-color-primary items-center hover:underline transition-all duration-300 hover:scale-100">
                 Back to Login
               </p>
             </Link>

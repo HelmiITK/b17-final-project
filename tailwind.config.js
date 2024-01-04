@@ -35,11 +35,22 @@ export default {
           transform: "scale(1.05)",
         },
       },
+      bounce: {
+        "0%, 100%": {
+          transform: "translateY(-25%)",
+          animationTimingFunction: "cubic-bezier(0.8, 0, 1, 1)",
+        },
+        "50%": {
+          transform: "translateY(0)",
+          animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
+        },
+      },
     },
     animation: {
       fade: "fadeLeft 0.8s ease-out",
       fadeIn: "fadeIn 2.5s ease-in infinite",
       pulse: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      bounce: "bounce 1s infinite",
     },
     extend: {
       fontFamily: {

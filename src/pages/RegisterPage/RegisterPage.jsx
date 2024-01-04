@@ -3,9 +3,11 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 import { register } from "../../redux/actions/authActions";
 import Pedjuang from "../../assets/PedjuangIlmuuu.svg";
-import { ToastContainer } from "react-toastify";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -96,6 +98,12 @@ const RegisterPage = () => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
+            <Link to={"/login"}>
+              <p className="flex font-semibold text-md text-color-primary items-center hover:underline transition-all duration-300 hover:scale-100">
+                <IoMdArrowRoundBack />
+                Back to Login
+              </p>
+            </Link>
             <span className="mb-3 text-4xl font-bold text-black">Sign Up Account</span>
             <span className="font-light text-gray-400 mb-8">
               {/* Welcome back! please enter your details */}

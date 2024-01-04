@@ -2,15 +2,18 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { CiFacebook } from "react-icons/ci";
 import { VscGithubInverted } from "react-icons/vsc";
 import { PiLinkedinLogo } from "react-icons/pi";
-import { MdMenuBook } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { IoArrowUp } from "react-icons/io5";
+import PropTypes from "prop-types"
 
-const Footer = () => {
+const Footer = ({ linkRef, goto }) => {
+
   const [isDropdownVisibleIg, setDropdownVisibleIg] = useState(false);
   const [isDropdownVisibleFb, setDropdownVisibleFb] = useState(false);
   const [isDropdownVisibleGithub, setDropdownVisibleGithub] = useState(false);
   const [isDropdownVisibleLk, setDropdownVisibleLk] = useState(false);
   const [activeIcon, setActiveIcon] = useState(null);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   const handleInstagramClick = (e) => {
     e.stopPropagation(); // Mencegah propagasi ke event click window
@@ -70,6 +73,39 @@ const Footer = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+
+      // Tentukan batasan scroll di mana button harus muncul
+      const threshold = documentHeight - windowHeight - 350;
+
+      // Tampilkan atau sembunyikan button berdasarkan batasan scroll
+      setShowScrollToTop(scrollY > threshold);
+    };
+
+    // Tambahkan event listener untuk mendengarkan perubahan posisi scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Membersihkan event listener ketika komponen di-unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
+    // Menggunakan ref dari Navbar untuk kembali ke atas
+    goto(linkRef.current);
+  };
+
   return (
     <>
       <div className="w-full h-auto mt-4 px-4 py-8 border-t-4 border-color-primary bg-slate-950 overflow-x-auto">
@@ -83,7 +119,16 @@ const Footer = () => {
               </h1>
               <div className="flex flex-col gap-2 z-20 max-w-md">
                 <div className="flex flex-row items-center gap-2">
-                  <MdMenuBook className="text-white w-10 h-10 lg:w-12 lg:h-12" />
+                  <svg
+                    className="cursor-pointer"
+                    onClick={() => goto(linkRef.current)}
+                    width="54"
+                    height="51"
+                    viewBox="0 0 54 51"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28.3296 36.655H16.5197C16.1625 36.6697 15.8129 36.759 15.4949 36.9168C15.1769 37.0745 14.8981 37.297 14.6778 37.5688L1.91637 49.8702C1.5144 50.2583 1.1684 50.9362 0.48657 50.7004C-0.195258 50.4646 0.0388023 49.7179 0.0388023 49.1824C0.0388023 45.5028 0.0388023 41.8134 0.00827269 38.1338C-0.0178334 37.6059 0.0746008 37.0789 0.279237 36.5887C0.483874 36.0986 0.795872 35.657 1.19384 35.2942C6.83503 29.9099 12.4406 24.5043 18.0106 19.0774C19.0944 18.031 19.3233 18.0605 20.2087 19.3083C21.6029 21.2734 23.0225 23.1943 24.3607 25.2035C25.0171 26.1861 25.4903 26.1861 26.3502 25.3558C31.1027 20.674 35.9162 16.061 40.6941 11.4382C42.5818 9.61558 44.4797 7.80771 46.3573 5.97527C47.0646 5.29241 47.6752 5.22363 48.3926 6.00475C52.0206 10.0184 53.7913 14.6216 53.2621 19.9863C52.6006 26.7658 49.0134 31.6588 42.882 34.8668C40.8217 36.0094 38.4906 36.6186 36.1146 36.6354C33.5298 36.6059 30.9449 36.6354 28.355 36.6354L28.3296 36.655Z" fill="#003E9C" />
+                    <path d="M18.5901 0.0101885C23.3848 0.0101885 28.1794 0.0641326 32.9689 0.0101885C36.1605 -0.0856241 39.335 0.495298 42.268 1.71188C43.3674 2.17776 43.5201 2.55046 42.6752 3.37434C38.7255 7.206 34.7707 11.0246 30.8108 14.8301C29.4671 16.1297 28.0827 17.39 26.7695 18.7239C26.0874 19.4153 25.6599 19.2143 25.1764 18.5522C23.6494 16.4435 22.0767 14.3642 20.5955 12.2359C20.0153 11.412 19.6234 11.3384 18.8599 12.0839C13.1355 17.6417 7.38914 23.1882 1.62068 28.7232C1.3611 28.9733 1.14224 29.3754 0.699423 29.2626C0.256609 29.1498 0.358405 28.6643 0.256609 28.3308C-0.125128 27.1048 0.322776 25.8788 0.317686 24.6724C0.266788 17.1154 0.282058 9.55339 0.282058 1.99631C0.282058 0.186733 0.439842 0.0347086 2.31799 0.0347086C7.73695 0.0183619 13.161 0.0101885 18.5901 0.0101885Z" fill="#0094FF" />
+                  </svg>
                   <h2 className="text-sm text-white lg:text-base">
                     Pedjuang Ilmu
                   </h2>
@@ -427,19 +472,44 @@ const Footer = () => {
               </h1>
               <ul className="text-blue-500 text-sm flex flex-col gap-1 lg:text-base">
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Reactjs
+                  <a
+                    href="https://react.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Reactjs
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  ExpressJs
+                  <a
+                    href="https://expressjs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    ExpressJs
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  TailwindCss
+                  <a
+                    href="https://tailwindcss.com/docs/installation"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    TailwindCss
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Vite
+                  <a
+                    href="https://vitejs.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Vite
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Vercel
+                  <a
+                    href="https://vercel.com"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Vercel
+                  </a>
                 </li>
               </ul>
             </div>
@@ -450,16 +520,36 @@ const Footer = () => {
               </h1>
               <ul className="text-blue-500 text-sm flex flex-col gap-1 lg:text-base">
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Vscode
+                  <a
+                    href="https://code.visualstudio.com/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Vscode
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Postman
+                  <a
+                    href="https://www.postman.com/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Postman
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Git&Github
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Git&Github
+                  </a>
                 </li>
                 <li className="hover:underline cursor-pointer hover:text-blue-400">
-                  Swagger
+                  <a
+                    href="https://swagger.io/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Swagger
+                  </a>
                 </li>
               </ul>
             </div>
@@ -479,9 +569,23 @@ const Footer = () => {
             <span className="text-sm">&copy; 2023 team b-17</span>
           </div>
         </div>
+        {/* Button Scroll to Top */}
+        {showScrollToTop && (
+          <button
+            className="fixed bottom-10 right-10 bg-blue-500 text-white rounded-full p-2 cursor-pointer hover:bg-blue-700 animate-bounce"
+            onClick={handleScrollToTop}
+          >
+            <IoArrowUp className="w-6 h-6" />
+          </button>
+        )}
       </div>
     </>
   );
 };
 
 export default Footer;
+
+Footer.propTypes = {
+  linkRef: PropTypes.object,
+  goto: PropTypes.func
+}

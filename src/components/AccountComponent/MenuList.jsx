@@ -1,14 +1,16 @@
-import { NavLink, useNavigate } from "react-router-dom";
 import { FiEdit3 } from "react-icons/fi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { HiOutlineLogout } from "react-icons/hi";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
 import { getMe, logout } from "../../redux/actions/authActions";
 import { removeMyCourse } from "../../redux/actions/courseActions";
-import "sweetalert2/dist/sweetalert2.css";
-import Swal from "sweetalert2";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -18,13 +20,13 @@ const Menu = () => {
 
   const onLogout = () => {
     Swal.fire({
-      title: 'Konfirmasi Logout',
-      text: 'Apakah Anda yakin ingin keluar?',
-      icon: 'question',
+      title: "Konfirmasi Logout",
+      text: "Apakah Anda yakin ingin keluar?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Keluar!',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Keluar!",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(logout());
@@ -32,9 +34,9 @@ const Menu = () => {
         navigate("/");
         window.location.reload();
       } else {
-        navigate("/user")
+        navigate("/user");
       }
-    })
+    });
   };
 
   useEffect(() => {

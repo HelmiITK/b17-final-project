@@ -1,31 +1,31 @@
 // import { Search } from "lucide-react";
-import Main from "../../components/MyCourseComponent/Main";
-import SideFilter from "../../components/MyCourseComponent/SideFilter";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+
+import Navbar from "../../components/NavbarComponent/Navbar";
+import Footer from "../../components/FooterComponent/Footer";
+import { cn } from "../../libs/utils";
+import { scrollTop } from "../../libs/scrollTop";
+import Main from "../../components/MyCourseComponent/Main";
+import SideFilter from "../../components/MyCourseComponent/SideFilter";
 import {
   getCourseWithFilter,
   getMyCourse,
   getPagesCourse,
 } from "../../redux/actions/courseActions";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import Navbar from "../../components/NavbarComponent/Navbar";
-import Footer from "../../components/FooterComponent/Footer";
-import { cn } from "../../libs/utils";
-import { scrollTop } from "../../libs/scrollTop";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((state) => state.course);
   const { pageCourse } = useSelector((state) => state.course);
+  const { user } = useSelector((state) => state.auth);
 
   // loading
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingCat, setIsLoadingCat] = useState(false);
-  // const [isLoadingInfinite, setIsLoadingInfinite] = useState(true);
 
   // keperluan infinite loop
   const [pages, setPages] = useState(1);
@@ -39,10 +39,21 @@ const CoursePage = () => {
   const [level, setLevel] = useState([]);
   const [typeCourse, setTypeCourse] = useState("");
 
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   // ambil data kategori dari api lewat redux
   useEffect(() => {
-    setIsLoadingCat(true);
-    dispatch(getCategory()).then(() => setIsLoadingCat(false));
+    dispatch(getCategory());
   }, [dispatch]);
 
   useEffect(() => {
@@ -92,8 +103,10 @@ const CoursePage = () => {
 
   // mycourse di dispatch agar card bisa membedakan mana yang sudah dibeli user dan belum
   useEffect(() => {
-    dispatch(getMyCourse());
-  }, [dispatch]);
+    if (user) {
+      dispatch(getMyCourse());
+    }
+  }, [dispatch, user]);
   // untuk mengarahkan ke page berikutnya
   const handleLoadMoreNext = () => {
     if (pages < pageCourse.totalPages) {
@@ -115,7 +128,7 @@ const CoursePage = () => {
     <>
       <Navbar />
       {/* tampilan utama */}
-      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
+      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20" ref={linkRef}>
         <div className="w-10/12 mx-auto">
           <div className="flex flex-col items-start justify-between lg:flex lg:flex-col lg:items-start lg:gap-4">
             <Link to={"/"}>
@@ -136,7 +149,6 @@ const CoursePage = () => {
               <div className="col-span-3 md:col-span-1">
                 <SideFilter
                   handleCategory={handleCategory}
-                  isLoading={isLoadingCat}
                   handleLevel={handleLevel}
                   categoryFromHome={state?.categoryId}
                 />
@@ -176,7 +188,7 @@ const CoursePage = () => {
                       " font-medium text-white bg-primary text-xs rounded-md py-1 px-2 ml-4",
                       (pages === pageCourse.totalPages ||
                         course?.length < 10) &&
-                        "bg-slate-300 text-slate-500"
+                      "bg-slate-300 text-slate-500"
                     )}
                   >
                     next &gt;
@@ -187,7 +199,7 @@ const CoursePage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

@@ -6,10 +6,12 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
+
 import { getCategory } from "../../redux/actions/categoryActions";
 
 // isinya info tentang course, kyk judul, rating, kategori, dll
-const InfoCourse = () => {
+const InfoCourse = ({ totalTime }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategory());
@@ -56,7 +58,7 @@ const InfoCourse = () => {
               <span className="text-green-500 mr-1">
                 <FaClock size={24} />
               </span>{" "}
-              100 Menit
+              {totalTime.toFixed()} Menit
             </p>
           </div>
         </div>
@@ -75,6 +77,10 @@ const InfoCourse = () => {
       </div>
     </div>
   );
+};
+
+InfoCourse.propTypes = {
+  totalTime: PropTypes.number,
 };
 
 export default InfoCourse;

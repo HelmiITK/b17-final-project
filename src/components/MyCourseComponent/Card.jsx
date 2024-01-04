@@ -1,23 +1,25 @@
 import { Book, Clock, Gem, Shield } from "lucide-react";
-import Progressbar from "./ProgressBar";
-import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { formatPrice } from "../../libs/formatToIDR";
 import { useEffect, useState } from "react";
+
+import { formatPrice } from "../../libs/formatToIDR";
+import Progressbar from "./ProgressBar";
 import { getCategory } from "../../redux/actions/categoryActions";
+
 // card course
 const Card = ({ course }) => {
   const [checkMycourse, setCheckMycourse] = useState(false);
   const { mycourse } = useSelector((state) => state.course);
   const dispatch = useDispatch();
+  const { category } = useSelector((state) => state.category);
+  let categoryName = "";
+
   useEffect(() => {
     dispatch(getCategory());
   }, [dispatch]);
-
-  const { category } = useSelector((state) => state.category);
-  let categoryName = "";
 
   if (category.length > 0) {
     const foundCategory = category.find(
@@ -78,7 +80,7 @@ const Card = ({ course }) => {
                   Level{" "}
                   {course &&
                     course?.level?.charAt(0).toUpperCase() +
-                      course?.level?.slice(1)}{" "}
+                    course?.level?.slice(1)}{" "}
                 </p>
                 <p className="flex items-center text-color-primary text-xs font-semibold -tracking-widest md:-tracking-wider ">
                   <span className="text-green-500 mr-[2.5px]">
@@ -111,7 +113,7 @@ const Card = ({ course }) => {
                       </span>{" "}
                       {course &&
                         course?.type_course?.charAt(0).toUpperCase() +
-                          course?.type_course?.slice(1)}
+                        course?.type_course?.slice(1)}
                     </button>
                   </div>
                   {/* button ketika mau beli (ada harganya) */}

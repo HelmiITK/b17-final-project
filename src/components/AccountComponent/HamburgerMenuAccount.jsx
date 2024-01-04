@@ -1,33 +1,34 @@
 import { FiEdit3 } from "react-icons/fi";
+import { HiOutlineLogout } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
-import { HiOutlineLogout } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
+import { MdMenuBook } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { MdMenuBook } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { getMe, logout } from "../../redux/actions/authActions";
 import { useEffect } from "react";
-import { removeMyCourse } from "../../redux/actions/courseActions";
-import "sweetalert2/dist/sweetalert2.css";
+
 import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
+import { getMe, logout } from "../../redux/actions/authActions";
+import { removeMyCourse } from "../../redux/actions/courseActions";
 
 const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { user, token } = useSelector((state) => state.auth);
 
   const onLogout = () => {
     Swal.fire({
-      title: 'Konfirmasi Logout',
-      text: 'Apakah Anda yakin ingin keluar?',
-      icon: 'question',
+      title: "Konfirmasi Logout",
+      text: "Apakah Anda yakin ingin keluar?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Keluar!',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Keluar!",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(logout());
@@ -35,9 +36,9 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
         navigate("/");
         window.location.reload();
       } else {
-        navigate("/user")     
+        navigate("/user");
       }
-    })
+    });
   };
 
   // memeriksa apakah user ada jika tidak maka akan navigate ke home
@@ -51,17 +52,14 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
     // ini baru muncul saat masuk mode mobile dan tablet
     <div className="relative mt-3 ml-5 lg:hidden z-50">
       <button className="text-color-primary" onClick={handleHamburgerClick}>
-        {openHamburger ? (
-          <RxCross2 className="w-10 h-9" />
-        ) : (
-          <MdMenuBook className="w-10 h-9" />
-        )}
+        {openHamburger ? <RxCross2 className="w-10 h-9" /> : <MdMenuBook className="w-10 h-9" />}
       </button>
       <div
-        className={`${openHamburger
-          ? "-translate-x-24 md:-translate-x-[230px]"
-          : "-translate-x-[685px] md:-translate-x-[877px]"
-          }
+        className={`${
+          openHamburger
+            ? "-translate-x-24 md:-translate-x-[230px]"
+            : "-translate-x-[685px] md:-translate-x-[877px]"
+        }
                         transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-11  bg-gradient-to-br via-blue-300 from-color-primary bg-blue-200 border-2 border-blue-300 px-5 py-6 rounded-xl shadow-xl `}
       >
         <ul className="flex flex-col gap-3 text-left items-left">

@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState, useEffect } from "react";
-import { resetPassword } from "../../redux/actions/authActions";
 import { ToastContainer } from "react-toastify";
+
+import { resetPassword } from "../../redux/actions/authActions";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,14 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     try {
-      await dispatch(resetPassword(resetPasswordToken, newPassword, confirmNewPassword, navigate));
+      await dispatch(
+        resetPassword(
+          resetPasswordToken,
+          newPassword,
+          confirmNewPassword,
+          navigate
+        )
+      );
       // alert("Password Berhasil Diganti 🥳");
       // navigate("/");
     } catch (error) {
@@ -99,7 +107,9 @@ const ResetPassword = () => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
-            <span className="mb-3 text-4xl font-bold text-">Reset Password</span>
+            <span className="mb-3 text-4xl font-bold text-">
+              Reset Password
+            </span>
             <span className="font-light text-gray-400 mb-8">
               Silakan Masukkan kata sandi baru di bawah.
             </span>
@@ -128,7 +138,9 @@ const ResetPassword = () => {
                 </button>
               </div>
               <div className="py-1 relative">
-                <span className="mb-2 text-sm font-poppins">Confirm a new password</span>
+                <span className="mb-2 text-sm font-poppins">
+                  Confirm a new password
+                </span>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmpassword"
@@ -150,7 +162,9 @@ const ResetPassword = () => {
                   )}
                 </button>
               </div>
-              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-color-warn text-xs mb-2">{errorMessage}</p>
+              )}
               <div className="flex justify-between w-full py-4">
                 <button
                   className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"

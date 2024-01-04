@@ -1,16 +1,16 @@
-// import { Search } from "lucide-react";
-import SideFilter from "../../components/MyCourseComponent/SideFilter";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../redux/actions/categoryActions";
-import {
-  getMyCourse,
-  getMyCourseWithFilter,
-} from "../../redux/actions/courseActions";
+
 import Navbar from "../../components/NavbarComponent/Navbar";
 import Footer from "../../components/FooterComponent/Footer";
 import MainMyCourse from "../../components/MyCourseComponent/MainMyCourse";
 import { scrollTop } from "../../libs/scrollTop";
+import SideFilter from "../../components/MyCourseComponent/SideFilter";
+import {
+  getMyCourse,
+  getMyCourseWithFilter,
+} from "../../redux/actions/courseActions";
 
 const MyCoursePage = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,18 @@ const MyCoursePage = () => {
   const [level, setLevel] = useState([]);
   const [progress, setProgress] = useState("");
   const [filteringCourse, setFiltertingCourse] = useState(mycourse && mycourse);
+
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   // ambil data kategori dari api lewat redux
   useEffect(() => {
@@ -90,7 +102,7 @@ const MyCoursePage = () => {
     <>
       <Navbar />
       {/* tampilan utama */}
-      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20">
+      <div className="w-full bg-layer pt-24 lg:pt-28 pb-20" ref={linkRef}>
         <div className="w-10/12 mx-auto">
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-sm md:text-xl lg:text-2xl">
@@ -118,7 +130,7 @@ const MyCoursePage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };

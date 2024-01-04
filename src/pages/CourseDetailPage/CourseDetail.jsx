@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { getDetailCourse } from "../../redux/actions/detailActions";
-import { removeDetail } from "../../redux/reducers/courseReducers";
 import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { BiLineChart } from "react-icons/bi";
@@ -12,7 +9,13 @@ import { BsChatRightQuote } from "react-icons/bs";
 import { AiFillPlayCircle, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import ClockLoader from "react-spinners/ClockLoader";
+import Swal from "sweetalert2";
+
+import { scrollTop } from "../../libs/scrollTop";
+import { removeDetail } from "../../redux/reducers/courseReducers";
+import { getDetailCourse } from "../../redux/actions/detailActions";
 import Navbar from "../../components/NavbarComponent/Navbar";
 import { allRating, getMyCourse } from "../../redux/actions/courseActions";
 import { cn } from "../../libs/utils";
@@ -20,7 +23,6 @@ import ProgressBar from "../../components/MyCourseComponent/ProgressBar";
 import Footer from "../../components/FooterComponent/Footer";
 import PopupBuy from "../../components/DetailCourseComponent/PopupBuy";
 import PopupRating from "../../components/DetailCourseComponent/PopupRating";
-import { scrollTop } from "../../libs/scrollTop";
 
 const CourseDetail = () => {
   const getRandomLoveCount = () => {
@@ -83,12 +85,26 @@ const CourseDetail = () => {
     }
   };
 
+  // untuk menghilangkang popup pembelian
   const handlePopup = () => {
     setIsPopupBuy(false);
   };
 
+  // untuk menghilangkang popup pemberian rating
   const handleRating = () => {
     setIsPopupRating(false);
+  };
+
+  // linkref buat onscrol ke home dari footer logo
+  const linkRef = useRef(null);
+
+  // back to MainSection when on click logo or text PedjuangIlmu in Footer from homepage
+  const goto = (ref) => {
+    window.scrollTo({
+      top: ref.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -134,6 +150,7 @@ const CourseDetail = () => {
     dispatch(allRating());
   }, [dispatch]);
 
+  // cek apakah course pada halaman ini sudah dibeli oleh user atau belum
   useEffect(() => {
     if (mycourse) {
       const y = mycourse.find((course) => course.course.id == courseId);
@@ -155,14 +172,28 @@ const CourseDetail = () => {
   // conditional click ikut kelas
   const handleFollowClick = () => {
     setIsButtonVisible(false);
-    // jika progressnya dibawah 100, maka cari course yang belum selesai
-    if (checkMycourse && checkMycourse.progressPercentage < 100) {
-      navigate(
-        `/course-detail/${courseId}/video/${materialNotCompleted.course_material_id}`
-      );
-      // cari course index pertama
+
+    // cek tombol ikuti kelas
+    // jika user belum mmebeli kelas maka akan muncul sweetalert
+    if (checkMycourse) {
+      // jika progressnya dibawah 100, maka cari course yang belum selesai
+      if (checkMycourse && checkMycourse.progressPercentage < 100) {
+        navigate(
+          `/course-detail/${courseId}/video/${materialNotCompleted.course_material_id}`
+        );
+        // cari course index pertama
+      } else {
+        navigate(`/course-detail/${courseId}/video/${sortingAsc[0].id}`);
+      }
     } else {
-      navigate(`/course-detail/${courseId}/video/${sortingAsc[0].id}`);
+      Swal.fire({
+        icon: "info",
+        title: "Belum Membeli Kelas",
+        text: "Anda belum enroll kelas ini. \n Silahkan enroll terlebih dahulu!",
+        customClass: {
+          confirmButton: "custom-ok-button", // Tambahkan kelas CSS khusus untuk tombol "Ok"
+        },
+      });
     }
   };
 
@@ -176,7 +207,7 @@ const CourseDetail = () => {
 
       <PopupRating isPopupRating={isPopupRating} handleRating={handleRating} />
       <Navbar />
-      <div className="container mx-auto pt-24">
+      <div className="container mx-auto pt-24" ref={linkRef}>
         <div className="flex flex-row-reverse justify-between mx-3 lg:flex lg:flex-col lg:gap-4">
           <div className="flex flex-row items-center gap-2 lg:mt-2">
             <BiMessageSquareDetail className="text-blue-700 w-10 h-10 lg:w-12 lg:h-12" />
@@ -213,7 +244,7 @@ const CourseDetail = () => {
                   <div className="flex justify-between">
                     <div className="flex flex-row gap-8 mt-4 md:mt-4 md:gap-3">
                       <button
-                        className="flex items-center gap-2 w-1/6 text-white md:w-24 lg:mb-6"
+                        className="flex items-center gap-2 text-white md:w-24 lg:mb-6"
                         onClick={handleLoveClick}
                       >
                         {isLoved ? (
@@ -288,7 +319,10 @@ const CourseDetail = () => {
                             className=" w-full transform border mt-4 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:text-blue-600 hover:bg-yellow-400 duration-200"
                             onClick={handleFollowClick}
                           >
-                            Ikuti Kelas
+                            {checkMycourse &&
+                            checkMycourse.progressPercentage > 0
+                              ? "Lanjutkan Belajar"
+                              : "Ikuti Kelas"}
                           </button>
                         ) : (
                           <AiFillPlayCircle
@@ -450,17 +484,16 @@ const CourseDetail = () => {
                       >
                         {isButtonVisible ? (
                           <button
-                            disabled={!checkMycourse}
+                            // disabled={!checkMycourse}
                             className={cn(
-                              "absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-blue-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-blue-600",
-                              checkMycourse &&
-                                "hover:bg-blue-600 hover:text-white duration-200",
-                              !checkMycourse &&
-                                "cursor-not-allowed text-slate-500 border-slate-200 bg-slate-200"
+                              "font-medium absolute bottom-24 lg:right-[17px] xl:right-[60px] border border-blue-600 bg-white py-2 px-4 w-44 rounded-xl text-lg text-blue-600 hover:bg-primary hover:text-white duration-200"
                             )}
                             onClick={handleFollowClick}
                           >
-                            Ikuti Kelas
+                            {checkMycourse &&
+                            checkMycourse.progressPercentage > 0
+                              ? "Lanjutkan Belajar"
+                              : "Ikuti Kelas"}
                           </button>
                         ) : (
                           <AiFillPlayCircle
@@ -521,7 +554,7 @@ const CourseDetail = () => {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer linkRef={linkRef} goto={goto} />
     </>
   );
 };
