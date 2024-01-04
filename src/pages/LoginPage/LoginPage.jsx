@@ -71,7 +71,7 @@ const LoginPage = () => {
           {/* Left Slide */}
           <div className="flex flex-col justify-center p-8 md:p-14">
             <Link to={"/"}>
-              <p className="flex font-semibold text-md text-color-primary items-center hover:underline transition-all duration-300 hover:scale-100">
+              <p className="flex font-semibold text-sm text-color-primary items-center hover:underline transition-all duration-300 hover:scale-100">
                 <IoMdArrowRoundBack />
                 Kembali ke Home
               </p>
