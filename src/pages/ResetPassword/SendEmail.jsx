@@ -34,7 +34,9 @@ const VerifyEmail = () => {
                 Back to Login
               </p>
             </Link>
-            <span className="mb-3 text-4xl font-bold text-">Forgot Password ?</span>
+            <span className="mb-3 text-4xl font-bold text-">
+              Forgot Password ?
+            </span>
             <span className="font-light text-gray-400 mb-8">
               silakan masukkan alamat email Anda
               <br />
@@ -52,7 +54,9 @@ const VerifyEmail = () => {
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
-              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-color-warn text-xs mb-2">{errorMessage}</p>
+              )}
               <div className="flex justify-between w-full py-4">
                 <button
                   className="w-full bg-primary text-white p-2 rounded-lg mb-2 hover:bg-black hover:text-white hover:border hover:border-gray-300"

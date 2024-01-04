@@ -99,7 +99,6 @@ function App() {
           <Route path="/payment" element={<BuyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {/* <Footer /> */}
       </Router>
     </>
   );

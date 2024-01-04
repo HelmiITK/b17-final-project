@@ -61,7 +61,16 @@ const RegisterPage = () => {
 
     // Jika semua validasi terlewati, maka lakukan pendaftaran
     dispatch(
-      register(name, email, phoneNumber, password, confirmPassword, navigate, setErrors, errors)
+      register(
+        name,
+        email,
+        phoneNumber,
+        password,
+        confirmPassword,
+        navigate,
+        setErrors,
+        errors
+      )
     );
   };
 
@@ -198,12 +207,21 @@ const RegisterPage = () => {
                   )}
                 </button>
               </div>
-              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-color-warn text-xs mb-2">{errorMessage}</p>
+              )}
               <div className="flex justify-between w-full py-4">
                 <label className="flex items-center text-xs font-poppins">
-                  <input type="checkbox" name="remember" id="ch" className="mr-2" />i agree all
-                  &nbsp;
-                  <p className="text-blue-900 font-semibold">terms and conditions</p>
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    id="ch"
+                    className="mr-2"
+                  />
+                  i agree all &nbsp;
+                  <p className="text-blue-900 font-semibold">
+                    terms and conditions
+                  </p>
                   {/* <p className="ml-1">and &nbsp;</p>
                 <p className="text-blue-900 font-semibold">Privacy Policies of evolko</p> */}
                 </label>
