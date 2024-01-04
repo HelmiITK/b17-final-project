@@ -212,7 +212,10 @@ const HomePage = () => {
                 speedMultiplier={2}
               />
             ) : (
-              <Slider {...settingsCategory} className="lg:px-4 md:overflow-visible">
+              <Slider
+                {...settingsCategory}
+                className="lg:px-4 md:overflow-visible"
+              >
                 {category.map((kategori) => (
                   <div key={kategori.id}>
                     <CardCategory
@@ -234,7 +237,9 @@ const HomePage = () => {
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-xl my-4 md:text-2xl">Kursus Populer</h1>
           <Link to={"/course"}>
-            <h2 className="text-sm hover:text-color-primary lg:font-medium">Lihat Semua</h2>
+            <h2 className="text-sm hover:text-color-primary lg:font-medium">
+              Lihat Semua
+            </h2>
           </Link>
         </div>
         {/* button filter */}

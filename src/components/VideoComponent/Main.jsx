@@ -11,7 +11,8 @@ import DescriptionCourse from "./DescriptionCourse";
 const Main = ({ materialId, myCourse }) => {
   const materialss = myCourse?.course?.materials;
   // sorting berdasarkan id material agar material terurut
-  const sortAscByIdMaterials = materialss && [...materialss].sort((a, b) => a.id - b.id);
+  const sortAscByIdMaterials =
+    materialss && [...materialss].sort((a, b) => a.id - b.id);
 
   // hitung durasi video
   const totalTime = sortAscByIdMaterials.reduce((total, material) => {
@@ -19,18 +20,22 @@ const Main = ({ materialId, myCourse }) => {
   }, 0);
 
   // get index selanjutnya untuk perpindahan halaman
-  const getNextIndex = sortAscByIdMaterials?.findIndex((x) => x.id == materialId) + 1;
+  const getNextIndex =
+    sortAscByIdMaterials?.findIndex((x) => x.id == materialId) + 1;
   const lastIndex = sortAscByIdMaterials && sortAscByIdMaterials.length - 1;
 
   // id material dari get index
   // dikondisikan jika index selanjutnya sama dengan length, maka itu adalah index terakhir
   const materialNextIndex =
     sortAscByIdMaterials &&
-    sortAscByIdMaterials[getNextIndex === sortAscByIdMaterials.length ? lastIndex : getNextIndex]
-      .id;
+    sortAscByIdMaterials[
+      getNextIndex === sortAscByIdMaterials.length ? lastIndex : getNextIndex
+    ].id;
 
   // ambil material berdasarkan id untuk
-  const material = sortAscByIdMaterials?.filter((material) => material.id == materialId);
+  const material = sortAscByIdMaterials?.filter(
+    (material) => material.id == materialId
+  );
 
   // keperluan untuk url next page
   const { courseId } = useParams();
@@ -38,7 +43,9 @@ const Main = ({ materialId, myCourse }) => {
 
   const dispatch = useDispatch();
   const updateMaterial = () => {
-    dispatch(updateMaterialStatus(materialId, navigate, courseId, materialNextIndex));
+    dispatch(
+      updateMaterialStatus(materialId, navigate, courseId, materialNextIndex)
+    );
   };
 
   return (

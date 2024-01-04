@@ -1,4 +1,4 @@
-import { FaGoogle } from "react-icons/fa";
+// import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -126,7 +126,9 @@ const LoginPage = () => {
                   )}
                 </button>
               </div>
-              {errorMessage && <p className="text-color-warn text-xs mb-2">{errorMessage}</p>}
+              {errorMessage && (
+                <p className="text-color-warn text-xs mb-2">{errorMessage}</p>
+              )}
               <div className="flex justify-between w-full py-4">
                 <label className="flex items-center text-xs font-poppins">
                   <input
@@ -148,14 +150,16 @@ const LoginPage = () => {
               </button>
             </form>
 
-            <p className="text-gray-400 mb-2 text-center text-sm underline">or use another login</p>
-            <button
+            <p className="text-gray-400 mb-2 text-center text-sm underline">
+              or use another login
+            </p>
+            {/* <button
               className="w-full border border-gray-300 text-md p-1 mb-2 rounded-lg bg-slate-300 text-slate-400"
               disabled
             >
               <FaGoogle className="w-6 h-6 inline mr-2" color="gray" />
               Sign in with Google
-            </button>
+            </button> */}
             <p className="mt-2 text-gray-400 text-sm text-center">
               Dont have an account ? &nbsp;
               <Link to={"/register"} className="underline text-color-warn">

@@ -246,8 +246,8 @@ export const register =
         password,
         role: "user",
         profile: {
-          name: "",
-          no_telp: "",
+          name,
+          no_telp: phoneNumber,
           avatar: "",
           city: "",
           country: "",

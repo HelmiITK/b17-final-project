@@ -1,4 +1,3 @@
-import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -62,7 +61,7 @@ const RegisterPage = () => {
 
     // Jika semua validasi terlewati, maka lakukan pendaftaran
     dispatch(
-      register(name, email, password, confirmPassword, phoneNumber, navigate, setErrors, errors)
+      register(name, email, phoneNumber, password, confirmPassword, navigate, setErrors, errors)
     );
   };
 
@@ -116,7 +115,7 @@ const RegisterPage = () => {
                   type="text"
                   id="name"
                   className="font-poppins text-xs w-full p-2 border border-gray-300 rounded-md placeholder:font-poppins placeholder:text-gray-500"
-                  placeholder="Username"
+                  placeholder="Name"
                   value={name}
                   onChange={(event) => {
                     setName(event.target.value);
@@ -216,11 +215,6 @@ const RegisterPage = () => {
               </button>
             </form>
 
-            <p className="text-gray-400 mb-2 text-center text-sm underline">or use another login</p>
-            <button className="w-full border border-gray-300 text-md p-1 mb-2 rounded-lg ">
-              <FcGoogle className="w-6 h-6 inline mr-2" />
-              Sign in with Google
-            </button>
             <p className="mt-2 text-gray-400 text-sm text-center">
               Already have account ? &nbsp;
               <Link to={"/login"} className="font-semibold underline text-color-warn">

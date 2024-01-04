@@ -52,14 +52,17 @@ const HamburgerMenuAccount = ({ handleHamburgerClick, openHamburger }) => {
     // ini baru muncul saat masuk mode mobile dan tablet
     <div className="relative mt-3 ml-5 lg:hidden z-50">
       <button className="text-color-primary" onClick={handleHamburgerClick}>
-        {openHamburger ? <RxCross2 className="w-10 h-9" /> : <MdMenuBook className="w-10 h-9" />}
+        {openHamburger ? (
+          <RxCross2 className="w-10 h-9" />
+        ) : (
+          <MdMenuBook className="w-10 h-9" />
+        )}
       </button>
       <div
-        className={`${
-          openHamburger
-            ? "-translate-x-24 md:-translate-x-[230px]"
-            : "-translate-x-[685px] md:-translate-x-[877px]"
-        }
+        className={`${openHamburger
+          ? "-translate-x-24 md:-translate-x-[230px]"
+          : "-translate-x-[685px] md:-translate-x-[877px]"
+          }
                         transition-transform duration-300 ease-in-out absolute top-0 right-0 mt-11  bg-gradient-to-br via-blue-300 from-color-primary bg-blue-200 border-2 border-blue-300 px-5 py-6 rounded-xl shadow-xl `}
       >
         <ul className="flex flex-col gap-3 text-left items-left">
