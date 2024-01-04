@@ -16,7 +16,6 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
   const { rating } = useSelector((state) => state.course);
   const { courseId } = useParams();
   const dispatch = useDispatch();
-
   const handleSubmit = async () => {
     const ratingThisCourse = rating.find(
       (rate) => rate.course_id == courseId && rate.user_id === user.id
@@ -51,7 +50,6 @@ const PopupRating = ({ isPopupRating, handleRating }) => {
       handleRating();
     }
   };
-
   return (
     <div
       className={cn(

@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-
 import { setToken, setUser } from "../reducers/authReducers";
 
 const api_url = import.meta.env.VITE_REACT_API_ADDRESS;
@@ -18,7 +17,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
     const { token } = data;
 
     dispatch(setToken(token));
-    toast.success("Login successful");
+    toast.success("Login Berhasil");
     setTimeout(() => {
       navigate("/");
     }, 1000); // Ganti nilai 1000 dengan durasi yang diinginkan (dalam milidetik)
@@ -321,7 +320,7 @@ export const resendOtp = () => async () => {
     });
 
     if (response.status === 200) {
-      toast.success("New OTP sent successfully");
+      toast.success("OTP baru berhasil terkirim");
     }
   } catch (error) {
     if (error.response) {
@@ -375,7 +374,7 @@ export const resetPassword =
       );
 
       if (response.status === 200) {
-        toast.success("Password berhasil diperbarui");
+        toast.success("Password berhasil diganti");
       }
 
       setTimeout(() => {

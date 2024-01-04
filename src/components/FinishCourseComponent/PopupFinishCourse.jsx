@@ -1,6 +1,5 @@
 import { IoMdClose } from "react-icons/io";
 import PropTypes from "prop-types";
-
 import { cn } from "../../libs/utils";
 import successGif from "../../assets/success.gif";
 
