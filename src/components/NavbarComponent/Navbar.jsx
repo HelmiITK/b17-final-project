@@ -91,12 +91,6 @@ const Navbar = () => {
       link: "/mycourse",
       dis: "translate-x-[83px]",
     },
-    // {
-    //   name: "Notifikasi",
-    //   icon: <IoNotifications className="w-8 h-6" />,
-    //   link: "/notif",
-    //   dis: "translate-x-[175px]",
-    // },
     {
       name: "Akun",
       icon: <FaUser className="w-8 h-6" />,
@@ -249,21 +243,6 @@ const Navbar = () => {
                             )}
                           </li>
                         </NavLink>
-                        {/* <NavLink as={Link} to={"/notif"}>
-                            <li
-                              onClick={() => handleIconClick("Notifikasi")}
-                              className="flex flex-row-reverse"
-                            >
-                              {selectedIcon === "Notifikasi" ? (
-                                <div className="flex flex-row-reverse gap-2  bg-primary py-2 px-3 rounded-lg text-white">
-                                  <IoNotifications className="w-8 h-6" />
-                                  <span>Notifkasi</span>
-                                </div>
-                              ) : (
-                                <IoNotifications className="w-8 h-6 text-color-primary" />
-                              )}
-                            </li>
-                          </NavLink> */}
                         <NavLink as={Link} to={"/user"}>
                           <li
                             onClick={() => handleIconClick("Akun")}
