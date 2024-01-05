@@ -238,7 +238,7 @@ const Footer = ({ linkRef, goto }) => {
                     </h1>
                     {/* fyi: kenapa tidak menggunakan Link dari react-router-dom? karena kondisi disini bertujuan untuk ngelink yg diarahkan ke tautan eksternal sehingga kinerja react-router-dom tidak diperlukan*/}
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://web.facebook.com/boong.boong.509511"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -246,7 +246,7 @@ const Footer = ({ linkRef, goto }) => {
                       Azka
                     </a>
                     <a
-                      href="https://www.instagram.com/6ntrwsnu_/"
+                      href="https://www.facebook.com/guntur.wisnu.52/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -254,7 +254,7 @@ const Footer = ({ linkRef, goto }) => {
                       Guntur
                     </a>
                     <a
-                      href="https://www.instagram.com/helmitwzzz/"
+                      href="https://www.facebook.com/helmiseferagic?mibextid=hIlR13"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -267,7 +267,7 @@ const Footer = ({ linkRef, goto }) => {
                       BackEnd:
                     </h1>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.facebook.com/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -275,7 +275,7 @@ const Footer = ({ linkRef, goto }) => {
                       Adel
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.facebook.com/amarjln16/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -283,7 +283,7 @@ const Footer = ({ linkRef, goto }) => {
                       Ammar
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.facebook.com/hena.w.395"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -291,7 +291,7 @@ const Footer = ({ linkRef, goto }) => {
                       Hena
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.facebook.com/profile.php?id=100074013050498&mibextid=vk8aRt"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-500 text-sm hover:underline"
@@ -318,7 +318,7 @@ const Footer = ({ linkRef, goto }) => {
                     </h1>
                     {/* fyi: kenapa tidak menggunakan Link dari react-router-dom? karena kondisi disini bertujuan untuk ngelink yg diarahkan ke tautan eksternal sehingga kinerja react-router-dom tidak diperlukan*/}
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://github.com/azkanaon"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -326,7 +326,7 @@ const Footer = ({ linkRef, goto }) => {
                       Azka
                     </a>
                     <a
-                      href="https://www.instagram.com/6ntrwsnu_/"
+                      href="https://github.com/GunturWS"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -334,7 +334,7 @@ const Footer = ({ linkRef, goto }) => {
                       Guntur
                     </a>
                     <a
-                      href="https://www.instagram.com/helmitwzzz/"
+                      href="https://github.com/HelmiITK"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -347,7 +347,7 @@ const Footer = ({ linkRef, goto }) => {
                       BackEnd:
                     </h1>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://github.com/AdeliaPutriAdyani"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -355,7 +355,7 @@ const Footer = ({ linkRef, goto }) => {
                       Adel
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://github.com/amarafiif"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -363,7 +363,7 @@ const Footer = ({ linkRef, goto }) => {
                       Ammar
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://github.com/henawah/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -371,7 +371,7 @@ const Footer = ({ linkRef, goto }) => {
                       Hena
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://github.com/NoRp-11"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-green-300 text-sm hover:underline"
@@ -398,7 +398,7 @@ const Footer = ({ linkRef, goto }) => {
                     </h1>
                     {/* fyi: kenapa tidak menggunakan Link dari react-router-dom? karena kondisi disini bertujuan untuk ngelink yg diarahkan ke tautan eksternal sehingga kinerja react-router-dom tidak diperlukan*/}
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.linkedin.com/in/muhammad-azka-atqiya-85977721b/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -406,7 +406,7 @@ const Footer = ({ linkRef, goto }) => {
                       Azka
                     </a>
                     <a
-                      href="https://www.instagram.com/6ntrwsnu_/"
+                      href="https://id.linkedin.com/in/guntur-wisnu-167121222"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -414,7 +414,7 @@ const Footer = ({ linkRef, goto }) => {
                       Guntur
                     </a>
                     <a
-                      href="https://www.instagram.com/helmitwzzz/"
+                      href="https://www.linkedin.com/in/helmi-a53b55286/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -427,7 +427,7 @@ const Footer = ({ linkRef, goto }) => {
                       BackEnd:
                     </h1>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.linkedin.com/in/adeliaputria/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -435,7 +435,7 @@ const Footer = ({ linkRef, goto }) => {
                       Adel
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.linkedin.com/in/muhammad-ammar-afif-2b9741218/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -443,7 +443,7 @@ const Footer = ({ linkRef, goto }) => {
                       Ammar
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.linkedin.com/in/hena-wah-082b5b27b/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
@@ -451,7 +451,7 @@ const Footer = ({ linkRef, goto }) => {
                       Hena
                     </a>
                     <a
-                      href="https://www.instagram.com/_happiness_o/"
+                      href="https://www.linkedin.com/in/nouva-rizqy-p-7b3327260/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white block hover:text-blue-300 text-sm hover:underline"
