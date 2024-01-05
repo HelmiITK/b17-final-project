@@ -26,12 +26,12 @@ const CompletedButton = ({ materialId, progress, materialNextIndex }) => {
           disabled={isCompleted}
           onClick={updateMaterial}
           className={cn(
-            "text-white font-semibold text-[10px] md:text-sm p-1 md:p-2 rounded-lg bg-slate-700 hover:scale-105 duration-300 transition-all",
+            "text-white font-semibold text-[10px] md:text-sm p-1 md:py-2 md:px-3 rounded-lg bg-slate-700 hover:bg-slate-800 hover:scale-105 duration-300 transition-all",
             isCompleted &&
               "bg-slate-200 text-slate-400 hover:scale-100 cursor-not-allowed duration-300 transition-all"
           )}
         >
-          Mark as Completed
+          Tandai Sebagai Selesai
         </button>
       </div>
     </div>
