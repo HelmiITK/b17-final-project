@@ -15,7 +15,7 @@ const Main = ({ materialId, myCourse }) => {
     materialss && [...materialss].sort((a, b) => a.id - b.id);
 
   // hitung durasi video
-  const totalTime = sortAscByIdMaterials.reduce((total, material) => {
+  const totalTime = sortAscByIdMaterials?.reduce((total, material) => {
     return total + material.duration_in_minutes;
   }, 0);
 

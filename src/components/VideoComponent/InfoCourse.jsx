@@ -58,7 +58,7 @@ const InfoCourse = ({ totalTime }) => {
               <span className="text-green-500 mr-1">
                 <FaClock size={24} />
               </span>{" "}
-              {totalTime.toFixed()} Menit
+              {totalTime?.toFixed()} Menit
             </p>
           </div>
         </div>
